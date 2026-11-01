@@ -107,7 +107,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .action-strip .eyebrow { margin-bottom: 6px; }
 .action-strip h2 { font-family: Georgia, serif; font-size: 24px; font-weight: 500; color: var(--green); margin: 0; }
 .action-strip p:last-child { margin: 5px 0 0; font-size: 11px; color: #7c897e; }
-.winner-banner { background: #e8eee5; border: 1px solid #d0ddcf; padding: 18px 23px; border-radius: 9px; margin: 0 0 17px; display: flex; align-items: center; gap: 18px; }
+.winner-banner { background: #e8eee5; border: 1px solid #d0ddcf; padding: 18px 23px; border-radius: 9px; margin: 0; display: flex; align-items: center; gap: 18px; }
 .winner-star { color: #a8884b; font-size: 34px; }
 .winner-banner .eyebrow { margin-bottom: 4px; }
 .winner-banner h2 { font-family: Georgia, serif; font-size: 27px; font-weight: 500; color: var(--green); margin: 0; }
@@ -1897,23 +1897,6 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 
 
-/* Match the home page spacing below the header. */
-.game-shell > .winner-banner,
-.game-shell > .score-grid {
-  margin-top: 74px;
-}
-.game-shell > .winner-banner + .score-grid {
-  margin-top: 74px;
-}
-@media (max-width: 760px) {
-  .game-shell > .winner-banner,
-  .game-shell > .score-grid {
-    margin-top: 18px;
-  }
-  .game-shell > .winner-banner + .score-grid {
-    margin-top: 18px;
-  }
-}
 
 /* Match the spacing from the Primiera heading to the player choices */
 .round-category:has(.primiera-inline) > .round-category-heading {
@@ -2131,7 +2114,18 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   color: #667269;
 }
 
-/* Winner banner uses the winning player's solid palette and clear spacing below. */
+/* Game results use one responsive top offset and one consistent winner-to-score gap. */
+.game-results {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  margin-top: 74px;
+}
+.game-results > .winner-banner,
+.game-results > .score-grid {
+  margin: 0;
+}
+
 .winner-banner.competitor-tone-1,
 .winner-banner.competitor-tone-2,
 .winner-banner.competitor-tone-3,
@@ -2140,26 +2134,21 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   background: var(--tone-card);
   border-color: var(--tone-card);
   color: #fffdf7;
-  margin-bottom: 24px;
 }
 .winner-banner.competitor-tone-1 h2,
 .winner-banner.competitor-tone-2 h2,
 .winner-banner.competitor-tone-3 h2,
 .winner-banner.team-tone-1 h2,
-.winner-banner.team-tone-2 h2,
-.winner-banner.competitor-tone-1 p,
-.winner-banner.competitor-tone-2 p,
-.winner-banner.competitor-tone-3 p,
-.winner-banner.team-tone-1 p,
-.winner-banner.team-tone-2 p {
+.winner-banner.team-tone-2 h2 {
   color: #fffdf7;
 }
-.game-shell > .winner-banner + .score-grid {
-  margin-top: 0;
-}
-
-/* Winner label and supporting copy match the star and score-target styles. */
-.winner-banner .eyebrow {
+.winner-banner:is(
+  .competitor-tone-1,
+  .competitor-tone-2,
+  .competitor-tone-3,
+  .team-tone-1,
+  .team-tone-2
+) .eyebrow {
   color: #a8884b;
 }
 .winner-banner p:last-child {
@@ -2167,10 +2156,14 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   font-family: inherit;
   font-size: 9px;
 }
-.winner-banner.competitor-tone-1,
-.winner-banner.competitor-tone-2,
-.winner-banner.competitor-tone-3,
-.winner-banner.team-tone-1,
-.winner-banner.team-tone-2 {
-  margin-bottom: 0;
+
+@media (max-width: 800px) {
+  .game-results {
+    margin-top: 12px;
+  }
+}
+@media (max-width: 480px) {
+  .game-results {
+    margin-top: 8px;
+  }
 }
