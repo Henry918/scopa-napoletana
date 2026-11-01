@@ -1760,3 +1760,25 @@ button:disabled { opacity: .45; cursor: not-allowed; }
     gap: 3px;
   }
 }
+
+
+.primiera-inline .primiera-player-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid #dcd9ce;
+}
+.primiera-inline .primiera-player-score span {
+  color: #68766b;
+  font-size: 10px;
+  font-weight: 600;
+}
+.primiera-inline .primiera-player-score strong {
+  color: var(--green);
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 500;
+}

@@ -553,8 +553,7 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
                   const isActive = activeSlot?.competitorId === competitor.id && activeSlot.suit === suit.id
                   return (
                     <div className="primiera-card-slot" key={suit.id}>
-                      <span className="primiera-suit-label">{suit.label}</span>
-                      <button type="button" className={'primiera-card-choice' + (rank === null ? ' unselected' : ' chosen')}
+                                            <button type="button" className={'primiera-card-choice' + (rank === null ? ' unselected' : ' chosen')}
                         aria-label={competitor.name + ' ' + suit.label + ', ' + (rank === null ? 'not selected' : RANK_LABELS[rank])}
                         aria-expanded={isActive}
                         onClick={() => setActiveSlot(isActive ? null : { competitorId: competitor.id, suit: suit.id })}
@@ -576,6 +575,10 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
                     </div>
                   )
                 })}
+              </div>
+              <div className="primiera-player-score">
+                <span>Primiera</span>
+                <strong>{calculatePrimiera(selectedCards)}</strong>
               </div>
             </article>
           )
