@@ -17,7 +17,7 @@ Die erste Version wird als clientseitige Single-Page-App umgesetzt.
 | Persistenz | localStorage in Version 1.0 | Einfach, lokal, ohne Backend |
 | Hosting | GitHub Pages über GitHub Actions | Statische Anwendung, direkte GitHub-Integration |
 
-Es wird kein Backend benötigt. Es gibt keine Benutzerkonten, keine serverseitige Datenbank und keine Netzwerk-API für den Spielbetrieb.
+Es wird kein Backend benötigt. Es gibt keine Benutzerkonten, keine serverseitige Datenbank und keine Netzwerk-API für den Spielbetrieb. Die Anwendung verwaltet ausschließlich manuell eingegebene Wertungen einer physischen Partie. Sie implementiert keine digitale Kartenverteilung, Zuglogik, Handkarten oder Tischsimulation.
 
 ## 2. Laufzeit und Abhängigkeiten
 
