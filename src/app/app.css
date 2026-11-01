@@ -2117,3 +2117,13 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   color: #fffdf7;
 }
 
+/* Primiera compare panels use the same neutral surface as player buttons. */
+.primiera-competitor.competitor-tone-1,
+.primiera-competitor.competitor-tone-2,
+.primiera-competitor.competitor-tone-3,
+.primiera-competitor.team-tone-1,
+.primiera-competitor.team-tone-2 {
+  border-color: #deded5;
+  background: #f7f6f0;
+}
+
