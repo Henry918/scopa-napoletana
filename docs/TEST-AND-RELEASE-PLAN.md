@@ -2,7 +2,7 @@
 
 ## 1. Lokale Entwicklung
 
-Voraussetzung ist Node.js 22.12 oder höher sowie npm.
+Voraussetzung ist Node.js 26 LTS sowie npm. Die gewünschte Hauptversion steht in der Datei .nvmrc.
 
 Nach Einrichtung des App-Grundgerüsts:
 
