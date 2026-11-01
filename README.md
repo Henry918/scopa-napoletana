@@ -21,6 +21,7 @@ Das Repository enthält die Karten-Assets und die Projektgrundstruktur. Der eige
 - [Technische Architektur](docs/TECHNICAL-ARCHITECTURE.md)
 - [Test- und Veröffentlichungsplan](docs/TEST-AND-RELEASE-PLAN.md)
 - [Karten- und Bilddateien](docs/CARD-ASSETS.md)
+- [Produktentscheidungen und offene Regelpunkte](docs/DECISIONS.md)
 
 ## Karten-Assets
 
