@@ -1725,9 +1725,9 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   left: 50% !important;
   right: auto !important;
   bottom: auto !important;
-  width: min(360px, 88vw) !important;
-  max-height: 340px !important;
-  overflow-y: auto !important;
+  width: min(430px, calc(100vw - 28px)) !important;
+  max-height: none !important;
+  overflow: visible !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   transform: translateX(-50%) !important;
 }
