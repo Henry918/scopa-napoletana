@@ -1621,3 +1621,52 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   .primiera-card-picker > button { grid-template-columns: 32px minmax(0, 1fr) auto; }
   .primiera-card-picker img { width: 32px; }
 }
+
+
+/* Correct Scopa card artwork ratio, preserving the full image */
+.primiera-card-choice {
+  aspect-ratio: 331 / 547;
+}
+.primiera-card-choice img {
+  object-fit: contain;
+  border-radius: 7px;
+}
+.primiera-card-picker img {
+  aspect-ratio: 331 / 547;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+/* Keep the rank chooser centered in the viewport on both axes */
+.primiera-card-picker {
+  position: fixed !important;
+  top: 50vh !important;
+  left: 50vw !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* A tie neutralizes all player badges, not the tie control */
+.winner-options.tie-selected .winner-option,
+.winner-options.tie-selected .winner-option.selected,
+.winner-options.tie-selected .winner-option.competitor-tone-1,
+.winner-options.tie-selected .winner-option.competitor-tone-2,
+.winner-options.tie-selected .winner-option.competitor-tone-3 {
+  border-color: #454b46;
+  background: #454b46;
+  color: #fffdf7;
+}
+.tie-selector,
+.tie-selector:hover,
+.tie-selector.selected {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border-color: #e3e1d8;
+  background: transparent;
+  color: #a3a69e;
+}
+.tie-selector .tie-symbol { color: inherit; }

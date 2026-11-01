@@ -613,12 +613,12 @@ function WinnerSection({ title, competitors, value, onChange, allowTie = false, 
           {children}
           {allowTie && (
             <button type="button" aria-pressed={value === null} aria-label={tieLabel} title={tieLabel}
-              className={value === null ? 'tie-selector selected' : 'tie-selector'}
+              className="tie-selector"
               onClick={() => onChange(null)}><span aria-hidden="true" className="tie-symbol">＝</span><span className="sr-only">{tieLabel}</span></button>
           )}
         </div>
       </div>
-      <div className="winner-options">
+      <div className={value === null ? 'winner-options tie-selected' : 'winner-options'}>
         {competitors.map((competitor, index) => (
           <button key={competitor.id} type="button" aria-pressed={value === competitor.id}
             className={'winner-option ' + competitorTone(index) + (value === competitor.id ? ' selected' : '')}
