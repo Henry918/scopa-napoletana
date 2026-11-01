@@ -313,9 +313,9 @@ function App() {
                   <div className={'team-setup-card team-card-' + (teamIndex + 1)} key={teamIndex}>
                     <p className="team-setup-title">Team {teamIndex + 1}</p>
                     {[teamIndex * 2, teamIndex * 2 + 1].map((playerIndex) => (
-                      <label className="team-player-field" key={playerIndex}>
-                        <span>Player {playerIndex + 1}</span>
-                        <input id={'player-' + (playerIndex + 1)} placeholder={'Player ' + (playerIndex + 1)} value={draft.playerNames[playerIndex]} onChange={(event) => setDraft({ ...draft, playerNames: draft.playerNames.map((name, index) => index === playerIndex ? event.target.value : name) })} />
+                      <label className="name-field team-player-name-field" key={playerIndex}>
+                        <span className="player-index">{String(playerIndex + 1).padStart(2, '0')}</span>
+                        <input id={'player-' + (playerIndex + 1)} aria-label={'Player ' + (playerIndex + 1) + ' name'} placeholder={'Player ' + (playerIndex + 1)} value={draft.playerNames[playerIndex]} onChange={(event) => setDraft({ ...draft, playerNames: draft.playerNames.map((name, index) => index === playerIndex ? event.target.value : name) })} />
                       </label>
                     ))}
                   </div>
@@ -343,7 +343,6 @@ function App() {
             </div>
             {notice && <p className="notice error-notice" role="alert">{notice}</p>}
             <button className="button button-primary button-full" type="submit">Start game</button>
-            <p className="privacy-note"><span aria-hidden="true">●</span> No account. Just your game.</p>
           </form>
         </section>
         {savedGames.length > 0 && (
