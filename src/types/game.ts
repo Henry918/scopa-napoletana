@@ -1,7 +1,7 @@
 export type GameMode = 'two-players' | 'three-players' | 'four-player-teams'
 export type Suit = 'coppe' | 'denari' | 'spade' | 'bastoni'
 export interface Competitor { id: string; name: string; members: string[] }
-export interface RoundInput { competitorId: string; cards: number; denari: number; settebello: boolean; scope: number }
+export interface RoundInput { competitorId: string; scope: number }
 export interface RoundBreakdown {
   cardsWinnerId: string | null
   denariWinnerId: string | null
@@ -19,6 +19,8 @@ export interface RoundResult {
 export interface GameSession {
   schemaVersion: 1
   id: string
+  name: string
+  date: string
   mode: GameMode
   targetScore: number
   competitors: Competitor[]

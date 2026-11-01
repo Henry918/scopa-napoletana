@@ -1,9 +1,18 @@
-import type { RoundInput, Suit } from '../../types/game'
+import type { RoundBreakdown, RoundInput, Suit } from '../../types/game'
 
 const PRIMIERA_VALUES: Record<number, number> = {
   1: 16, 2: 12, 3: 13, 4: 14, 5: 15, 6: 18, 7: 21, 8: 10, 9: 10, 10: 10
 }
 export type PrimieraCards = Record<Suit, number | null>
+
+export interface RoundWinnerSelections {
+  cardsWinnerId: string | null | undefined
+  denariWinnerId: string | null | undefined
+  settebelloWinnerId: string | null | undefined
+  primieraWinnerId: string | null | undefined
+}
+
+export type ConfirmedRoundWinners = RoundBreakdown
 
 export function getPrimieraCardValue(rank: number): number {
   return PRIMIERA_VALUES[rank] ?? 0
@@ -23,39 +32,68 @@ export function getUniqueWinner(values: Record<string, number>): string | null {
   return leaders.length === 1 ? leaders[0][0] : null
 }
 
-export function validateRound(entries: RoundInput[]): string[] {
+export function validateRound(
+  entries: RoundInput[],
+  selections: RoundWinnerSelections,
+  competitorIds: string[]
+): string[] {
   const issues: string[] = []
-  const cardsTotal = entries.reduce((sum, entry) => sum + entry.cards, 0)
-  const denariTotal = entries.reduce((sum, entry) => sum + entry.denari, 0)
-  const settebelloCount = entries.filter((entry) => entry.settebello).length
-  if (entries.some((entry) => !Number.isInteger(entry.cards) || entry.cards < 0 || entry.cards > 40)) issues.push('Cards must be whole numbers from 0 to 40.')
-  if (entries.some((entry) => !Number.isInteger(entry.denari) || entry.denari < 0 || entry.denari > 10)) issues.push('Denari must be whole numbers from 0 to 10.')
-  if (entries.some((entry) => entry.denari > entry.cards)) issues.push('A competitor cannot have more Denari than cards.')
-  if (entries.some((entry) => !Number.isInteger(entry.scope) || entry.scope < 0)) issues.push('Scopa counts must be non-negative whole numbers.')
-  if (cardsTotal !== 40) issues.push('The cards total must be exactly 40. Current total: ' + cardsTotal + '.')
-  if (denariTotal !== 10) issues.push('The Denari total must be exactly 10. Current total: ' + denariTotal + '.')
-  if (settebelloCount !== 1) issues.push('The Settebello must belong to exactly one competitor.')
+  const validIds = new Set(competitorIds)
+
+  if (entries.length !== competitorIds.length ||
+    new Set(entries.map((entry) => entry.competitorId)).size !== entries.length ||
+    entries.some((entry) => !validIds.has(entry.competitorId))) {
+    issues.push('Every player or team must be included exactly once.')
+  }
+  if (entries.some((entry) => !Number.isInteger(entry.scope) || entry.scope < 0)) {
+    issues.push('Scopa counts must be non-negative whole numbers.')
+  }
+
+  const requiredChoices: Array<[string, string | null | undefined]> = [
+    ['Cards Taken', selections.cardsWinnerId],
+    ['Denari', selections.denariWinnerId],
+    ['Primiera', selections.primieraWinnerId]
+  ]
+  for (const [label, value] of requiredChoices) {
+    if (value === undefined) issues.push('Select a result for ' + label + '.')
+    else if (value !== null && !validIds.has(value)) issues.push('Select a valid player or team for ' + label + '.')
+  }
+
+  if (selections.settebelloWinnerId === undefined || selections.settebelloWinnerId === null) {
+    issues.push('Select who has the Settebello.')
+  } else if (!validIds.has(selections.settebelloWinnerId)) {
+    issues.push('Select a valid player or team for Settebello.')
+  }
+
   return issues
 }
 
-export function calculateRoundPoints(entries: RoundInput[], primieraWinnerId: string | null): {
+export function calculateRoundPoints(
+  entries: RoundInput[],
+  winners: ConfirmedRoundWinners
+): {
   points: Record<string, number>
-  breakdown: { cardsWinnerId: string | null; denariWinnerId: string | null; settebelloWinnerId: string | null; primieraWinnerId: string | null }
+  breakdown: RoundBreakdown
 } {
   const points: Record<string, number> = {}
   for (const entry of entries) points[entry.competitorId] = entry.scope
-  const cardsWinnerId = getUniqueWinner(Object.fromEntries(entries.map((entry) => [entry.competitorId, entry.cards])))
-  const denariWinnerId = getUniqueWinner(Object.fromEntries(entries.map((entry) => [entry.competitorId, entry.denari])))
-  const settebelloWinnerId = entries.find((entry) => entry.settebello)?.competitorId ?? null
-  if (cardsWinnerId) points[cardsWinnerId] += 1
-  if (denariWinnerId) points[denariWinnerId] += 1
-  if (settebelloWinnerId) points[settebelloWinnerId] += 1
-  if (primieraWinnerId && points[primieraWinnerId] !== undefined) points[primieraWinnerId] += 1
+
+  const award = (competitorId: string | null) => {
+    if (competitorId && points[competitorId] !== undefined) points[competitorId] += 1
+  }
+
+  award(winners.cardsWinnerId)
+  award(winners.denariWinnerId)
+  award(winners.settebelloWinnerId)
+  award(winners.primieraWinnerId)
+
   return {
     points,
     breakdown: {
-      cardsWinnerId, denariWinnerId, settebelloWinnerId,
-      primieraWinnerId: primieraWinnerId && points[primieraWinnerId] !== undefined ? primieraWinnerId : null
+      cardsWinnerId: winners.cardsWinnerId,
+      denariWinnerId: winners.denariWinnerId,
+      settebelloWinnerId: winners.settebelloWinnerId,
+      primieraWinnerId: winners.primieraWinnerId
     }
   }
 }

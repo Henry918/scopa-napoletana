@@ -66,11 +66,15 @@ Vorgesehen ist die Erfassung der Gesamtwerte pro Spieler oder Team:
 
 Die Anwendung kontrolliert die Summen über alle Wertungseinheiten. Pro Hand müssen 40 Karten und 10 Denari zugeordnet sein. Diese Eingabemethode wird verwendet, solange keine vollständige digitale Erfassung einzelner Stiche oder Karten gewünscht ist.
 
-## 6. Speicher- und Synchronisierungsumfang
+## 6. Aktualisierte Rundeneingabe und Partiemetadaten
+
+Die Rundeneingabe verwendet eine kompakte Auswahl innerhalb eines Containers. Für Cards Taken, Denari und Primiera wird ein Spieler oder Team beziehungsweise „Tie“ ausgewählt. Für Settebello wird genau ein Spieler oder Team ausgewählt. Scopa bleibt ein Plus/Minus-Zähler je Spieler oder Team, da mehrere Scope je Hand möglich sind. Jede Partie erhält einen Namen und ein Datum. Einzelne Hände werden automatisch als Round 1 bis Round X bezeichnet.
+
+## 7. Speicher- und Synchronisierungsumfang
 
 Version 1.0 speichert Partien ausschließlich lokal im Browser des verwendeten Geräts. Ein Spielstand wird dadurch nicht automatisch auf weitere Geräte übertragen. Eine spätere Cloud-Synchronisierung ist eine eigenständige Ausbaustufe.
 
-## 7. Implementierungsreihenfolge
+## 8. Implementierungsreihenfolge
 
 1. Projektgerüst und Build einrichten.
 2. Kartendaten, Typen und reine Scoring-Funktionen implementieren.

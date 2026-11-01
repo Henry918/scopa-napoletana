@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useState } from 'react'
-import type { ChangeEvent, FormEvent } from 'react'
+import type { FormEvent, ReactNode } from 'react'
 import type { Competitor, GameMode, GameSession, RoundInput, RoundResult, Suit } from '../types/game'
 import {
   calculatePrimiera, calculateRoundPoints, calculateTotals, getGameWinner,
-  validateRound, type PrimieraCards
+  validateRound, type ConfirmedRoundWinners, type PrimieraCards, type RoundWinnerSelections
 } from '../features/scoring/scoring'
 import { loadGame, saveGame } from '../lib/storage'
 
 type SetupDraft = {
+  gameName: string
+  gameDate: string
   mode: GameMode
   targetScore: string
   playerNames: string[]
@@ -27,8 +29,20 @@ const RANK_LABELS: Record<number, string> = {
 const EMPTY_PRIMIERA: PrimieraCards = { coppe: null, denari: null, spade: null, bastoni: null }
 const BASE = import.meta.env.BASE_URL
 
+function todayForInput(): string {
+  const now = new Date()
+  return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0')
+}
+
+function formatGameDate(value: string): string {
+  const date = new Date(value + 'T12:00:00')
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
+}
+
 function makeDefaultDraft(): SetupDraft {
   return {
+    gameName: 'Scopa Game',
+    gameDate: todayForInput(),
     mode: 'two-players',
     targetScore: '11',
     playerNames: ['Player 1', 'Player 2', 'Player 3', 'Player 4'],
@@ -52,9 +66,7 @@ function createCompetitors(draft: SetupDraft): Competitor[] {
 }
 
 function emptyEntries(competitors: Competitor[]): RoundInput[] {
-  return competitors.map((competitor) => ({
-    competitorId: competitor.id, cards: 0, denari: 0, settebello: false, scope: 0
-  }))
+  return competitors.map((competitor) => ({ competitorId: competitor.id, scope: 0 }))
 }
 
 function newId(): string {
@@ -69,7 +81,10 @@ function App() {
   const [game, setGame] = useState<GameSession | null>(() => loadGame())
   const [draft, setDraft] = useState<SetupDraft>(() => makeDefaultDraft())
   const [entries, setEntries] = useState<RoundInput[]>(() => game ? emptyEntries(game.competitors) : [])
-  const [primieraWinnerId, setPrimieraWinnerId] = useState<string | null>(null)
+  const [cardsWinnerId, setCardsWinnerId] = useState<string | null | undefined>(undefined)
+  const [denariWinnerId, setDenariWinnerId] = useState<string | null | undefined>(undefined)
+  const [settebelloWinnerId, setSettebelloWinnerId] = useState<string | null | undefined>(undefined)
+  const [primieraWinnerId, setPrimieraWinnerId] = useState<string | null | undefined>(undefined)
   const [primieraCards, setPrimieraCards] = useState<Record<string, PrimieraCards>>({})
   const [primieraOpen, setPrimieraOpen] = useState(false)
   const [roundOpen, setRoundOpen] = useState(false)
@@ -82,11 +97,16 @@ function App() {
     () => game ? roundTotals(game.rounds, game.competitors) : {},
     [game]
   )
-  const issues = useMemo(() => validateRound(entries), [entries])
-  const cardsTotal = entries.reduce((sum, entry) => sum + entry.cards, 0)
-  const denariTotal = entries.reduce((sum, entry) => sum + entry.denari, 0)
+  const selections: RoundWinnerSelections = { cardsWinnerId, denariWinnerId, settebelloWinnerId, primieraWinnerId }
+  const competitorIds = game?.competitors.map((competitor) => competitor.id) ?? []
+  const issues = useMemo(() => game ? validateRound(entries, selections, competitorIds) : [], [game, entries, cardsWinnerId, denariWinnerId, settebelloWinnerId, primieraWinnerId])
   const winnerId = game ? getGameWinner(totals, game.targetScore) : null
-  const roundPreview = calculateRoundPoints(entries, primieraWinnerId)
+  const roundPreview = calculateRoundPoints(entries, {
+    cardsWinnerId: cardsWinnerId ?? null,
+    denariWinnerId: denariWinnerId ?? null,
+    settebelloWinnerId: settebelloWinnerId ?? null,
+    primieraWinnerId: primieraWinnerId ?? null
+  })
 
   function startGame(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -97,7 +117,8 @@ function App() {
     }
     const competitors = createCompetitors(draft)
     const nextGame: GameSession = {
-      schemaVersion: 1, id: newId(), mode: draft.mode, targetScore, competitors,
+      schemaVersion: 1, id: newId(), name: draft.gameName.trim() || 'Scopa Game',
+      date: draft.gameDate || todayForInput(), mode: draft.mode, targetScore, competitors,
       rounds: [], status: 'playing', createdAt: new Date().toISOString()
     }
     setGame(nextGame)
@@ -106,20 +127,19 @@ function App() {
     setNotice('')
   }
 
-  function updateEntry(
-    competitorId: string,
-    field: keyof Omit<RoundInput, 'competitorId'>,
-    value: number | boolean
-  ) {
+  function updateScope(competitorId: string, value: number) {
     setEntries((current) => current.map((entry) =>
-      entry.competitorId === competitorId ? { ...entry, [field]: value } : entry
+      entry.competitorId === competitorId ? { ...entry, scope: value } : entry
     ))
   }
 
   function openRound() {
     if (!game) return
     setEntries(emptyEntries(game.competitors))
-    setPrimieraWinnerId(null)
+    setCardsWinnerId(undefined)
+    setDenariWinnerId(undefined)
+    setSettebelloWinnerId(undefined)
+    setPrimieraWinnerId(undefined)
     setPrimieraCards(Object.fromEntries(game.competitors.map((competitor) => [
       competitor.id, { ...EMPTY_PRIMIERA }
     ])))
@@ -149,7 +169,7 @@ function App() {
   function reviewRound() {
     if (!game) return
     if (issues.length > 0) {
-      setNotice('Please fix the round totals before reviewing.')
+      setNotice('Please select a result for every category before reviewing.')
       return
     }
     setRoundReviewOpen(true)
@@ -157,11 +177,17 @@ function App() {
 
   function confirmRound() {
     if (!game) return
-    const result = calculateRoundPoints(entries, primieraWinnerId)
+    const winners: ConfirmedRoundWinners = {
+      cardsWinnerId: cardsWinnerId ?? null,
+      denariWinnerId: denariWinnerId ?? null,
+      settebelloWinnerId: settebelloWinnerId ?? null,
+      primieraWinnerId: primieraWinnerId ?? null
+    }
+    const result = calculateRoundPoints(entries, winners)
     const round: RoundResult = {
       id: newId(), playedAt: new Date().toISOString(),
       entries: entries.map((entry) => ({ ...entry })),
-      primieraWinnerId, points: result.points, breakdown: result.breakdown
+      primieraWinnerId: winners.primieraWinnerId, points: result.points, breakdown: result.breakdown
     }
     const rounds = [...game.rounds, round]
     const nextWinner = getGameWinner(roundTotals(rounds, game.competitors), game.targetScore)
@@ -214,6 +240,10 @@ function App() {
           </div>
 
           <form className="panel setup-panel" onSubmit={startGame}>
+            <div className="game-meta-setup">
+              <label>Game name<input value={draft.gameName} onChange={(event) => setDraft({ ...draft, gameName: event.target.value })} placeholder="Scopa Game" /></label>
+              <label>Date<input type="date" value={draft.gameDate} onChange={(event) => setDraft({ ...draft, gameDate: event.target.value })} required /></label>
+            </div>
             <div className="panel-heading">
               <div><p className="eyebrow">NEW GAME</p><h2>Set up your table</h2></div>
               <span className="round-mark">♠</span>
@@ -281,14 +311,9 @@ function App() {
     <main className="page-shell game-shell">
       <BrandHeader gameMode={game.mode} />
       <section className="game-topline">
-        <div>
-          <p className="eyebrow">{winnerId ? 'GAME COMPLETE' : 'CURRENT GAME'}</p>
-          <h1>{winnerId ? 'A fine game.' : 'The score at the table.'}</h1>
-          <p className="subtle-copy">First to {game.targetScore} points · {game.rounds.length} {game.rounds.length === 1 ? 'round' : 'rounds'} played</p>
-        </div>
-        <div className="topline-actions">
-          <button className="button button-quiet" onClick={exportGame} type="button">Export game ↓</button>
-          <button className="button button-quiet" onClick={startNewGame} type="button">New game +</button>
+        <div className="game-heading">
+          <h1>{game.name}</h1>
+          <p className="game-date">{formatGameDate(game.date)}</p>
         </div>
       </section>
 
@@ -313,63 +338,54 @@ function App() {
       </section>
 
       {!roundOpen && !winnerId && (
-        <section className="action-strip">
-          <div><p className="eyebrow">AFTER THE HAND</p><h2>Ready to count?</h2><p>Enter the cards and points for everyone on one page.</p></div>
+        <div className="round-launch">
           <button className="button button-primary" onClick={openRound} type="button">Enter round <span aria-hidden="true">→</span></button>
-        </section>
+        </div>
       )}
 
       {roundOpen && (
         <section className="panel round-panel">
           <div className="panel-heading round-heading">
-            <div><p className="eyebrow">ROUND {game.rounds.length + 1}</p><h2>Enter the hand result</h2><p className="field-hint">Count the physical cards on the table, then enter each player’s share.</p></div>
+            <div><h2>Round {game.rounds.length + 1}</h2></div>
             <button className="icon-button" type="button" onClick={() => setRoundOpen(false)} aria-label="Close round entry">×</button>
           </div>
 
-          <div className="totals-ribbon">
-            <div className={cardsTotal === 40 ? 'total-check valid' : 'total-check'}><span>CARTE</span><strong>{cardsTotal}<small> / 40</small></strong></div>
-            <div className={denariTotal === 10 ? 'total-check valid' : 'total-check'}><span>DENARI</span><strong>{denariTotal}<small> / 10</small></strong></div>
-            <div className="total-note">All cards from this hand must be assigned.</div>
-          </div>
-
-          <div className="entry-grid">
-            {game.competitors.map((competitor, index) => {
-              const entry = entries.find((item) => item.competitorId === competitor.id) ?? emptyEntries([competitor])[0]
-              return (
-                <article className="entry-card" key={competitor.id}>
-                  <div className="entry-card-heading"><span className="entry-number">{String(index + 1).padStart(2, '0')}</span><div><h3>{competitor.name}</h3>{competitor.members.length > 1 && <p>{competitor.members.join(' + ')}</p>}</div></div>
-                  <div className="entry-input-grid">
-                    <NumberField label="Cards taken" value={entry.cards} min={0} max={40} onChange={(value) => updateEntry(competitor.id, 'cards', value)} />
-                    <NumberField label="Denari" value={entry.denari} min={0} max={10} onChange={(value) => updateEntry(competitor.id, 'denari', value)} />
-                  </div>
-                  <label className="check-row">
-                    <input type="checkbox" checked={entry.settebello} onChange={(event) => updateEntry(competitor.id, 'settebello', event.target.checked)} />
-                    <span className="custom-check" />
-                    <span><strong>Settebello</strong><small>Seven of Denari</small></span>
-                  </label>
-                  <div className="scope-row"><div><strong>Scopa</strong><small>Number of sweeps</small></div><div className="stepper"><button type="button" aria-label={'Remove Scopa for ' + competitor.name} onClick={() => updateEntry(competitor.id, 'scope', Math.max(0, entry.scope - 1))}>−</button><output>{entry.scope}</output><button type="button" aria-label={'Add Scopa for ' + competitor.name} onClick={() => updateEntry(competitor.id, 'scope', entry.scope + 1)}>+</button></div></div>
-                </article>
-              )
-            })}
-          </div>
-
-          <div className="primiera-panel">
-            <div className="primiera-copy"><p className="eyebrow">PRIMIERA</p><h3>Who won Primiera?</h3><p>Choose the winner directly. Use the comparison only when you need to check the cards.</p></div>
-            <div className="primiera-controls">
-              <div className="winner-pills">
-                {game.competitors.map((competitor) => <button key={competitor.id} type="button" className={primieraWinnerId === competitor.id ? 'winner-pill selected' : 'winner-pill'} onClick={() => setPrimieraWinnerId(competitor.id)}>{competitor.name}</button>)}
-                <button type="button" className={primieraWinnerId === null ? 'winner-pill selected neutral-pill' : 'winner-pill neutral-pill'} onClick={() => setPrimieraWinnerId(null)}>No point</button>
-              </div>
+          <div className="round-category-list">
+            <WinnerSection title="Cards Taken" competitors={game.competitors} value={cardsWinnerId} onChange={setCardsWinnerId} allowTie tieLabel="Tie" />
+            <WinnerSection title="Denari" competitors={game.competitors} value={denariWinnerId} onChange={setDenariWinnerId} allowTie tieLabel="Tie" />
+            <WinnerSection title="Settebello" competitors={game.competitors} value={settebelloWinnerId} onChange={setSettebelloWinnerId} />
+            <WinnerSection title="Primiera" competitors={game.competitors} value={primieraWinnerId} onChange={setPrimieraWinnerId} allowTie tieLabel="Tie">
               <button className="text-button" type="button" onClick={() => {
                 setPrimieraCards(Object.fromEntries(game.competitors.map((competitor) => [competitor.id, { ...(primieraCards[competitor.id] ?? EMPTY_PRIMIERA) }])))
                 setPrimieraOpen(true)
-              }}>Compare Primiera <span aria-hidden="true">↗</span></button>
-            </div>
+              }}>Compare</button>
+            </WinnerSection>
+            <section className="round-category scopa-category">
+              <div className="round-category-heading"><h3>Scopa</h3></div>
+              <div className="scopa-options">
+                {game.competitors.map((competitor) => {
+                  const count = entries.find((entry) => entry.competitorId === competitor.id)?.scope ?? 0
+                  return (
+                    <div className="scopa-option" key={competitor.id}>
+                      <span>{competitor.name}</span>
+                      <div className="stepper">
+                        <button type="button" aria-label={"Remove Scopa for " + competitor.name} onClick={() => updateScope(competitor.id, Math.max(0, count - 1))}>−</button>
+                        <output>{count}</output>
+                        <button type="button" aria-label={"Add Scopa for " + competitor.name} onClick={() => updateScope(competitor.id, count + 1)}>+</button>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </section>
           </div>
 
-          {issues.length > 0 && <div className="validation-box" role="status"><strong>Check the round totals</strong><ul>{issues.map((issue) => <li key={issue}>{issue}</li>)}</ul></div>}
+          {issues.length > 0 && <div className="validation-box" role="status"><ul>{issues.map((issue) => <li key={issue}>{issue}</li>)}</ul></div>}
           {notice && <p className="notice">{notice}</p>}
-          <div className="round-actions"><button className="button button-quiet" type="button" onClick={() => setRoundOpen(false)}>Cancel</button><button className="button button-primary" type="button" disabled={issues.length > 0} onClick={reviewRound}>Review round <span aria-hidden="true">→</span></button></div>
+          <div className="round-actions">
+            <button className="button button-quiet" type="button" onClick={() => setRoundOpen(false)}>Cancel</button>
+            <button className="button button-primary" type="button" disabled={issues.length > 0} onClick={reviewRound}>Review round <span aria-hidden="true">→</span></button>
+          </div>
         </section>
       )}
 
@@ -379,8 +395,7 @@ function App() {
           <div className="history-list">
             {[...game.rounds].reverse().map((round, index) => (
               <article className="history-row" key={round.id}>
-                <div className="history-round">R{game.rounds.length - index}</div>
-                <div className="history-details"><strong>{new Date(round.playedAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}</strong><span>{round.breakdown.cardsWinnerId ? 'Carte' : 'Carte tied'} · {round.breakdown.denariWinnerId ? 'Denari' : 'Denari tied'} · {round.breakdown.primieraWinnerId ? 'Primiera' : 'No Primiera point'}</span></div>
+                <div className="history-round">Round {game.rounds.length - index}</div>
                 <div className="history-scores">{game.competitors.map((competitor) => <span key={competitor.id}><b>{round.points[competitor.id] ?? 0}</b><small>{competitor.name}</small></span>)}</div>
               </article>
             ))}
@@ -388,7 +403,7 @@ function App() {
         </section>
       )}
       {notice && !roundOpen && <p className="notice success-notice">{notice}</p>}
-      <AppFooter />
+      <AppFooter onExport={exportGame} onNewGame={startNewGame} />
       {primieraOpen && <PrimieraModal competitors={game.competitors} cards={primieraCards} onChange={updatePrimieraCard} onClose={() => setPrimieraOpen(false)} onApply={applyPrimieraComparison} />}
 
       {roundReviewOpen && (
@@ -424,15 +439,6 @@ function BrandHeader({ gameMode }: { gameMode?: GameMode }) {
 
 function ModeButton({ active, onClick, title, detail }: { active: boolean; onClick: () => void; title: string; detail: string }) {
   return <button className={active ? 'mode-button active' : 'mode-button'} type="button" onClick={onClick}><strong>{title}</strong><span>{detail}</span></button>
-}
-
-function NumberField({ label, value, min, max, onChange }: { label: string; value: number; min: number; max: number; onChange: (value: number) => void }) {
-  return (
-    <label className="number-field"><span>{label}</span>
-      <input type="number" inputMode="numeric" min={min} max={max} value={value}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => onChange(event.target.value === '' ? 0 : Number(event.target.value))} />
-    </label>
-  )
 }
 
 function PrimieraModal({ competitors, cards, onChange, onClose, onApply }: {
@@ -490,8 +496,49 @@ function PrimieraModal({ competitors, cards, onChange, onClose, onApply }: {
   )
 }
 
-function AppFooter() {
-  return <footer className="app-footer"><span>SCOPA NAPOLETANA SCOREKEEPER</span><span>Made for the table, not the screen.</span></footer>
+function WinnerSection({ title, competitors, value, onChange, allowTie = false, tieLabel = 'Tie', children }: {
+  title: string
+  competitors: Competitor[]
+  value: string | null | undefined
+  onChange: (value: string | null) => void
+  allowTie?: boolean
+  tieLabel?: string
+  children?: ReactNode
+}) {
+  return (
+    <section className="round-category">
+      <div className="round-category-heading">
+        <h3>{title}</h3>
+        {children}
+      </div>
+      <div className="winner-options">
+        {competitors.map((competitor) => (
+          <button key={competitor.id} type="button" aria-pressed={value === competitor.id}
+            className={value === competitor.id ? 'winner-option selected' : 'winner-option'}
+            onClick={() => onChange(competitor.id)}>{competitor.name}</button>
+        ))}
+        {allowTie && (
+          <button type="button" aria-pressed={value === null}
+            className={value === null ? 'winner-option tie-option selected' : 'winner-option tie-option'}
+            onClick={() => onChange(null)}>{tieLabel}</button>
+        )}
+      </div>
+    </section>
+  )
+}
+
+function AppFooter({ onExport, onNewGame }: { onExport?: () => void; onNewGame?: () => void } = {}) {
+  return (
+    <footer className="app-footer">
+      <span>SCOPA NAPOLETANA</span>
+      {onExport && onNewGame && (
+        <div className="footer-actions">
+          <button type="button" onClick={onExport}>Export game</button>
+          <button type="button" onClick={onNewGame}>New game</button>
+        </div>
+      )}
+    </footer>
+  )
 }
 
 export default App

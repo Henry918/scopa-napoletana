@@ -46,7 +46,7 @@ Die gesamte Benutzeroberfläche von Version 1.0 ist Englisch. Alle Navigationsel
 3. Spielernamen eingeben. Im Vier-Spieler-Modus zusätzlich Teamnamen und Teamzuordnung festlegen.
 4. Zielpunktzahl kontrollieren oder anpassen. Standard ist 11.
 5. Partie starten.
-6. Nach jeder gespielten Hand die Wertung für alle Spieler beziehungsweise Teams gemeinsam auf einem einzigen Eingabebildschirm erfassen.
+6. Beim Start einen Namen und ein Datum für die Partie festlegen. Nach jeder gespielten Hand die Wertung für alle Spieler beziehungsweise Teams gemeinsam in einem einzigen kompakten Container erfassen. Die Hände werden automatisch als Round 1 bis Round X nummeriert.
 7. Die App prüft die Eingaben, berechnet die Rundepunkte und zeigt eine Vorschau.
 8. Wertung bestätigen. Gesamtstand und Rundenverlauf werden aktualisiert.
 9. Sobald die Zielpunktzahl erreicht ist, zeigt die App den Sieger an. Bei Gleichstand an der Spitze wird eine weitere Runde gespielt.
@@ -54,7 +54,7 @@ Die gesamte Benutzeroberfläche von Version 1.0 ist Englisch. Alle Navigationsel
 
 ## 5. Wertung pro Hand
 
-Die Standardwertung der ersten Version umfasst die folgenden fünf Kategorien. Die App berechnet die Punkte anhand der erfassten Werte.
+Die Standardwertung der ersten Version umfasst die folgenden fünf Kategorien. Die App berechnet die Punkte aus einer Gewinnerauswahl je Kategorie. Für Carte, Denari und Primiera kann ausdrücklich ein Gleichstand gewählt werden.
 
 | Kategorie | Regel | Punkte |
 |---|---|---:|
@@ -66,15 +66,15 @@ Die Standardwertung der ersten Version umfasst die folgenden fünf Kategorien. D
 
 ### Erfassung je Spieler oder Team
 
-Für jede Wertungseinheit werden pro Hand erfasst:
+Die Rundeneingabe besteht aus einem gemeinsamen Container mit klar getrennten Kategorien:
 
-- Anzahl der aufgenommenen Karten.
-- Anzahl der aufgenommenen Denari-Karten.
-- Besitz des Settebello, also des Sieben der Münzen.
-- Primiera-Gewinner direkt auswählen. Nur wenn das Ergebnis nicht eindeutig ist, optional die Primiera-Punkte im Detail vergleichen.
-- Anzahl der erzielten Scope.
+- **Cards Taken:** Gewinner direkt auswählen oder „Tie“.
+- **Denari:** Gewinner direkt auswählen oder „Tie“.
+- **Settebello:** Spieler oder Team auswählen, das den Sieben der Münzen besitzt.
+- **Primiera:** Gewinner direkt auswählen oder „Tie“. Optional öffnet „Compare“ den Detailvergleich.
+- **Scopa:** Anzahl der Scope je Spieler oder Team über Plus/Minus-Steuerung erfassen.
 
-Im Teammodus werden die Werte für beide Teammitglieder zusammen erfasst. Die App führt die Wertung auf Teamebene aus.
+Für Cards Taken und Denari werden keine Karten- oder Münzzahlen eingegeben. Im Teammodus werden die Wertungen auf Teamebene ausgewählt. Die vier Gewinnerkategorien vergeben je einen Punkt. Jede Scopa zählt zusätzlich einen Punkt.
 
 ### Primiera-Werte
 
@@ -97,14 +97,11 @@ Die vier Kartenwerte werden addiert. Die normale Rundeneingabe verlangt keine Ka
 
 ### Plausibilitätsprüfungen
 
-- Insgesamt müssen die erfassten Karten je Hand 40 ergeben.
-- Insgesamt müssen die erfassten Denari je Hand 10 ergeben.
-- Die Denari-Anzahl darf nicht größer als die Gesamtzahl der Karten sein.
-- Der Settebello darf pro Hand nur einer Wertungseinheit zugeordnet werden.
+- Für Cards Taken, Denari und Primiera muss eine Wertungseinheit oder ausdrücklich „Tie“ gewählt werden.
+- Für Settebello muss genau ein Spieler oder Team ausgewählt werden.
 - Scopa-Anzahlen müssen nichtnegative ganze Zahlen sein.
 - Im optionalen Primiera-Vergleich dürfen nur Kartenwerte der jeweils zugehörigen Farbe ausgewählt werden.
-- Ohne geöffneten Primiera-Vergleich ist keine Primiera-Kartenauswahl erforderlich. Der direkt gewählte Gewinner muss genau einer Wertungseinheit zugeordnet sein oder als Gleichstand/kein Gewinner markiert werden.
-- Bei unvollständigen oder widersprüchlichen Eingaben wird die Wertung nicht bestätigt.
+- Bei unvollständigen Eingaben wird die Wertung nicht bestätigt.
 
 **Hinweis zu Restkarten:** Bei der Erfassung ist die in der gespielten Partie übliche Zuordnung der am Ende auf dem Tisch verbliebenen Karten an die zuletzt Karten nehmende Partei zu berücksichtigen. So können die Summen aller Karten und Denari vollständig erfasst werden.
 
@@ -132,10 +129,10 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 
 ### C. Laufende Partie
 
+- Partiename und Datum als einzige Partiemetadaten.
 - Große, gut erkennbare Gesamtpunktstände.
 - Spieler- oder Teamnamen und Fortschritt bis zur Zielpunktzahl.
-- Aktuelle Rundennummer.
-- Schaltfläche „Runde werten“.
+- Schaltfläche „Enter round“.
 - Schaltfläche „Verlauf“.
 - Schaltfläche „Partie beenden“ mit Sicherheitsabfrage.
 
@@ -143,14 +140,12 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 
 - Alle Spieler beziehungsweise Teams werden gemeinsam auf einer einzigen Eingabeseite angezeigt, entsprechend dem ursprünglich festgelegten Ein-Seiten-Konzept.
 - Die Eingabebereiche sind klar voneinander abgegrenzt und auf kleinen Displays gut untereinander erfassbar.
-- Zähler für Karten und Denari.
-- Settebello als eindeutige Ja/Nein-Auswahl.
-- Alle Spieler beziehungsweise Teams werden gemeinsam auf einer einzigen Seite angezeigt. Es gibt keine separate Eingabeseite pro Spieler.
-- Primiera-Gewinner als direkte Auswahl innerhalb der Wertung.
-- Kleiner sekundärer Button „Compare Primiera“ zum Öffnen eines optionalen Detail-Popups für Primiera-Punkte und Stechen.
-- Scopa-Zähler mit Plus/Minus-Steuerung und direkter Zahleneingabe.
-- Live-Anzeige der voraussichtlichen Rundepunkte.
-- Validierungsfeedback und deaktivierte Bestätigung, solange Pflichtangaben fehlen oder Summen nicht stimmen.
+- Eine kompakte Auswahl pro Kategorie für alle Spieler beziehungsweise Teams gemeinsam.
+- Gewinnerauswahl für Cards Taken, Denari, Settebello und Primiera. Bei Cards Taken, Denari und Primiera ist „Tie“ möglich.
+- Kleiner sekundärer Button „Compare“ zum Öffnen des optionalen Primiera-Kartenvergleichs.
+- Scopa-Zähler mit Plus/Minus-Steuerung.
+- Live-Vorschau der Rundepunkte.
+- Bestätigung erst, wenn jede Kategorie ausgewählt wurde.
 
 ### E. Wertungsvorschau
 
@@ -188,7 +183,7 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 
 ## 8. Speicherung und Datenschutz
 
-- Aktuelle Partie und Verlauf werden automatisch lokal im Browser gespeichert.
+- Name und Datum der Partie sowie der Rundenverlauf werden automatisch lokal im Browser gespeichert. Die einzelnen Hände werden fortlaufend als „Round 1“ bis „Round X“ bezeichnet und erhalten keine eigene Datumsanzeige.
 - Kein Benutzerkonto, keine Cloud und keine Übertragung von Spielständen in Version 1.0.
 - Spielstände bleiben auf dem jeweiligen Browser beziehungsweise Gerät.
 - Eine Export- und Importfunktion für Sicherungen ist vorgesehen.
@@ -230,10 +225,9 @@ Version 1.0 ist bereit zur Veröffentlichung, wenn:
 - alle drei Spielmodi korrekt eingerichtet werden können,
 - die Wertung für zwei, drei und vier Spielende korrekt funktioniert,
 - Teamwerte im Vier-Spieler-Modus korrekt aggregiert werden,
-- die fünf Wertungskategorien korrekt berechnet werden,
-- Gleichstände bei Carte, Denari und Primiera keinen Punkt vergeben,
-- Settebello nur einmal pro Hand vergeben werden kann,
-- Primiera-Gewinner direkt ausgewählt werden kann und der optionale Detailvergleich mit den festgelegten Kartenwerten korrekt berechnet wird,
+- Gewinnerauswahl und Gleichstände für Carte, Denari und Primiera korrekt gespeichert und berechnet werden,
+- Settebello genau einem Spieler oder Team zugeordnet wird,
+- Primiera direkt ausgewählt werden kann und der optionale Detailvergleich korrekt funktioniert,
 - Zielpunktzahl 11 voreingestellt und frei änderbar ist,
 - Gleichstände am Spielende korrekt behandelt werden,
 - Spielstände nach Neuladen wiederhergestellt werden,
