@@ -386,14 +386,15 @@ function App() {
     <main className="page-shell game-shell">
       <BrandHeader gameMode={game.mode} onHome={goHome} gameName={game.name} gameDate={formatGameDate(game.date)} />
 
-      {winnerId && (
-        <section className={'winner-banner ' + competitorTone(game.competitors.findIndex((competitor) => competitor.id === winnerId), game.mode)}>
-          <div className="winner-star">✦</div>
-          <div><p className="eyebrow">WINNER</p><h2>{game.competitors.find((competitor) => competitor.id === winnerId) ? competitorDisplayName(game.competitors.find((competitor) => competitor.id === winnerId)!, game.mode) : ''}</h2><p>Reached {totals[winnerId]} points. Thanks for a great game.</p></div>
-        </section>
-      )}
+      <div className="game-results">
+        {winnerId && (
+          <section className={'winner-banner ' + competitorTone(game.competitors.findIndex((competitor) => competitor.id === winnerId), game.mode)}>
+            <div className="winner-star">✦</div>
+            <div><p className="eyebrow">WINNER</p><h2>{game.competitors.find((competitor) => competitor.id === winnerId) ? competitorDisplayName(game.competitors.find((competitor) => competitor.id === winnerId)!, game.mode) : ''}</h2><p>Reached {totals[winnerId]} points. Thanks for a great game.</p></div>
+          </section>
+        )}
 
-      <section className={'score-grid' + (game.competitors.length === 3 ? ' score-grid-three' : '')} aria-label="Current scores">
+        <section className={'score-grid' + (game.competitors.length === 3 ? ' score-grid-three' : '')} aria-label="Current scores">
         {scoreRows.map(({ competitor, score }, index) => (
           <article className={'score-card score-card-' + (index + 1) + ' ' + competitorTone(index, game.mode)} key={competitor.id}>
             <div className="score-card-top"><span className="score-index">{game.mode === 'four-player-teams' ? 'TEAM ' + (index + 1) : 'PLAYER ' + (index + 1)}</span><span className="score-dot" /></div>
@@ -405,7 +406,8 @@ function App() {
             <p className="score-target">{Math.max(0, game.targetScore - score)} to go</p>
           </article>
         ))}
-      </section>
+        </section>
+      </div>
 
       {!roundOpen && !winnerId && (
         <div className="round-launch">
