@@ -523,7 +523,7 @@ function App() {
       {roundReviewOpen && (
         <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setRoundReviewOpen(false) }}>
           <section className="primiera-modal review-modal" role="dialog" aria-modal="true" aria-labelledby="round-review-title">
-            <div className="modal-heading"><div><p className="eyebrow">ROUND SUMMARY</p><h2 id="round-review-title">Review the points</h2><p>Check the category results before saving this hand.</p></div><button className="icon-button" type="button" onClick={() => setRoundReviewOpen(false)} aria-label="Close round review">×</button></div>
+            <div className="modal-heading"><div><p className="eyebrow">ROUND SUMMARY</p><h2 id="round-review-title">Review the points</h2></div><button className="icon-button" type="button" onClick={() => setRoundReviewOpen(false)} aria-label="Close round review">×</button></div>
             <div className="review-categories">
               {[
                 { label: 'Carte', id: roundPreview.breakdown.cardsWinnerId },
