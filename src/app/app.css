@@ -1943,3 +1943,6 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 @media (max-width: 480px) {
   .primiera-inline .primiera-card-grid { gap: 7px; }
 }
+
+/* Match the compact Primiera spacing above the round player choices */
+.round-launch { margin-top: 2px; }
