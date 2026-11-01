@@ -21,8 +21,8 @@ const SUITS: Array<{ id: Suit; label: string }> = [
   { id: 'bastoni', label: 'Bastoni' }
 ]
 const RANK_LABELS: Record<number, string> = {
-  1: 'Ace', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7',
-  8: 'Jack', 9: 'Knight', 10: 'King'
+  1: 'Asso', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7',
+  8: 'Fante', 9: 'Cavallo', 10: 'Re'
 }
 const EMPTY_PRIMIERA: PrimieraCards = { coppe: null, denari: null, spade: null, bastoni: null }
 const BASE = import.meta.env.BASE_URL
