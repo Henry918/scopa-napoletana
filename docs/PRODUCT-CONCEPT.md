@@ -44,7 +44,7 @@ Die gesamte Benutzeroberfläche von Version 1.0 ist Englisch. Alle Navigationsel
 1. Startbildschirm öffnen und „Neue Partie“ wählen.
 2. Spielmodus auswählen.
 3. Spielernamen eingeben. Im Vier-Spieler-Modus werden nur die vier Spielernamen in zwei festen Teams erfasst. Teamnamen heißen automatisch Team 1 und Team 2.
-4. Zielpunktzahl kontrollieren oder anpassen. Standard ist 11.
+4. Partienamen eingeben. Das Datum wird beim Start automatisch gesetzt. Zielpunktzahl kontrollieren oder anpassen. Standard ist 11.
 5. Partie starten.
 6. Beim Start einen Namen und ein Datum für die Partie festlegen. Nach jeder gespielten Hand die Wertung für alle Spieler beziehungsweise Teams gemeinsam in einem einzigen kompakten Container erfassen. Die Hände werden automatisch als Round 1 bis Round X nummeriert.
 7. Die App prüft die Eingaben, berechnet die Rundepunkte und zeigt eine Vorschau.
@@ -113,7 +113,7 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 
 ### A. Startbildschirm
 
-- Produktname und kompakte visuelle Gestaltung mit Kartenmotiv.
+- Kompakter Einstieg mit dem Einrichtungscontainer als erstem Hauptelement auf Mobilgeräten.
 - Primäre Aktion „Neue Partie“.
 - Aktion „Partie fortsetzen“, sofern ein laufendes Spiel gespeichert ist.
 - Gespeicherte Partien mit Datum auflisten und per Auswahl wieder öffnen.
@@ -140,8 +140,10 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 
 - Alle Spieler beziehungsweise Teams werden gemeinsam auf einer einzigen Eingabeseite angezeigt, entsprechend dem ursprünglich festgelegten Ein-Seiten-Konzept.
 - Die Kategorien sind klar voneinander abgegrenzt und haben einheitliche Kartenhöhen.
-- Die Farben der Spieler beziehungsweise Teams bleiben in Punktestand, Einrichtung und Rundenauswahl konsistent.
+- Auf der Einrichtungsseite bleiben einzelne Spielernamensfelder neutral. Nur die beiden Teamcontainer erhalten unterschiedliche dezente Farbtöne.
+- In Rundenauswahlen bleiben alle Optionen neutral, bis eine Wertungseinheit ausgewählt wird. Erst die ausgewählte Option erhält deren Farbton.
 - Bei drei Einzelspielern bleiben alle drei Punktestände auch auf schmalen Smartphone-Displays nebeneinander.
+- Das Gleichstandssymbol steht im Kopfbereich der jeweiligen Kategorie, nicht in der Reihe der Spieleroptionen.
 - Eine kompakte Auswahl pro Kategorie für alle Spieler beziehungsweise Teams gemeinsam.
 - Gewinnerauswahl für Cards Taken, Denari, Settebello und Primiera. Bei Cards Taken, Denari und Primiera ist „Tie“ möglich.
 - Kleiner sekundärer Button „Compare“ zum Öffnen des optionalen Primiera-Kartenvergleichs.
@@ -167,9 +169,9 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 ### G. Verlauf
 
 - Alle bisherigen Hände mit Kategorieergebnissen.
-- Nachträgliches Bearbeiten einer Hand.
+- Jede einzelne Runde kann über ein unaufdringliches Optionsmenü gelöscht werden.
+- Beim Löschen einer Runde werden sämtliche Gesamtpunkte und der Spielstatus neu berechnet.
 - Letzte Aktion rückgängig machen.
-- Nach einer Bearbeitung alle Folge-Gesamtstände neu berechnen.
 
 ## 7. Bedien- und Designprinzipien
 
@@ -185,7 +187,7 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 
 ## 8. Speicherung und Datenschutz
 
-- Name und Datum jeder Partie sowie der jeweilige Rundenverlauf werden automatisch lokal im Browser archiviert. Die Startseite listet frühere Partien mit Datum auf und ermöglicht das Wiederöffnen. Die einzelnen Hände werden fortlaufend als „Round 1“ bis „Round X“ bezeichnet und erhalten keine eigene Datumsanzeige.
+- Name und automatisch gesetztes Datum jeder Partie sowie der jeweilige Rundenverlauf werden lokal im Browser archiviert. Die Startseite listet frühere Partien mit Datum auf und ermöglicht das Wiederöffnen. Die einzelnen Hände werden fortlaufend als „Round 1“ bis „Round X“ bezeichnet und erhalten keine eigene Datumsanzeige.
 - Kein Benutzerkonto, keine Cloud und keine Übertragung von Spielständen in Version 1.0.
 - Spielstände bleiben auf dem jeweiligen Browser beziehungsweise Gerät.
 - Eine Export- und Importfunktion für Sicherungen ist vorgesehen.

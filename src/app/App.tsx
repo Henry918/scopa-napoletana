@@ -9,7 +9,6 @@ import { loadGame, loadGames, saveGame } from '../lib/storage'
 
 type SetupDraft = {
   gameName: string
-  gameDate: string
   mode: GameMode
   targetScore: string
   playerNames: string[]
@@ -41,7 +40,6 @@ function formatGameDate(value: string): string {
 function makeDefaultDraft(): SetupDraft {
   return {
     gameName: 'Scopa Game',
-    gameDate: todayForInput(),
     mode: 'two-players',
     targetScore: '11',
     playerNames: ['', '', '', '']
@@ -77,6 +75,12 @@ function roundTotals(rounds: RoundResult[], competitors: Competitor[]) {
 
 function competitorTone(index: number): string {
   return 'competitor-tone-' + (index % 3 + 1)
+}
+
+function competitorDisplayName(competitor: Competitor, mode: GameMode): string {
+  return mode === 'four-player-teams' && competitor.members.length > 1
+    ? competitor.members.join(' + ')
+    : competitor.name
 }
 
 function App() {
@@ -124,7 +128,7 @@ function App() {
     const competitors = createCompetitors(draft)
     const nextGame: GameSession = {
       schemaVersion: 1, id: newId(), name: draft.gameName.trim() || 'Scopa Game',
-      date: draft.gameDate || todayForInput(), mode: draft.mode, targetScore, competitors,
+      date: todayForInput(), mode: draft.mode, targetScore, competitors,
       rounds: [], status: 'playing', createdAt: new Date().toISOString()
     }
     setGame(nextGame)
@@ -207,9 +211,23 @@ function App() {
   function undoLastRound() {
     if (!game || game.rounds.length === 0) return
     if (!window.confirm('Remove the most recent round and recalculate the score?')) return
-    setGame({ ...game, rounds: game.rounds.slice(0, -1), status: 'playing' })
+    const rounds = game.rounds.slice(0, -1)
+    const nextWinner = getGameWinner(roundTotals(rounds, game.competitors), game.targetScore)
+    setGame({ ...game, rounds, status: nextWinner ? 'finished' : 'playing' })
     setRoundOpen(false)
     setNotice('Last round removed.')
+  }
+
+  function deleteRound(roundId: string) {
+    if (!game) return
+    const round = game.rounds.find((item) => item.id === roundId)
+    if (!round) return
+    const roundNumber = game.rounds.findIndex((item) => item.id === roundId) + 1
+    if (!window.confirm('Delete Round ' + roundNumber + '? All following scores will be recalculated.')) return
+    const rounds = game.rounds.filter((item) => item.id !== roundId)
+    const nextWinner = getGameWinner(roundTotals(rounds, game.competitors), game.targetScore)
+    setGame({ ...game, rounds, status: nextWinner ? 'finished' : 'playing' })
+    setNotice('Round deleted. Scores updated.')
   }
 
   function goHome() {
@@ -265,7 +283,6 @@ function App() {
           <form className="panel setup-panel" onSubmit={startGame}>
             <div className="game-meta-setup">
               <label>Game name<input value={draft.gameName} onChange={(event) => setDraft({ ...draft, gameName: event.target.value })} placeholder="Scopa Game" /></label>
-              <label>Date<input type="date" value={draft.gameDate} onChange={(event) => setDraft({ ...draft, gameDate: event.target.value })} required /></label>
             </div>
             <div className="panel-heading">
               <div><p className="eyebrow">NEW GAME</p><h2>Set up your table</h2></div>
@@ -288,7 +305,7 @@ function App() {
                     {[teamIndex * 2, teamIndex * 2 + 1].map((playerIndex) => (
                       <label className="team-player-field" key={playerIndex}>
                         <span>Player {playerIndex + 1}</span>
-                        <input id={'player-' + (playerIndex + 1)} className={competitorTone(playerIndex)} placeholder={'Player ' + (playerIndex + 1)} value={draft.playerNames[playerIndex]} onChange={(event) => setDraft({ ...draft, playerNames: draft.playerNames.map((name, index) => index === playerIndex ? event.target.value : name) })} />
+                        <input id={'player-' + (playerIndex + 1)} placeholder={'Player ' + (playerIndex + 1)} value={draft.playerNames[playerIndex]} onChange={(event) => setDraft({ ...draft, playerNames: draft.playerNames.map((name, index) => index === playerIndex ? event.target.value : name) })} />
                       </label>
                     ))}
                   </div>
@@ -300,7 +317,7 @@ function App() {
                 {draft.playerNames.slice(0, draft.mode === 'two-players' ? 2 : 3).map((name, index) => (
                   <label className="name-field" key={index}>
                     <span className="player-index">{String(index + 1).padStart(2, '0')}</span>
-                    <input className={competitorTone(index)} aria-label={'Player ' + (index + 1) + ' name'} placeholder={'Player ' + (index + 1)} value={name} onChange={(event) => setDraft({ ...draft, playerNames: draft.playerNames.map((current, nameIndex) => nameIndex === index ? event.target.value : current) })} />
+                    <input aria-label={'Player ' + (index + 1) + ' name'} placeholder={'Player ' + (index + 1)} value={name} onChange={(event) => setDraft({ ...draft, playerNames: draft.playerNames.map((current, nameIndex) => nameIndex === index ? event.target.value : current) })} />
                   </label>
                 ))}
               </div>
@@ -315,7 +332,7 @@ function App() {
             </div>
             {notice && <p className="notice error-notice" role="alert">{notice}</p>}
             <button className="button button-primary button-full" type="submit">Start game <span aria-hidden="true">→</span></button>
-            <p className="privacy-note"><span aria-hidden="true">●</span> No account. No ads. Just your game.</p>
+            <p className="privacy-note"><span aria-hidden="true">●</span> No account. Just your game.</p>
           </form>
         </section>
         {savedGames.length > 0 && (
@@ -340,6 +357,7 @@ function App() {
     )
   }
 
+  const displayCompetitors = game.competitors.map((competitor) => ({ ...competitor, name: competitorDisplayName(competitor, game.mode) }))
   const scoreRows = game.competitors.map((competitor) => ({ competitor, score: totals[competitor.id] ?? 0 }))
 
   return (
@@ -355,7 +373,7 @@ function App() {
       {winnerId && (
         <section className="winner-banner">
           <div className="winner-star">✦</div>
-          <div><p className="eyebrow">WINNER</p><h2>{game.competitors.find((competitor) => competitor.id === winnerId)?.name}</h2><p>Reached {totals[winnerId]} points. Thanks for a great game.</p></div>
+          <div><p className="eyebrow">WINNER</p><h2>{game.competitors.find((competitor) => competitor.id === winnerId) ? competitorDisplayName(game.competitors.find((competitor) => competitor.id === winnerId)!, game.mode) : ''}</h2><p>Reached {totals[winnerId]} points. Thanks for a great game.</p></div>
         </section>
       )}
 
@@ -363,8 +381,7 @@ function App() {
         {scoreRows.map(({ competitor, score }, index) => (
           <article className={'score-card score-card-' + (index + 1) + ' ' + competitorTone(index)} key={competitor.id}>
             <div className="score-card-top"><span className="score-index">{game.mode === 'four-player-teams' ? 'TEAM ' + (index + 1) : 'PLAYER ' + (index + 1)}</span><span className="score-dot" /></div>
-            <h2>{competitor.name}</h2>
-            {competitor.members.length > 1 && <p className="member-names">{competitor.members.join(' + ')}</p>}
+            <h2>{competitorDisplayName(competitor, game.mode)}</h2>
             <div className="score-number">{score}<span> pts</span></div>
             <div className="score-progress"><span style={{ width: Math.min(100, (score / game.targetScore) * 100) + '%' }} /></div>
             <p className="score-target">{Math.max(0, game.targetScore - score)} to go</p>
@@ -386,10 +403,10 @@ function App() {
           </div>
 
           <div className="round-category-list">
-            <WinnerSection title="Cards Taken" competitors={game.competitors} value={cardsWinnerId} onChange={setCardsWinnerId} allowTie tieLabel="Tie" />
-            <WinnerSection title="Denari" competitors={game.competitors} value={denariWinnerId} onChange={setDenariWinnerId} allowTie tieLabel="Tie" />
-            <WinnerSection title="Settebello" competitors={game.competitors} value={settebelloWinnerId} onChange={setSettebelloWinnerId} />
-            <WinnerSection title="Primiera" competitors={game.competitors} value={primieraWinnerId} onChange={setPrimieraWinnerId} allowTie tieLabel="Tie">
+            <WinnerSection title="Cards Taken" competitors={displayCompetitors} value={cardsWinnerId} onChange={setCardsWinnerId} allowTie tieLabel="Tie" />
+            <WinnerSection title="Denari" competitors={displayCompetitors} value={denariWinnerId} onChange={setDenariWinnerId} allowTie tieLabel="Tie" />
+            <WinnerSection title="Settebello" competitors={displayCompetitors} value={settebelloWinnerId} onChange={setSettebelloWinnerId} />
+            <WinnerSection title="Primiera" competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId} allowTie tieLabel="Tie">
               <button className="text-button" type="button" onClick={() => {
                 setPrimieraCards(Object.fromEntries(game.competitors.map((competitor) => [competitor.id, { ...(primieraCards[competitor.id] ?? EMPTY_PRIMIERA) }])))
                 setPrimieraOpen(true)
@@ -402,7 +419,7 @@ function App() {
                   const count = entries.find((entry) => entry.competitorId === competitor.id)?.scope ?? 0
                   return (
                     <div className={'scopa-option ' + competitorTone(game.competitors.indexOf(competitor))} key={competitor.id}>
-                      <span>{competitor.name}</span>
+                      <span>{competitorDisplayName(competitor, game.mode)}</span>
                       <div className="stepper">
                         <button type="button" aria-label={"Remove Scopa for " + competitor.name} onClick={() => updateScope(competitor.id, Math.max(0, count - 1))}>−</button>
                         <output>{count}</output>
@@ -431,7 +448,13 @@ function App() {
             {[...game.rounds].reverse().map((round, index) => (
               <article className="history-row" key={round.id}>
                 <div className="history-round">Round {game.rounds.length - index}</div>
-                <div className="history-scores">{game.competitors.map((competitor) => <span key={competitor.id}><b>{round.points[competitor.id] ?? 0}</b><small>{competitor.name}</small></span>)}</div>
+                <div className="history-scores">{game.competitors.map((competitor) => <span key={competitor.id}><b>{round.points[competitor.id] ?? 0}</b><small>{competitorDisplayName(competitor, game.mode)}</small></span>)}</div>
+                <details className="history-row-menu">
+                  <summary aria-label={'Round ' + (game.rounds.length - index) + ' options'} title="Round options">⋯</summary>
+                  <div className="history-row-menu-content">
+                    <button type="button" onClick={() => deleteRound(round.id)}>Delete round</button>
+                  </div>
+                </details>
               </article>
             ))}
           </div>
@@ -439,7 +462,7 @@ function App() {
       )}
       {notice && !roundOpen && <p className="notice success-notice">{notice}</p>}
       <AppFooter onExport={exportGame} onNewGame={startNewGame} />
-      {primieraOpen && <PrimieraModal competitors={game.competitors} cards={primieraCards} onChange={updatePrimieraCard} onClose={() => setPrimieraOpen(false)} onApply={applyPrimieraComparison} />}
+      {primieraOpen && <PrimieraModal competitors={displayCompetitors} cards={primieraCards} onChange={updatePrimieraCard} onClose={() => setPrimieraOpen(false)} onApply={applyPrimieraComparison} />}
 
       {roundReviewOpen && (
         <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setRoundReviewOpen(false) }}>
@@ -451,10 +474,10 @@ function App() {
                 { label: 'Denari', id: roundPreview.breakdown.denariWinnerId },
                 { label: 'Settebello', id: roundPreview.breakdown.settebelloWinnerId },
                 { label: 'Primiera', id: roundPreview.breakdown.primieraWinnerId }
-              ].map((category) => <div className="review-category" key={category.label}><span>{category.label}</span><strong>{category.id ? game.competitors.find((competitor) => competitor.id === category.id)?.name : 'Tie'}</strong></div>)}
+              ].map((category) => <div className="review-category" key={category.label}><span>{category.label}</span><strong>{category.id ? displayCompetitors.find((competitor) => competitor.id === category.id)?.name : 'Tie'}</strong></div>)}
             </div>
             <div className="review-points-heading"><span>POINTS ADDED THIS ROUND</span><span>SCOPA INCLUDED</span></div>
-            <div className="review-point-list">{game.competitors.map((competitor) => <div className="review-point-row" key={competitor.id}><span>{competitor.name}</span><strong>+{roundPreview.points[competitor.id] ?? 0}</strong></div>)}</div>
+            <div className="review-point-list">{displayCompetitors.map((competitor) => <div className="review-point-row" key={competitor.id}><span>{competitor.name}</span><strong>+{roundPreview.points[competitor.id] ?? 0}</strong></div>)}</div>
             <div className="modal-actions"><button className="button button-quiet" type="button" onClick={() => setRoundReviewOpen(false)}>Back to entry</button><button className="button button-primary" type="button" onClick={confirmRound}>Confirm round</button></div>
           </section>
         </div>
