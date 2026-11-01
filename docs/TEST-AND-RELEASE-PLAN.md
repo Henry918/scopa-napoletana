@@ -158,11 +158,11 @@ Für die erste Version ist GitHub Pages technisch ausreichend. Die Entscheidung 
 
 Nach erfolgreichem App-Build:
 
-1. GitHub Actions Workflow .github/workflows/deploy.yml anlegen.
-2. Workflow bei Push auf main und bei manueller Ausführung starten.
-3. Build mit npm ci, Tests und npm run build.
-4. Inhalt von dist/ als Pages-Artefakt veröffentlichen.
-5. Unter Repository Settings → Pages als Quelle „GitHub Actions“ einstellen.
+1. Den vorbereiteten Workflow .github/workflows/deploy.yml nach main übernehmen.
+2. Unter Repository Settings → Pages als Quelle „GitHub Actions“ einstellen. Dieser einmalige Settings-Schritt muss manuell erfolgen.
+3. Workflow bei Push auf main oder manuell starten.
+4. Build mit npm ci, Tests und npm run build.
+5. Inhalt von dist/ als Pages-Artefakt veröffentlichen.
 6. Nach dem erfolgreichen Workflow die Pages-URL öffnen.
 7. Startseite, Kartenpfade, PWA-Installation und Offline-Verhalten prüfen.
 
