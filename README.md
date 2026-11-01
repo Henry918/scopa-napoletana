@@ -1,6 +1,6 @@
-# Scopa Napoletana Scorekeeper
+# Scopa Napoletane Scorekeeper
 
-A mobile-first scorekeeper for physical Scopa Napoletana games. The application records results from a real card game. It does not deal virtual cards or simulate turns, hands, tricks, or a digital table.
+A mobile-first scorekeeper for physical Scopa Napoletane games. The application records results from a real card game. It does not deal virtual cards or simulate turns, hands, tricks, or a digital table.
 
 ## First implementation
 
