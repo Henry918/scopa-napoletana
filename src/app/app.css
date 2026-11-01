@@ -63,6 +63,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .team-setup-card input { height: 42px; margin-bottom: 0; background: #fffefa; }
 
 .team-player-name-field { gap: 12px; }
+.team-setup-title { text-transform: uppercase; }
 .target-row { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 8px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .field-hint { color: #879188; font-size: 11px; line-height: 1.5; margin: 5px 0 0; }
 .target-input-wrap { display: flex; align-items: center; gap: 8px; }
