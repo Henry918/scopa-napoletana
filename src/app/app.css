@@ -51,7 +51,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .mode-button { min-height: 74px; padding: 12px 8px; border: 1px solid #e4e2d9; background: #fbfaf5; border-radius: 7px; color: #40544a; display: flex; flex-direction: column; gap: 5px; text-align: center; justify-content: center; transition: .15s ease; }
 .mode-button strong { font-size: 12px; font-weight: 700; }
 .mode-button span { font-size: 10px; color: #899188; }
-.mode-button.active { background: #edf2ed; border-color: #6d927c; box-shadow: inset 0 0 0 1px #6d927c; color: var(--green); }
+.mode-button.active { background: var(--green); border-color: var(--green); box-shadow: inset 0 0 0 1px var(--green); color: #fffdf7; }
 .players-setup { margin-bottom: 24px; }
 .name-field { display: flex; align-items: center; gap: 12px; margin: 9px 0; }
 .player-index { font-family: Georgia, serif; color: #b39b6c; font-size: 14px; width: 21px; }
