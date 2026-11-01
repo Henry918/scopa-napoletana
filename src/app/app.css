@@ -2132,3 +2132,29 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   color: #667269;
 }
 
+/* Winner banner uses the winning player's solid palette and clear spacing below. */
+.winner-banner.competitor-tone-1,
+.winner-banner.competitor-tone-2,
+.winner-banner.competitor-tone-3,
+.winner-banner.team-tone-1,
+.winner-banner.team-tone-2 {
+  background: var(--tone-card);
+  border-color: var(--tone-card);
+  color: #fffdf7;
+  margin-bottom: 24px;
+}
+.winner-banner.competitor-tone-1 h2,
+.winner-banner.competitor-tone-2 h2,
+.winner-banner.competitor-tone-3 h2,
+.winner-banner.team-tone-1 h2,
+.winner-banner.team-tone-2 h2,
+.winner-banner.competitor-tone-1 p,
+.winner-banner.competitor-tone-2 p,
+.winner-banner.competitor-tone-3 p,
+.winner-banner.team-tone-1 p,
+.winner-banner.team-tone-2 p {
+  color: #fffdf7;
+}
+.game-shell > .winner-banner + .score-grid {
+  margin-top: 0;
+}
