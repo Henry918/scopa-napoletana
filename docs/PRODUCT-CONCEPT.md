@@ -1,8 +1,8 @@
-# Produktkonzept: Scopa Napoletana Scorekeeper
+# Produktkonzept: Scopa Napoletane Scorekeeper
 
 **Status:** Konzept für Version 1.0  
 **Produktart:** Mobile-first Web-App und Progressive Web App (PWA)  
-**Zweck:** Digitale Punkteverwaltung für eine am Tisch gespielte Partie Scopa Napoletana.
+**Zweck:** Digitale Punkteverwaltung für eine am Tisch gespielte Partie Scopa Napoletane.
 
 ## 1. Produktziel
 
@@ -33,7 +33,7 @@ Die gesamte Benutzeroberfläche von Version 1.0 ist Englisch. Alle Navigationsel
 
 ## 3. Zielgruppen und Nutzungssituation
 
-- Personen, die Scopa Napoletana mit einem physischen Kartenspiel spielen.
+- Personen, die Scopa Napoletane mit einem physischen Kartenspiel spielen.
 - Zwei oder drei Einzelspielende.
 - Vier Personen, die als zwei Teams spielen.
 - Nutzung überwiegend auf Smartphones, gelegentlich auf Tablets oder Desktop-PCs.
