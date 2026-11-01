@@ -2114,11 +2114,11 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   color: #667269;
 }
 
-/* Game results use one responsive top offset and one consistent winner-to-score gap. */
+/* Keep the winner-to-score gap equal to the header-to-results offset at each breakpoint. */
 .game-results {
   display: flex;
   flex-direction: column;
-  gap: 17px;
+  gap: 74px;
   margin-top: 74px;
 }
 .game-results > .winner-banner,
@@ -2159,11 +2159,13 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 
 @media (max-width: 800px) {
   .game-results {
+    gap: 12px;
     margin-top: 12px;
   }
 }
 @media (max-width: 480px) {
   .game-results {
+    gap: 8px;
     margin-top: 8px;
   }
 }
