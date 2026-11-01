@@ -1670,3 +1670,93 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   color: #a3a69e;
 }
 .tie-selector .tie-symbol { color: inherit; }
+
+
+/* Inline Primiera comparison expands inside its category */
+.primiera-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding-top: 10px;
+}
+.round-category:has(.primiera-inline) {
+  grid-column: 1 / -1;
+}
+.round-category:has(.primiera-inline) > .winner-options {
+  display: none;
+}
+.primiera-inline .primiera-competitor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.primiera-inline .primiera-competitor {
+  min-width: 0;
+  padding: 9px;
+  border: 1px solid #e3e0d5;
+  border-radius: 7px;
+  background: #fffdf8;
+}
+.primiera-inline .primiera-competitor h3 {
+  margin: 0 0 8px;
+  color: #45584a;
+  font-size: 12px;
+}
+.primiera-inline .primiera-card-grid {
+  gap: 5px;
+}
+.primiera-inline .primiera-suit-label {
+  font-size: 8px;
+}
+.primiera-inline .primiera-card-choice {
+  max-width: 52px;
+}
+.primiera-compare-action {
+  align-self: flex-start;
+  min-height: 36px;
+  padding: 0 18px;
+}
+.primiera-card-picker {
+  position: absolute !important;
+  top: calc(100% + 5px) !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: min(270px, 82vw) !important;
+  max-height: 340px !important;
+  overflow-y: auto !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  transform: translateX(-50%) !important;
+}
+.tie-selector,
+.tie-selector:hover,
+.tie-selector:active,
+.tie-selector:focus,
+.tie-selector:focus-visible,
+.tie-selector.selected {
+  display: grid;
+  place-items: center;
+  width: 30px !important;
+  min-width: 30px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 0 !important;
+  border: 1px solid #e3e1d8 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #a3a69e !important;
+  outline-offset: 2px;
+}
+@media (max-width: 480px) {
+  .primiera-inline .primiera-competitor-grid {
+    gap: 6px;
+  }
+  .primiera-inline .primiera-competitor {
+    padding: 6px 4px;
+  }
+  .primiera-inline .primiera-card-grid {
+    gap: 3px;
+  }
+}

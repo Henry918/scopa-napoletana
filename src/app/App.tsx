@@ -429,11 +429,17 @@ function App() {
               <WinnerSection title="Carte" competitors={displayCompetitors} value={cardsWinnerId} onChange={setCardsWinnerId} allowTie tieLabel="Tie" />
               <WinnerSection title="Denari" competitors={displayCompetitors} value={denariWinnerId} onChange={setDenariWinnerId} allowTie tieLabel="Tie" />
               <WinnerSection title="Settebello" competitors={displayCompetitors} value={settebelloWinnerId} onChange={setSettebelloWinnerId} />
-              <WinnerSection title="Primiera" competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId} allowTie tieLabel="Tie">
-                <button className="text-button" type="button" onClick={() => {
-                  setPrimieraCards(Object.fromEntries(game.competitors.map((competitor) => [competitor.id, { ...(primieraCards[competitor.id] ?? EMPTY_PRIMIERA) }])))
-                  setPrimieraOpen(true)
-                }}>Compare</button>
+              <WinnerSection title="Primiera" competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId} allowTie={!primieraOpen} tieLabel="Tie">
+                {!primieraOpen ? (
+                  <button className="text-button" type="button" onClick={() => {
+                    setPrimieraCards(Object.fromEntries(game.competitors.map((competitor) => [competitor.id, { ...(primieraCards[competitor.id] ?? EMPTY_PRIMIERA) }])))
+                    setPrimieraOpen(true)
+                  }}>Compare</button>
+                ) : null}
+                {primieraOpen && (
+                  <PrimieraModal competitors={displayCompetitors} cards={primieraCards} onChange={updatePrimieraCard}
+                    onClose={() => setPrimieraOpen(false)} onApply={applyPrimieraComparison} />
+                )}
               </WinnerSection>
             </div>
             <section className="round-category scopa-category">
@@ -480,7 +486,6 @@ function App() {
       )}
       {notice && !roundOpen && <p className="notice success-notice">{notice}</p>}
       <AppFooter onExport={exportGame} onNewGame={startNewGame} />
-      {primieraOpen && <PrimieraModal competitors={displayCompetitors} cards={primieraCards} onChange={updatePrimieraCard} onClose={() => setPrimieraOpen(false)} onApply={applyPrimieraComparison} />}
 
       {roundReviewOpen && (
         <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setRoundReviewOpen(false) }}>
@@ -543,55 +548,48 @@ function PrimieraModal({ competitors, cards, onChange, onClose, onApply }: {
   const primieraOrder = [7, 1, 6, 5, 4, 3, 2, 8, 9, 10]
 
   return (
-    <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose() }}>
-      <section className="primiera-modal" role="dialog" aria-modal="true" aria-labelledby="primiera-title">
-        <div className="modal-heading"><div><p className="eyebrow">OPTIONAL CARD CHECK</p><h2 id="primiera-title">Compare Primiera</h2><p>Select the highest card held in each suit.</p></div><button className="icon-button" type="button" onClick={onClose} aria-label="Close Primiera comparison">×</button></div>
-        <div className="primiera-competitor-grid">
-          {competitors.map((competitor) => {
-            const selectedCards = cards[competitor.id] ?? EMPTY_PRIMIERA
-            return (
-              <article className={'primiera-competitor ' + competitorTone(competitors.indexOf(competitor))} key={competitor.id}>
-                <h3>{competitor.name}</h3>
-                <div className="primiera-card-grid">
-                  {SUITS.map((suit) => {
-                    const rank = selectedCards[suit.id]
-                    const isActive = activeSlot?.competitorId === competitor.id && activeSlot.suit === suit.id
-                    return (
-                      <div className="primiera-card-slot" key={suit.id}>
-                        <span className="primiera-suit-label">{suit.label}</span>
-                        <button type="button" className={'primiera-card-choice' + (rank === null ? ' unselected' : ' chosen')}
-                          aria-label={competitor.name + ' ' + suit.label + ', ' + (rank === null ? 'not selected' : RANK_LABELS[rank])}
-                          aria-expanded={isActive}
-                          onClick={() => setActiveSlot(isActive ? null : { competitorId: competitor.id, suit: suit.id })}
-                          onDoubleClick={() => { onChange(competitor.id, suit.id, '7'); setActiveSlot(null) }}>
-                          <img src={BASE + 'cards/' + suit.id + '/' + (rank ?? 7) + '.jpg'} alt={rank === null ? 'Unselected 7 of ' + suit.label : RANK_LABELS[rank] + ' of ' + suit.label} />
-                        </button>
-                        {isActive && (
-                          <div className="primiera-card-picker" aria-label={'Choose ' + suit.label + ' card'}>
-                            {primieraOrder.map((optionRank) => (
-                              <button type="button" key={optionRank} className={rank === optionRank ? 'active' : ''}
-                                onClick={() => { onChange(competitor.id, suit.id, String(optionRank)); setActiveSlot(null) }}>
-                                <img src={BASE + 'cards/' + suit.id + '/' + optionRank + '.jpg'} alt="" />
-                                <span>{RANK_LABELS[optionRank]}</span>
-                                <strong>{getPrimieraCardValue(optionRank)}</strong>
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    )
-                  })}
-                </div>
-                <div className="primiera-score"><span>PRIMIERA TOTAL</span><strong>{scoreById[competitor.id]}</strong></div>
-              </article>
-            )
-          })}
-        </div>
-        <div className={hasTied ? 'primiera-result tied' : 'primiera-result'}>
-          {hasTied ? 'Current comparison is tied. No Primiera point will be awarded.' : 'Current leader: ' + leaders[0].name + ' (' + highScore + ' points).'}
-        </div>
-        <div className="modal-actions"><button className="button button-quiet" type="button" onClick={onClose}>Cancel</button><button className="button button-primary" type="button" onClick={onApply}>Use comparison</button></div>
-      </section>
+    <div className="primiera-inline">
+      <div className="primiera-competitor-grid">
+        {competitors.map((competitor, competitorIndex) => {
+          const selectedCards = cards[competitor.id] ?? EMPTY_PRIMIERA
+          return (
+            <article className={'primiera-competitor ' + competitorTone(competitorIndex)} key={competitor.id}>
+              <h3>{competitor.name}</h3>
+              <div className="primiera-card-grid">
+                {SUITS.map((suit) => {
+                  const rank = selectedCards[suit.id]
+                  const isActive = activeSlot?.competitorId === competitor.id && activeSlot.suit === suit.id
+                  return (
+                    <div className="primiera-card-slot" key={suit.id}>
+                      <span className="primiera-suit-label">{suit.label}</span>
+                      <button type="button" className={'primiera-card-choice' + (rank === null ? ' unselected' : ' chosen')}
+                        aria-label={competitor.name + ' ' + suit.label + ', ' + (rank === null ? 'not selected' : RANK_LABELS[rank])}
+                        aria-expanded={isActive}
+                        onClick={() => setActiveSlot(isActive ? null : { competitorId: competitor.id, suit: suit.id })}
+                        onDoubleClick={() => { onChange(competitor.id, suit.id, '7'); setActiveSlot(null) }}>
+                        <img src={BASE + 'cards/' + suit.id + '/' + (rank ?? 7) + '.jpg'} alt={rank === null ? 'Unselected 7 of ' + suit.label : RANK_LABELS[rank] + ' of ' + suit.label} />
+                      </button>
+                      {isActive && (
+                        <div className="primiera-card-picker" aria-label={'Choose ' + suit.label + ' card'}>
+                          {primieraOrder.map((optionRank) => (
+                            <button type="button" key={optionRank} className={rank === optionRank ? 'active' : ''}
+                              onClick={() => { onChange(competitor.id, suit.id, String(optionRank)); setActiveSlot(null) }}>
+                              <img src={BASE + 'cards/' + suit.id + '/' + optionRank + '.jpg'} alt="" />
+                              <span>{RANK_LABELS[optionRank]}</span>
+                              <strong>{getPrimieraCardValue(optionRank)}</strong>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            </article>
+          )
+        })}
+      </div>
+      <button className="button button-primary primiera-compare-action" type="button" onClick={onApply}>Compare</button>
     </div>
   )
 }
