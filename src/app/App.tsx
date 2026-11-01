@@ -8,7 +8,6 @@ import {
 import { deleteSavedGame, loadGame, loadGames, saveGame } from '../lib/storage'
 
 type SetupDraft = {
-  gameName: string
   mode: GameMode
   targetScore: string
   playerNames: string[]
@@ -39,7 +38,6 @@ function formatGameDate(value: string): string {
 
 function makeDefaultDraft(): SetupDraft {
   return {
-    gameName: '',
     mode: 'two-players',
     targetScore: '11',
     playerNames: ['', '', '', '']
@@ -89,6 +87,9 @@ function App() {
   const [game, setGame] = useState<GameSession | null>(() => loadGame())
   const [savedGames, setSavedGames] = useState<GameSession[]>(() => loadGames())
   const [manageSavedGames, setManageSavedGames] = useState(false)
+  const [renameGameOpen, setRenameGameOpen] = useState(false)
+  const [renameGameDraft, setRenameGameDraft] = useState('')
+  const renameInputRef = useRef<HTMLInputElement | null>(null)
   const [draft, setDraft] = useState<SetupDraft>(() => makeDefaultDraft())
   const [entries, setEntries] = useState<RoundInput[]>(() => game ? emptyEntries(game.competitors) : [])
   const [cardsWinnerId, setCardsWinnerId] = useState<string | null | undefined>(undefined)
@@ -101,6 +102,17 @@ function App() {
   const [scoringHelpOpen, setScoringHelpOpen] = useState(false)
   const [roundReviewOpen, setRoundReviewOpen] = useState(false)
   const [notice, setNotice] = useState('')
+
+  useEffect(() => {
+    if (!renameGameOpen) return
+    renameInputRef.current?.focus()
+    renameInputRef.current?.select()
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setRenameGameOpen(false)
+    }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [renameGameOpen])
 
   useEffect(() => {
     saveGame(game)
@@ -131,7 +143,7 @@ function App() {
     }
     const competitors = createCompetitors(draft)
     const nextGame: GameSession = {
-      schemaVersion: 1, id: newId(), name: draft.gameName.trim() || 'Scopa Game',
+      schemaVersion: 1, id: newId(), name: 'Scopa Game',
       date: todayForInput(), mode: draft.mode, targetScore, competitors,
       rounds: [], status: 'playing', createdAt: new Date().toISOString()
     }
@@ -293,9 +305,6 @@ function App() {
           </div>
 
           <form className="panel setup-panel" onSubmit={startGame}>
-            <div className="game-meta-setup">
-              <input aria-label="Game name" value={draft.gameName} onChange={(event) => setDraft({ ...draft, gameName: event.target.value })} placeholder="Scopa Game" />
-            </div>
             <div className="panel-heading">
               <div><p className="eyebrow">NEW GAME</p><h2>Set up your table</h2></div>
             </div>
@@ -384,7 +393,7 @@ function App() {
 
   return (
     <main className="page-shell game-shell">
-      <BrandHeader gameMode={game.mode} onHome={goHome} gameName={game.name} gameDate={formatGameDate(game.date)} />
+      <BrandHeader gameMode={game.mode} onHome={goHome} gameName={game.name} gameDate={formatGameDate(game.date)} onRename={() => { setRenameGameDraft(game.name); setRenameGameOpen(true) }} />
 
       <div className="game-results">
         {winnerId && (
@@ -486,6 +495,28 @@ function App() {
       {notice && !roundOpen && <p className="notice success-notice">{notice}</p>}
       {game.rounds.length > 0 && <AppFooter onExport={exportGame} onNewGame={startNewGame} />}
 
+      {renameGameOpen && game && (
+        <div className="modal-backdrop rename-game-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setRenameGameOpen(false) }}>
+          <form className="primiera-modal rename-game-modal" role="dialog" aria-modal="true" aria-labelledby="rename-game-title" onSubmit={(event) => {
+            event.preventDefault()
+            const name = renameGameDraft.trim() || 'Scopa Game'
+            setGame((current) => current ? { ...current, name } : current)
+            setRenameGameOpen(false)
+          }}>
+            <div className="modal-heading">
+              <div><p className="eyebrow">GAME DETAILS</p><h2 id="rename-game-title">Rename game</h2><p>Give this game a name. You can change it at any time.</p></div>
+              <button className="icon-button" type="button" onClick={() => setRenameGameOpen(false)} aria-label="Close rename dialog">×</button>
+            </div>
+            <label className="rename-game-label" htmlFor="rename-game-input">Game name</label>
+            <input ref={renameInputRef} id="rename-game-input" className="rename-game-input" type="text" maxLength={60} value={renameGameDraft} onChange={(event) => setRenameGameDraft(event.target.value)} placeholder="Scopa Game" />
+            <div className="modal-actions">
+              <button className="button button-quiet" type="button" onClick={() => setRenameGameOpen(false)}>Cancel</button>
+              <button className="button button-primary" type="submit">Save</button>
+            </div>
+          </form>
+        </div>
+      )}
+
       {scoringHelpOpen && (
         <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setScoringHelpOpen(false) }}>
           <section className="primiera-modal scoring-help-modal" role="dialog" aria-modal="true" aria-labelledby="scoring-help-title">
@@ -550,7 +581,7 @@ function App() {
   )
 }
 
-function BrandHeader({ gameMode, onHome, gameName, gameDate }: { gameMode?: GameMode; onHome?: () => void; gameName?: string; gameDate?: string }) {
+function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename }: { gameMode?: GameMode; onHome?: () => void; gameName?: string; gameDate?: string; onRename?: () => void }) {
   return (
     <header className="brand-header">
       <button className="brand-home" type="button" onClick={onHome} disabled={!onHome} aria-label="Back to home">
@@ -559,7 +590,7 @@ function BrandHeader({ gameMode, onHome, gameName, gameDate }: { gameMode?: Game
       <div className="header-right">
         <span className="offline-indicator"><i /> LOCAL SCOREKEEPER</span>
         {gameMode && <span className="header-mode">{gameMode === 'two-players' ? '2 PLAYERS' : gameMode === 'three-players' ? '3 PLAYERS' : '2 TEAMS'}</span>}
-        {gameName && <div className="game-header-meta"><strong>{gameName}</strong>{gameDate && <time>{gameDate}</time>}</div>}
+        {gameName && <div className="game-header-meta"><button className="game-name-trigger" type="button" onClick={onRename} aria-label={'Rename game, current name ' + gameName} title="Rename game"><strong>{gameName}</strong><span aria-hidden="true">✎</span></button>{gameDate && <time>{gameDate}</time>}</div>}
       </div>
     </header>
   )
