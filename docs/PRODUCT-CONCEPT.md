@@ -29,7 +29,7 @@ Andere Spielerzahlen sind für Version 1.0 nicht vorgesehen.
 
 ### Sprache
 
-Die Benutzeroberfläche von Version 1.0 ist Deutsch. Kartenfarben und Kartenwerte werden mit ihren italienischen Bezeichnungen beziehungsweise deutschen Erläuterungen angezeigt.
+Die gesamte Benutzeroberfläche von Version 1.0 ist Englisch. Alle Navigationselemente, Buttons, Beschriftungen, Hinweise, Fehlermeldungen und Dialoge werden auf Englisch formuliert. Ausschließlich fest etablierte Scopa-Fachbegriffe bleiben italienisch, insbesondere Carte, Denari, Settebello, Primiera und Scopa. Es gibt in Version 1.0 keine deutsche UI-Variante.
 
 ## 3. Zielgruppen und Nutzungssituation
 
@@ -46,7 +46,7 @@ Die Benutzeroberfläche von Version 1.0 ist Deutsch. Kartenfarben und Kartenwert
 3. Spielernamen eingeben. Im Vier-Spieler-Modus zusätzlich Teamnamen und Teamzuordnung festlegen.
 4. Zielpunktzahl kontrollieren oder anpassen. Standard ist 11.
 5. Partie starten.
-6. Nach jeder gespielten Hand die Wertung für jeden Spieler beziehungsweise jedes Team erfassen.
+6. Nach jeder gespielten Hand die Wertung für alle Spieler beziehungsweise Teams gemeinsam auf einem einzigen Eingabebildschirm erfassen.
 7. Die App prüft die Eingaben, berechnet die Rundepunkte und zeigt eine Vorschau.
 8. Wertung bestätigen. Gesamtstand und Rundenverlauf werden aktualisiert.
 9. Sobald die Zielpunktzahl erreicht ist, zeigt die App den Sieger an. Bei Gleichstand an der Spitze wird eine weitere Runde gespielt.
@@ -71,7 +71,7 @@ Für jede Wertungseinheit werden pro Hand erfasst:
 - Anzahl der aufgenommenen Karten.
 - Anzahl der aufgenommenen Denari-Karten.
 - Besitz des Settebello, also des Sieben der Münzen.
-- Die höchste Karte jeder der vier Farben für die Primiera.
+- Primiera-Gewinner direkt auswählen. Nur wenn das Ergebnis nicht eindeutig ist, optional die Primiera-Punkte im Detail vergleichen.
 - Anzahl der erzielten Scope.
 
 Im Teammodus werden die Werte für beide Teammitglieder zusammen erfasst. Die App führt die Wertung auf Teamebene aus.
@@ -93,7 +93,7 @@ Die Primiera wird je Farbe mit der höchsten vorhandenen Karte gebildet. Die Wer
 | Cavallo (9) | 10 |
 | Re (10) | 10 |
 
-Die vier Kartenwerte werden addiert. Die App zeigt die Kartenbilder als Auswahl an und berechnet die Summe automatisch. Die Eingabe soll ausdrücklich die jeweils höchste Karte dieser Farbe repräsentieren, die der Spieler beziehungsweise das Team besitzt.
+Die vier Kartenwerte werden addiert. Die normale Rundeneingabe verlangt keine Kartenauswahl für die Primiera. Da das Ergebnis am Spieltisch meistens direkt feststeht, wählt die bedienende Person den Primiera-Gewinner unmittelbar aus. Bei einem unklaren Ergebnis oder einem erforderlichen Stechen öffnet ein kleiner sekundärer Button „Compare Primiera“. Dieser öffnet ein separates Popup, in dem die höchste Karte jeder Farbe für jede Wertungseinheit ausgewählt wird. Die App berechnet die Primiera-Summen automatisch und zeigt den Vergleich transparent an. Aus dem Vergleich wird der Gewinner übernommen. Bei tatsächlichem Gleichstand wird kein Primiera-Punkt vergeben.
 
 ### Plausibilitätsprüfungen
 
@@ -102,7 +102,8 @@ Die vier Kartenwerte werden addiert. Die App zeigt die Kartenbilder als Auswahl 
 - Die Denari-Anzahl darf nicht größer als die Gesamtzahl der Karten sein.
 - Der Settebello darf pro Hand nur einer Wertungseinheit zugeordnet werden.
 - Scopa-Anzahlen müssen nichtnegative ganze Zahlen sein.
-- Primiera-Auswahlen dürfen nur Kartenwerte der jeweils zugehörigen Farbe enthalten.
+- Im optionalen Primiera-Vergleich dürfen nur Kartenwerte der jeweils zugehörigen Farbe ausgewählt werden.
+- Ohne geöffneten Primiera-Vergleich ist keine Primiera-Kartenauswahl erforderlich. Der direkt gewählte Gewinner muss genau einer Wertungseinheit zugeordnet sein oder als Gleichstand/kein Gewinner markiert werden.
 - Bei unvollständigen oder widersprüchlichen Eingaben wird die Wertung nicht bestätigt.
 
 **Hinweis zu Restkarten:** Bei der Erfassung ist die in der gespielten Partie übliche Zuordnung der am Ende auf dem Tisch verbliebenen Karten an die zuletzt Karten nehmende Partei zu berücksichtigen. So können die Summen aller Karten und Denari vollständig erfasst werden.
@@ -140,12 +141,15 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 
 ### D. Handwertung
 
-- Ein klar abgegrenzter Eingabebereich pro Spieler oder Team.
+- Alle Spieler beziehungsweise Teams werden gemeinsam auf einer einzigen Eingabeseite angezeigt, entsprechend dem ursprünglich festgelegten Ein-Seiten-Konzept.
+- Die Eingabebereiche sind klar voneinander abgegrenzt und auf kleinen Displays gut untereinander erfassbar.
 - Zähler für Karten und Denari.
 - Settebello als eindeutige Ja/Nein-Auswahl.
-- Vier Bildauswahlen für die Primiera.
+- Alle Spieler beziehungsweise Teams werden gemeinsam auf einer einzigen Seite angezeigt. Es gibt keine separate Eingabeseite pro Spieler.
+- Primiera-Gewinner als direkte Auswahl innerhalb der Wertung.
+- Kleiner sekundärer Button „Compare Primiera“ zum Öffnen eines optionalen Detail-Popups für Primiera-Punkte und Stechen.
 - Scopa-Zähler mit Plus/Minus-Steuerung und direkter Zahleneingabe.
-- Live-Anzeige der berechneten Primiera und der voraussichtlichen Rundepunkte.
+- Live-Anzeige der voraussichtlichen Rundepunkte.
 - Validierungsfeedback und deaktivierte Bestätigung, solange Pflichtangaben fehlen oder Summen nicht stimmen.
 
 ### E. Wertungsvorschau
@@ -198,7 +202,7 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 - Namen und Teamzuordnung.
 - Konfigurierbare Zielpunktzahl, Default 11.
 - Rundenerfassung für alle fünf Wertungskategorien.
-- Primiera-Auswahl mit den vorhandenen Kartenbildern.
+- Direkte Auswahl des Primiera-Gewinners sowie optionaler Primiera-Detailvergleich im Popup mit den vorhandenen Kartenbildern.
 - Automatische Punkteberechnung.
 - Validierung der Karten- und Denari-Summen.
 - Gesamtstand, Rundenvorschau und Verlauf.
@@ -212,7 +216,7 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 
 - Spielerprofile und Statistiken über mehrere Partien.
 - Export als PDF oder CSV.
-- Mehrsprachigkeit Deutsch, Italienisch und Englisch.
+- Weitere UI-Sprachen zusätzlich zu Englisch.
 - Zusätzliche Hausregeln als konfigurierbare Optionen.
 - Cloud-Synchronisierung über mehrere Geräte.
 - Teilen einer Partie per Link.
@@ -229,7 +233,7 @@ Version 1.0 ist bereit zur Veröffentlichung, wenn:
 - die fünf Wertungskategorien korrekt berechnet werden,
 - Gleichstände bei Carte, Denari und Primiera keinen Punkt vergeben,
 - Settebello nur einmal pro Hand vergeben werden kann,
-- Primiera mit den festgelegten Kartenwerten korrekt berechnet wird,
+- Primiera-Gewinner direkt ausgewählt werden kann und der optionale Detailvergleich mit den festgelegten Kartenwerten korrekt berechnet wird,
 - Zielpunktzahl 11 voreingestellt und frei änderbar ist,
 - Gleichstände am Spielende korrekt behandelt werden,
 - Spielstände nach Neuladen wiederhergestellt werden,
