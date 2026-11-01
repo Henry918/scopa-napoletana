@@ -1897,24 +1897,23 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 
 
-/* Match the start page's breathing room below the shared header */
+/* Match the home page spacing below the header. */
 .game-shell > .winner-banner,
 .game-shell > .score-grid {
   margin-top: 74px;
 }
 .game-shell > .winner-banner + .score-grid {
-  margin-top: 13px;
+  margin-top: 74px;
 }
 @media (max-width: 760px) {
   .game-shell > .winner-banner,
   .game-shell > .score-grid {
-    margin-top: 8px;
+    margin-top: 18px;
   }
   .game-shell > .winner-banner + .score-grid {
-    margin-top: 13px;
+    margin-top: 18px;
   }
 }
-
 
 /* Match the spacing from the Primiera heading to the player choices */
 .round-category:has(.primiera-inline) > .round-category-heading {
@@ -2159,12 +2158,14 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   margin-top: 0;
 }
 
-/* Final winner banner text colours and zero spacing below the container. */
+/* Winner label and supporting copy match the star and score-target styles. */
 .winner-banner .eyebrow {
   color: #a8884b;
 }
 .winner-banner p:last-child {
-  color: #718078;
+  color: rgba(255, 250, 240, 0.55);
+  font-family: inherit;
+  font-size: 9px;
 }
 .winner-banner.competitor-tone-1,
 .winner-banner.competitor-tone-2,
@@ -2172,7 +2173,4 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .winner-banner.team-tone-1,
 .winner-banner.team-tone-2 {
   margin-bottom: 0;
-}
-.game-shell > .winner-banner + .score-grid {
-  margin-top: 0;
 }
