@@ -56,8 +56,8 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .name-field { display: flex; align-items: center; gap: 12px; margin: 9px 0; }
 .player-index { font-family: Georgia, serif; color: #b39b6c; font-size: 14px; width: 21px; }
 .name-field input, .team-setup-card input, .target-input-wrap input { width: 100%; min-width: 0; height: 42px; padding: 0 12px; border: 1px solid #e4e2d9; background: #fffefa; color: #263c31; border-radius: 5px; font-size: 13px; }
-.team-setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 24px; }
-.team-setup-card { min-width: 0; padding: 0; border-radius: 0; background: transparent; display: flex; flex-direction: column; gap: 0; }
+.team-setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 24px; }
+.team-setup-card { min-width: 0; padding: 0; border-radius: 0; background: transparent; }
 .team-setup-card.team-b { background: transparent; }
 .field-label { color: #53645a; font-size: 10px; font-weight: 700; letter-spacing: .08em; }
 .team-setup-card input { height: 42px; margin-bottom: 0; background: #fffefa; }
@@ -229,7 +229,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   .mode-button { min-height: 67px; }
   .mode-button strong { font-size: 10px; }
   .mode-button span { font-size: 9px; }
-  .team-setup-grid { gap: 6px; }
+  .team-setup-grid { gap: 16px; }
   .score-grid { gap: 8px; }
   .score-card { min-height: 171px; padding: 13px; }
   .score-card h2 { font-size: 16px; }
@@ -823,7 +823,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   .brand-wordmark > span { font-size: 8px; }
   .setup-layout { padding-top: 8px; }
   .setup-panel { padding: 16px 12px; }
-  .team-setup-grid { gap: 8px; }
+  .team-setup-grid { gap: 16px; }
   .team-player-field { font-size: 8px; }
   .team-player-field input { padding: 0 6px; font-size: 11px; }
   .score-grid-three {
