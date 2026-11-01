@@ -424,13 +424,14 @@ function App() {
               <WinnerSection title="Carte" competitors={displayCompetitors} value={cardsWinnerId} onChange={setCardsWinnerId} allowTie tieLabel="Tie" />
               <WinnerSection title="Denari" competitors={displayCompetitors} value={denariWinnerId} onChange={setDenariWinnerId} allowTie tieLabel="Tie" />
               <WinnerSection title="Settebello" competitors={displayCompetitors} value={settebelloWinnerId} onChange={setSettebelloWinnerId} />
-              <WinnerSection title="Primiera" competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId} allowTie={!primieraOpen} tieLabel="Tie" hideCompetitors={primieraOpen}>
-                {!primieraOpen ? (
-                  <button className="button button-primary primiera-open-action" type="button" onClick={() => {
+              <WinnerSection title="Primiera" competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId}
+                allowTie={!primieraOpen} tieLabel="Tie" hideCompetitors={primieraOpen}
+                headingAction={!primieraOpen ? (
+                  <button className="text-button primiera-heading-compare" type="button" onClick={() => {
                     setPrimieraCards(Object.fromEntries(game.competitors.map((competitor) => [competitor.id, { ...(primieraCards[competitor.id] ?? EMPTY_PRIMIERA) }])))
                     setPrimieraOpen(true)
                   }}>Compare</button>
-                ) : null}
+                ) : null}>
                 {primieraOpen && (
                   <PrimieraModal competitors={displayCompetitors} cards={primieraCards} onChange={updatePrimieraCard}
                     onApply={applyPrimieraComparison} />
@@ -596,7 +597,7 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
   )
 }
 
-function WinnerSection({ title, competitors, value, onChange, allowTie = false, tieLabel = 'Tie', children, hideCompetitors = false }: {
+function WinnerSection({ title, competitors, value, onChange, allowTie = false, tieLabel = 'Tie', children, hideCompetitors = false, headingAction }: {
   title: string
   competitors: Competitor[]
   value: string | null | undefined
@@ -605,12 +606,14 @@ function WinnerSection({ title, competitors, value, onChange, allowTie = false, 
   tieLabel?: string
   children?: ReactNode
   hideCompetitors?: boolean
+  headingAction?: ReactNode
 }) {
   return (
     <section className="round-category">
       <div className="round-category-heading">
         <h3>{title}</h3>
         <div className="round-category-tools">
+          {headingAction}
           {allowTie && (
             <button type="button" aria-pressed={value === null} aria-label={tieLabel} title={tieLabel}
               className="tie-selector"
