@@ -506,3 +506,373 @@ button:disabled { opacity: .45; cursor: not-allowed; }
     font-size: 8px;
   }
 }
+
+
+/* Home navigation and saved game archive */
+.brand-home {
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.brand-home:disabled {
+  opacity: 1;
+  cursor: default;
+}
+.brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.03;
+  letter-spacing: .15em;
+}
+.brand-wordmark strong { font-size: 15px; font-weight: 700; }
+.brand-wordmark > span { font-size: 9px; letter-spacing: .28em; margin-top: 5px; color: #718078; }
+.saved-games-section {
+  margin: 24px 0 32px;
+}
+.saved-games-heading h2 {
+  margin: 0 0 12px;
+  color: var(--green);
+  font-family: Georgia, serif;
+  font-size: 23px;
+  font-weight: 500;
+}
+.saved-games-list {
+  display: grid;
+  gap: 8px;
+}
+.saved-game-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid #e2ddcf;
+  border-radius: 8px;
+  background: #fffdf7;
+  color: #41564a;
+  text-align: left;
+}
+.saved-game-card:hover {
+  border-color: #b7c5b6;
+  background: #f6f7f0;
+}
+.saved-game-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.saved-game-main strong {
+  color: var(--green);
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 500;
+}
+.saved-game-main small {
+  color: #839087;
+  font-size: 10px;
+}
+.saved-game-main .saved-game-result {
+  color: #536b5b;
+  font-weight: 600;
+}
+.saved-game-arrow {
+  flex: none;
+  color: #a78d5b;
+  font-size: 20px;
+}
+
+/* Stable player and team colour identities */
+.competitor-tone-1 {
+  --tone-soft: #e7efe7;
+  --tone-border: #bfd0bf;
+  --tone-ink: #315b3f;
+  --tone-strong: #315b3f;
+  --tone-card: #214c37;
+}
+.competitor-tone-2 {
+  --tone-soft: #e9edf5;
+  --tone-border: #c2cee1;
+  --tone-ink: #3f5479;
+  --tone-strong: #3f5479;
+  --tone-card: #344a6d;
+}
+.competitor-tone-3 {
+  --tone-soft: #f3ebe2;
+  --tone-border: #dfc9b2;
+  --tone-ink: #805a37;
+  --tone-strong: #805a37;
+  --tone-card: #725033;
+}
+.name-field input.competitor-tone-1,
+.team-player-field input.competitor-tone-1 {
+  background: var(--tone-soft);
+  border-color: var(--tone-border);
+  color: var(--tone-ink);
+}
+.name-field input.competitor-tone-2,
+.team-player-field input.competitor-tone-2 {
+  background: var(--tone-soft);
+  border-color: var(--tone-border);
+  color: var(--tone-ink);
+}
+.name-field input.competitor-tone-3,
+.team-player-field input.competitor-tone-3 {
+  background: var(--tone-soft);
+  border-color: var(--tone-border);
+  color: var(--tone-ink);
+}
+.name-field input::placeholder,
+.team-player-field input::placeholder {
+  color: #879188;
+  opacity: .75;
+}
+.team-setup-title {
+  margin: 0 0 5px;
+  color: var(--green);
+  font-family: Georgia, serif;
+  font-size: 16px;
+}
+.team-player-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #65736a;
+  font-size: 9px;
+  font-weight: 700;
+}
+.team-player-field input {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 0 9px;
+  border: 1px solid #e4e2d9;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+/* Apply each player's tone to the score and every winner selector */
+.score-card.competitor-tone-1 { background: var(--tone-card); }
+.score-card.competitor-tone-2 { background: var(--tone-card); }
+.score-card.competitor-tone-3 { background: var(--tone-card); }
+.winner-option.competitor-tone-1,
+.winner-option.competitor-tone-2,
+.winner-option.competitor-tone-3 {
+  border-color: var(--tone-border);
+  background: var(--tone-soft);
+  color: var(--tone-ink);
+}
+.winner-option.competitor-tone-1.selected,
+.winner-option.competitor-tone-2.selected,
+.winner-option.competitor-tone-3.selected {
+  border-color: var(--tone-strong);
+  background: var(--tone-strong);
+  color: #fffdf7;
+}
+.scopa-option.competitor-tone-1,
+.scopa-option.competitor-tone-2,
+.scopa-option.competitor-tone-3 {
+  border-color: var(--tone-border);
+  background: var(--tone-soft);
+  color: var(--tone-ink);
+}
+.primiera-competitor.competitor-tone-1,
+.primiera-competitor.competitor-tone-2,
+.primiera-competitor.competitor-tone-3 {
+  border: 1px solid var(--tone-border);
+  background: var(--tone-soft);
+}
+.primiera-competitor.competitor-tone-1 h3,
+.primiera-competitor.competitor-tone-2 h3,
+.primiera-competitor.competitor-tone-3 h3 {
+  color: var(--tone-ink);
+}
+
+/* Consistent, equally sized category panels */
+.round-category-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 11px;
+  margin-top: 12px;
+}
+.round-category {
+  display: flex;
+  flex-direction: column;
+  height: 184px;
+  min-height: 184px;
+  padding: 14px;
+  border: 1px solid #e4e0d5;
+  border-radius: 8px;
+  background: #fffdf8;
+  box-shadow: 0 3px 12px rgba(40, 48, 38, .035);
+}
+.round-category-heading {
+  flex: none;
+  margin-bottom: 9px;
+}
+.winner-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
+  align-content: center;
+  align-items: center;
+  flex: 1;
+  gap: 7px;
+  min-height: 0;
+  margin-top: auto;
+}
+.winner-option {
+  min-width: 0;
+  min-height: 42px;
+  padding: 6px 7px;
+  border-radius: 6px;
+  font-size: 10px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.winner-option.tie-option {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  min-width: 42px;
+  max-width: 42px;
+  height: 42px;
+  min-height: 42px;
+  padding: 0;
+  justify-self: start;
+  border: 1px solid #deded7;
+  border-radius: 50%;
+  background: #f5f4ef;
+  color: #8a8f87;
+}
+.winner-option.tie-option.selected {
+  border-color: #999e94;
+  background: #e4e5df;
+  color: #4f5a50;
+}
+.tie-symbol {
+  font-size: 20px;
+  line-height: 1;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.scopa-category {
+  grid-column: 1 / -1;
+}
+.scopa-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  align-content: center;
+  flex: 1;
+  gap: 6px;
+  min-height: 0;
+}
+.scopa-option {
+  min-width: 0;
+  min-height: 34px;
+  padding: 3px 7px 3px 10px;
+  font-size: 10px;
+}
+.scopa-option > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.scopa-option .stepper {
+  flex: none;
+  height: 29px;
+}
+.scopa-option .stepper button {
+  width: 29px;
+  height: 28px;
+}
+.scopa-option .stepper output {
+  min-width: 22px;
+}
+@media (max-width: 800px) {
+  .intro-copy { display: none; }
+  .setup-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 12px 0 28px;
+  }
+  .round-category-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .round-category {
+    height: 184px;
+    min-height: 184px;
+  }
+  .scopa-options {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .score-grid-three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 480px) {
+  .page-shell { width: calc(100% - 22px); }
+  .brand-home { min-height: 38px; }
+  .brand-wordmark strong { font-size: 14px; }
+  .brand-wordmark > span { font-size: 8px; }
+  .setup-layout { padding-top: 8px; }
+  .setup-panel { padding: 16px 12px; }
+  .team-setup-grid { gap: 8px; }
+  .team-setup-card { padding: 9px 7px; }
+  .team-player-field { font-size: 8px; }
+  .team-player-field input { padding: 0 6px; font-size: 11px; }
+  .score-grid-three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+  }
+  .score-grid-three .score-card {
+    min-width: 0;
+    min-height: 148px;
+    padding: 10px 7px;
+  }
+  .score-grid-three .score-index {
+    font-size: 6px;
+    letter-spacing: .07em;
+  }
+  .score-grid-three .score-card h2 {
+    margin-top: 9px;
+    font-size: 12px;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+  .score-grid-three .score-number {
+    font-size: 31px;
+  }
+  .score-grid-three .score-number span {
+    font-size: 8px;
+  }
+  .score-grid-three .member-names {
+    font-size: 7px;
+    overflow-wrap: anywhere;
+  }
+  .saved-games-section { margin-top: 18px; }
+  .saved-game-card { padding: 11px 12px; }
+  .saved-game-main strong { font-size: 15px; }
+  .round-category {
+    height: 184px;
+    min-height: 184px;
+    padding: 12px;
+  }
+  .winner-option {
+    min-height: 42px;
+    font-size: 10px;
+  }
+}

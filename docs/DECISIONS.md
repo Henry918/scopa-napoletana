@@ -70,6 +70,10 @@ Die Anwendung kontrolliert die Summen über alle Wertungseinheiten. Pro Hand mü
 
 Die Rundeneingabe verwendet eine kompakte Auswahl innerhalb eines Containers. Für Cards Taken, Denari und Primiera wird ein Spieler oder Team beziehungsweise „Tie“ ausgewählt. Für Settebello wird genau ein Spieler oder Team ausgewählt. Scopa bleibt ein Plus/Minus-Zähler je Spieler oder Team, da mehrere Scope je Hand möglich sind. Jede Partie erhält einen Namen und ein Datum. Einzelne Hände werden automatisch als Round 1 bis Round X bezeichnet.
 
+Die Startseite listet gespeicherte Partien mit Datum und Punktestand. Eine Auswahl öffnet die jeweilige Partie mit vollständigem Rundenverlauf erneut. Das Logo führt aus einer laufenden Partie zur Startseite.
+
+Spielerfelder sind beim Start leer und zeigen Player 1 bis Player 4 nur als Platzhalter. Im Teammodus werden nur vier Spielernamen erfasst, Teams heißen automatisch Team 1 und Team 2. Spielerfarben bleiben über Einrichtung, Punktestand, Scoring-Auswahl und Primiera-Vergleich konsistent. Bei drei Einzelspielern bleiben die drei Punktestände auch auf Mobilgeräten nebeneinander. Die Gleichstandsauswahl wird dezent als Symbol dargestellt. Alle Scoring-Kategorien erhalten einheitliche Kartenhöhen.
+
 ## 7. Speicher- und Synchronisierungsumfang
 
 Version 1.0 speichert Partien ausschließlich lokal im Browser des verwendeten Geräts. Ein Spielstand wird dadurch nicht automatisch auf weitere Geräte übertragen. Eine spätere Cloud-Synchronisierung ist eine eigenständige Ausbaustufe.

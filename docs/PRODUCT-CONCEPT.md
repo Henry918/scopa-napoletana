@@ -43,7 +43,7 @@ Die gesamte Benutzeroberfläche von Version 1.0 ist Englisch. Alle Navigationsel
 
 1. Startbildschirm öffnen und „Neue Partie“ wählen.
 2. Spielmodus auswählen.
-3. Spielernamen eingeben. Im Vier-Spieler-Modus zusätzlich Teamnamen und Teamzuordnung festlegen.
+3. Spielernamen eingeben. Im Vier-Spieler-Modus werden nur die vier Spielernamen in zwei festen Teams erfasst. Teamnamen heißen automatisch Team 1 und Team 2.
 4. Zielpunktzahl kontrollieren oder anpassen. Standard ist 11.
 5. Partie starten.
 6. Beim Start einen Namen und ein Datum für die Partie festlegen. Nach jeder gespielten Hand die Wertung für alle Spieler beziehungsweise Teams gemeinsam in einem einzigen kompakten Container erfassen. Die Hände werden automatisch als Round 1 bis Round X nummeriert.
@@ -116,14 +116,14 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 - Produktname und kompakte visuelle Gestaltung mit Kartenmotiv.
 - Primäre Aktion „Neue Partie“.
 - Aktion „Partie fortsetzen“, sofern ein laufendes Spiel gespeichert ist.
-- Zugang zu abgeschlossenen Partien und Einstellungen.
+- Gespeicherte Partien mit Datum auflisten und per Auswahl wieder öffnen.
+- Das Logo führt aus einer laufenden Partie zurück zur Startseite.
 
 ### B. Partie einrichten
 
 - Auswahl der drei unterstützten Spielmodi.
 - Dynamische Namensfelder entsprechend der Spielerzahl.
-- Im Teammodus Zuordnung der vier Personen zu Team 1 oder Team 2.
-- Bearbeitbare Teamnamen.
+- Im Teammodus vier Spielernamen in zwei feste Teams aufteilen. Es gibt keine separate Eingabe für Teamnamen.
 - Zielpunktzahl mit voreingestellten schnellen Werten und freier Zahleneingabe.
 - Zusammenfassung vor dem Start.
 
@@ -139,7 +139,9 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 ### D. Handwertung
 
 - Alle Spieler beziehungsweise Teams werden gemeinsam auf einer einzigen Eingabeseite angezeigt, entsprechend dem ursprünglich festgelegten Ein-Seiten-Konzept.
-- Die Eingabebereiche sind klar voneinander abgegrenzt und auf kleinen Displays gut untereinander erfassbar.
+- Die Kategorien sind klar voneinander abgegrenzt und haben einheitliche Kartenhöhen.
+- Die Farben der Spieler beziehungsweise Teams bleiben in Punktestand, Einrichtung und Rundenauswahl konsistent.
+- Bei drei Einzelspielern bleiben alle drei Punktestände auch auf schmalen Smartphone-Displays nebeneinander.
 - Eine kompakte Auswahl pro Kategorie für alle Spieler beziehungsweise Teams gemeinsam.
 - Gewinnerauswahl für Cards Taken, Denari, Settebello und Primiera. Bei Cards Taken, Denari und Primiera ist „Tie“ möglich.
 - Kleiner sekundärer Button „Compare“ zum Öffnen des optionalen Primiera-Kartenvergleichs.
@@ -183,7 +185,7 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 
 ## 8. Speicherung und Datenschutz
 
-- Name und Datum der Partie sowie der Rundenverlauf werden automatisch lokal im Browser gespeichert. Die einzelnen Hände werden fortlaufend als „Round 1“ bis „Round X“ bezeichnet und erhalten keine eigene Datumsanzeige.
+- Name und Datum jeder Partie sowie der jeweilige Rundenverlauf werden automatisch lokal im Browser archiviert. Die Startseite listet frühere Partien mit Datum auf und ermöglicht das Wiederöffnen. Die einzelnen Hände werden fortlaufend als „Round 1“ bis „Round X“ bezeichnet und erhalten keine eigene Datumsanzeige.
 - Kein Benutzerkonto, keine Cloud und keine Übertragung von Spielständen in Version 1.0.
 - Spielstände bleiben auf dem jeweiligen Browser beziehungsweise Gerät.
 - Eine Export- und Importfunktion für Sicherungen ist vorgesehen.

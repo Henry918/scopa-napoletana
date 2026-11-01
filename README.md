@@ -21,7 +21,7 @@ The application uses React, TypeScript and Vite. The full user interface is in E
 - Primiera, with direct winner selection and an optional card comparison popup
 - Scopa
 
-Each round uses one compact panel with winner selection for Carte, Denari, Settebello and Primiera. Carte, Denari and Primiera can be marked as tied. Scopa is recorded with a simple per-player or per-team counter. Every round is titled sequentially, while the game itself has a name and date. Game data is stored locally in the browser.
+Each round uses one compact panel with winner selection for Carte, Denari, Settebello and Primiera. Carte, Denari and Primiera can be marked as tied. Scopa is recorded with a simple per-player or per-team counter. Every round is titled sequentially, while the game itself has a name and date. Games are stored locally in the browser and can be reopened from the start screen by date.
 
 ## Development
 
