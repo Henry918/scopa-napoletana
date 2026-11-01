@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
 import type { Competitor, GameMode, GameSession, RoundInput, RoundResult, Suit } from '../types/game'
 import {
-  calculatePrimiera, calculateRoundPoints, calculateTotals, getGameWinner,
+  calculatePrimiera, calculateRoundPoints, calculateTotals, getGameWinner, getPrimieraCardValue,
   validateRound, type ConfirmedRoundWinners, type PrimieraCards, type RoundWinnerSelections
 } from '../features/scoring/scoring'
 import { deleteSavedGame, loadGame, loadGames, saveGame } from '../lib/storage'
