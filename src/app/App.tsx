@@ -311,7 +311,7 @@ function App() {
               <div className="team-setup-grid">
                 {[0, 1].map((teamIndex) => (
                   <div className={'team-setup-card team-card-' + (teamIndex + 1)} key={teamIndex}>
-                    <p className="team-setup-title">Team {teamIndex + 1}</p>
+                    <div className="section-label team-setup-title">Team {teamIndex + 1}</div>
                     {[teamIndex * 2, teamIndex * 2 + 1].map((playerIndex) => (
                       <label className="name-field team-player-name-field" key={playerIndex}>
                         <span className="player-index">{String(playerIndex + 1).padStart(2, '0')}</span>
