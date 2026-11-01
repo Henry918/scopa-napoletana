@@ -2029,11 +2029,11 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   --tone-card: #315b65;
 }
 .competitor-tone-3 {
-  --tone-soft: #f4efe3;
-  --tone-border: #dfcea7;
-  --tone-ink: #876526;
-  --tone-strong: #9b762f;
-  --tone-card: #8f6b2b;
+  --tone-soft: #f1ece5;
+  --tone-border: #d5c5ae;
+  --tone-ink: #765b38;
+  --tone-strong: #98764a;
+  --tone-card: #98764a;
 }
 .team-tone-1 {
   --tone-soft: #f0e9ef;
@@ -2043,11 +2043,11 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   --tone-card: #75415f;
 }
 .team-tone-2 {
-  --tone-soft: #eef0e6;
-  --tone-border: #c9cfb2;
-  --tone-ink: #657044;
-  --tone-strong: #657044;
-  --tone-card: #657044;
+  --tone-soft: #eceee8;
+  --tone-border: #c4cbb8;
+  --tone-ink: #526044;
+  --tone-strong: #526044;
+  --tone-card: #526044;
 }
 
 .score-card.competitor-tone-1,
@@ -2094,6 +2094,26 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .winner-options.tie-selected .winner-option.team-tone-2 {
   border-color: #454b46;
   background: #454b46;
+  color: #fffdf7;
+}
+
+/* Enter Points selectors stay neutral until a competitor is selected. */
+.winner-option.competitor-tone-1,
+.winner-option.competitor-tone-2,
+.winner-option.competitor-tone-3,
+.winner-option.team-tone-1,
+.winner-option.team-tone-2 {
+  border-color: #deded5;
+  background: #f7f6f0;
+  color: #667269;
+}
+.winner-option.competitor-tone-1.selected,
+.winner-option.competitor-tone-2.selected,
+.winner-option.competitor-tone-3.selected,
+.winner-option.team-tone-1.selected,
+.winner-option.team-tone-2.selected {
+  border-color: var(--tone-strong);
+  background: var(--tone-strong);
   color: #fffdf7;
 }
 
