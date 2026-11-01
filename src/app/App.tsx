@@ -39,8 +39,8 @@ function makeDefaultDraft(): SetupDraft {
 function createCompetitors(draft: SetupDraft): Competitor[] {
   if (draft.mode === 'four-player-teams') {
     return [
-      { id: 'team-a', name: draft.teamNames[0].trim() || 'Team A', members: draft.playerNames.slice(0, 2).map((name) => name.trim()) },
-      { id: 'team-b', name: draft.teamNames[1].trim() || 'Team B', members: draft.playerNames.slice(2, 4).map((name) => name.trim()) }
+      { id: 'team-a', name: draft.teamNames[0].trim() || 'Team A', members: draft.playerNames.slice(0, 2).map((name, index) => name.trim() || 'Player ' + (index + 1)) },
+      { id: 'team-b', name: draft.teamNames[1].trim() || 'Team B', members: draft.playerNames.slice(2, 4).map((name, index) => name.trim() || 'Player ' + (index + 3)) }
     ]
   }
   const count = draft.mode === 'two-players' ? 2 : 3
@@ -295,7 +295,7 @@ function App() {
       {winnerId && (
         <section className="winner-banner">
           <div className="winner-star">✦</div>
-          <div><p className="eyebrow">WINNER</p><h2>{game.competitors.find((competitor) => competitor.id === winnerId)?.name}</h2><p>Reached {totals[winnerId]} points. Grazie for a great game.</p></div>
+          <div><p className="eyebrow">WINNER</p><h2>{game.competitors.find((competitor) => competitor.id === winnerId)?.name}</h2><p>Reached {totals[winnerId]} points. Thanks for a great game.</p></div>
         </section>
       )}
 
