@@ -41,9 +41,9 @@ Kartenbilder werden aus /cards/<farbe>/<rang>.jpg geladen. Beispiel: /cards/dena
 
 Beim GitHub-Pages-Projektpfad muss /scopa-napoletana/ berücksichtigt werden. Die Implementierung soll Pfade zentral generieren.
 
-## Hintergrund
+## Hintergrundbild
 
-public/cards/background/background.jpg ist bereits vorhanden. Er kann auf dem Startbildschirm oder dezent als Tischmotiv eingesetzt werden. Lesbarkeit und Kontrast haben Vorrang vor Dekoration.
+public/cards/background/background.jpg ist als vorhandenes Asset vollständig dokumentiert. Es wird in Version 1.0 ausdrücklich nicht verwendet. Die App ist ein Scorekeeper und benötigt keine digitale Tischdarstellung. Die Datei bleibt lediglich im Repository, bis eventuell später eine konkrete Verwendung beschlossen wird.
 
 ## Vor Implementierung noch zu prüfen
 
