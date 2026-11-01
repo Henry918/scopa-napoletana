@@ -2127,3 +2127,8 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   background: #f7f6f0;
 }
 
+/* Primiera compare player headings match the neutral player-button text. */
+.primiera-inline .primiera-competitor h3 {
+  color: #667269;
+}
+
