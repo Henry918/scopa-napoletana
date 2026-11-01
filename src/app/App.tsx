@@ -86,6 +86,7 @@ function competitorDisplayName(competitor: Competitor, mode: GameMode): string {
 function App() {
   const [game, setGame] = useState<GameSession | null>(() => loadGame())
   const [savedGames, setSavedGames] = useState<GameSession[]>(() => loadGames())
+  const [manageSavedGames, setManageSavedGames] = useState(false)
   const [draft, setDraft] = useState<SetupDraft>(() => makeDefaultDraft())
   const [entries, setEntries] = useState<RoundInput[]>(() => game ? emptyEntries(game.competitors) : [])
   const [cardsWinnerId, setCardsWinnerId] = useState<string | null | undefined>(undefined)
@@ -205,7 +206,7 @@ function App() {
     setRoundOpen(false)
     setRoundReviewOpen(false)
     setPrimieraOpen(false)
-    setNotice('Round saved.')
+    setNotice('')
   }
 
   function undoLastRound() {
@@ -218,24 +219,14 @@ function App() {
     setNotice('Last round removed.')
   }
 
-  function deleteRound(roundId: string) {
-    if (!game) return
-    const round = game.rounds.find((item) => item.id === roundId)
-    if (!round) return
-    const roundNumber = game.rounds.findIndex((item) => item.id === roundId) + 1
-    if (!window.confirm('Delete Round ' + roundNumber + '? All following scores will be recalculated.')) return
-    const rounds = game.rounds.filter((item) => item.id !== roundId)
-    const nextWinner = getGameWinner(roundTotals(rounds, game.competitors), game.targetScore)
-    setGame({ ...game, rounds, status: nextWinner ? 'finished' : 'playing' })
-    setNotice('Round deleted. Scores updated.')
-  }
-
   function deleteArchivedGame(gameId: string) {
     const savedGame = savedGames.find((item) => item.id === gameId)
     if (!savedGame) return
     if (!window.confirm('Delete "' + savedGame.name + '" permanently from this device?')) return
     deleteSavedGame(gameId)
-    setSavedGames(loadGames())
+    const remaining = loadGames()
+    setSavedGames(remaining)
+    if (remaining.length === 0) setManageSavedGames(false)
   }
 
   function goHome() {
@@ -248,10 +239,12 @@ function App() {
     setDraft(makeDefaultDraft())
     setNotice('')
     setSavedGames(loadGames())
+    setManageSavedGames(false)
   }
 
   function openSavedGame(savedGame: GameSession) {
     setGame(savedGame)
+    setManageSavedGames(false)
     setEntries(emptyEntries(savedGame.competitors))
     setRoundOpen(false)
     setRoundReviewOpen(false)
@@ -347,23 +340,26 @@ function App() {
         </section>
         {savedGames.length > 0 && (
           <section className="saved-games-section">
-            <div className="saved-games-heading"><h2>Previous games</h2></div>
-            <div className="saved-games-list">
+            <div className="saved-games-heading">
+              <h2>Previous games</h2>
+              <button className="saved-games-manage" type="button" onClick={() => setManageSavedGames((current) => !current)}>
+                {manageSavedGames ? 'Done' : 'Manage games'}
+              </button>
+            </div>
+            <div className={'saved-games-list' + (manageSavedGames ? ' managing-saved-games' : '')}>
               {savedGames.map((savedGame) => {
                 const savedTotals = roundTotals(savedGame.rounds, savedGame.competitors)
                 const result = savedGame.competitors.map((competitor) => competitorDisplayName(competitor, savedGame.mode) + ' ' + (savedTotals[competitor.id] ?? 0)).join(' · ')
                 return (
                   <article className="saved-game-card" key={savedGame.id}>
-                    <button className="saved-game-open" type="button" onClick={() => openSavedGame(savedGame)}>
+                    <button className="saved-game-open" type="button" disabled={manageSavedGames} onClick={() => openSavedGame(savedGame)}>
                       <span className="saved-game-main"><strong>{savedGame.name}</strong><small>{formatGameDate(savedGame.date)} · {savedGame.rounds.length} {savedGame.rounds.length === 1 ? 'round' : 'rounds'}</small><small className="saved-game-result">{result}</small></span>
-                      <span className="saved-game-arrow" aria-hidden="true">→</span>
+                      {!manageSavedGames && <span className="saved-game-arrow" aria-hidden="true">→</span>}
                     </button>
-                    <details className="saved-game-menu">
-                      <summary aria-label={'Options for ' + savedGame.name} title="Game options">⋯</summary>
-                      <div className="saved-game-menu-content">
-                        <button type="button" onClick={() => deleteArchivedGame(savedGame.id)}>Delete game</button>
-                      </div>
-                    </details>
+                    {manageSavedGames && (
+                      <button className="saved-game-remove" type="button" aria-label={'Delete ' + savedGame.name}
+                        title="Delete game" onClick={() => deleteArchivedGame(savedGame.id)}>×</button>
+                    )}
                   </article>
                 )
               })}
@@ -419,15 +415,17 @@ function App() {
           </div>
 
           <div className="round-category-list">
-            <WinnerSection title="Cards Taken" competitors={displayCompetitors} value={cardsWinnerId} onChange={setCardsWinnerId} allowTie tieLabel="Tie" />
-            <WinnerSection title="Denari" competitors={displayCompetitors} value={denariWinnerId} onChange={setDenariWinnerId} allowTie tieLabel="Tie" />
-            <WinnerSection title="Settebello" competitors={displayCompetitors} value={settebelloWinnerId} onChange={setSettebelloWinnerId} />
-            <WinnerSection title="Primiera" competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId} allowTie tieLabel="Tie">
-              <button className="text-button" type="button" onClick={() => {
-                setPrimieraCards(Object.fromEntries(game.competitors.map((competitor) => [competitor.id, { ...(primieraCards[competitor.id] ?? EMPTY_PRIMIERA) }])))
-                setPrimieraOpen(true)
-              }}>Compare</button>
-            </WinnerSection>
+            <div className="winner-category-grid">
+              <WinnerSection title="Carte" competitors={displayCompetitors} value={cardsWinnerId} onChange={setCardsWinnerId} allowTie tieLabel="Tie" />
+              <WinnerSection title="Denari" competitors={displayCompetitors} value={denariWinnerId} onChange={setDenariWinnerId} allowTie tieLabel="Tie" />
+              <WinnerSection title="Settebello" competitors={displayCompetitors} value={settebelloWinnerId} onChange={setSettebelloWinnerId} />
+              <WinnerSection title="Primiera" competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId} allowTie tieLabel="Tie">
+                <button className="text-button" type="button" onClick={() => {
+                  setPrimieraCards(Object.fromEntries(game.competitors.map((competitor) => [competitor.id, { ...(primieraCards[competitor.id] ?? EMPTY_PRIMIERA) }])))
+                  setPrimieraOpen(true)
+                }}>Compare</button>
+              </WinnerSection>
+            </div>
             <section className="round-category scopa-category">
               <div className="round-category-heading"><h3>Scopa</h3></div>
               <div className="scopa-options">
@@ -465,12 +463,6 @@ function App() {
               <article className="history-row" key={round.id}>
                 <div className="history-round">Round {game.rounds.length - index}</div>
                 <div className="history-scores">{game.competitors.map((competitor) => <span key={competitor.id}><b>{round.points[competitor.id] ?? 0}</b><small>{competitorDisplayName(competitor, game.mode)}</small></span>)}</div>
-                <details className="history-row-menu">
-                  <summary aria-label={'Round ' + (game.rounds.length - index) + ' options'} title="Round options">⋯</summary>
-                  <div className="history-row-menu-content">
-                    <button type="button" onClick={() => deleteRound(round.id)}>Delete round</button>
-                  </div>
-                </details>
               </article>
             ))}
           </div>
@@ -490,10 +482,17 @@ function App() {
                 { label: 'Denari', id: roundPreview.breakdown.denariWinnerId },
                 { label: 'Settebello', id: roundPreview.breakdown.settebelloWinnerId },
                 { label: 'Primiera', id: roundPreview.breakdown.primieraWinnerId }
-              ].map((category) => <div className="review-category" key={category.label}><span>{category.label}</span><strong>{category.id ? displayCompetitors.find((competitor) => competitor.id === category.id)?.name : 'Tie'}</strong></div>)}
+              ].map((category) => {
+                const competitor = displayCompetitors.find((item) => item.id === category.id)
+                const scopaCount = entries.find((entry) => entry.competitorId === category.id)?.scope ?? 0
+                return <div className="review-category" key={category.label}><span>{category.label}</span><strong>{competitor ? competitor.name + (scopaCount > 0 ? ' (' + scopaCount + ' Scopa)' : '') : 'Tie'}</strong></div>
+              })}
             </div>
             <div className="review-points-heading"><span>POINTS ADDED THIS ROUND</span><span>SCOPA INCLUDED</span></div>
-            <div className="review-point-list">{displayCompetitors.map((competitor) => <div className="review-point-row" key={competitor.id}><span>{competitor.name}</span><strong>+{roundPreview.points[competitor.id] ?? 0}</strong></div>)}</div>
+            <div className="review-point-list">{displayCompetitors.map((competitor) => {
+              const scopaCount = entries.find((entry) => entry.competitorId === competitor.id)?.scope ?? 0
+              return <div className="review-point-row" key={competitor.id}><span>{competitor.name}{scopaCount > 0 ? ' (' + scopaCount + ' Scopa)' : ''}</span><strong>+{roundPreview.points[competitor.id] ?? 0}</strong></div>
+            })}</div>
             <div className="modal-actions"><button className="button button-quiet" type="button" onClick={() => setRoundReviewOpen(false)}>Back to entry</button><button className="button button-primary" type="button" onClick={confirmRound}>Confirm round</button></div>
           </section>
         </div>

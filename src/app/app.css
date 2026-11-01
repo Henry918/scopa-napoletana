@@ -1134,3 +1134,98 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .app-footer {
   justify-content: flex-end;
 }
+
+
+/* The four winner categories share their height independently of Scopa */
+.round-category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.winner-category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(184px, 1fr);
+  align-items: stretch;
+  gap: 11px;
+}
+.winner-category-grid .round-category {
+  height: auto;
+  min-height: 184px;
+}
+.round-category-list > .scopa-category {
+  grid-column: auto;
+  height: auto;
+  min-height: 0;
+}
+@media (max-width: 800px) {
+  .winner-category-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .winner-category-grid .round-category {
+    height: auto;
+    min-height: 184px;
+  }
+}
+
+/* Central archive management, with a remove control on each row */
+.saved-games-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.saved-games-heading h2 {
+  margin: 0;
+}
+.saved-games-manage {
+  flex: none;
+  min-height: 35px;
+  padding: 0 12px;
+  border: 1px solid #d8d5ca;
+  border-radius: 5px;
+  background: #fffdf7;
+  color: #6e725f;
+  font-size: 10px;
+  font-weight: 700;
+}
+.saved-games-manage:hover {
+  border-color: #b8aa88;
+  background: #f5f0e4;
+}
+.saved-game-card {
+  align-items: center;
+}
+.saved-game-open:disabled {
+  opacity: 1;
+  cursor: default;
+}
+.saved-game-remove {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #e5c9c1;
+  border-radius: 50%;
+  background: #fbefeb;
+  color: #a34e42;
+  font-size: 22px;
+  line-height: 1;
+}
+.saved-game-remove:hover {
+  border-color: #c98c7e;
+  background: #f6dfd8;
+}
+.history-round {
+  border: 1px solid #d8c49d;
+  background: #f0e6d1;
+  color: #765b2e;
+}
+
+/* Remove obsolete per-round deletion affordances */
+.history-row-menu,
+.saved-game-menu {
+  display: none;
+}
