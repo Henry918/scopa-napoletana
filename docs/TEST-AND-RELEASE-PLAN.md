@@ -110,7 +110,9 @@ Prüfpunkte:
 
 - keine horizontale Scroll-Leiste im normalen Ablauf.
 - Punktestände bleiben gut lesbar.
-- Primiera-Karten sind antippbar und nicht zu klein.
+- Primiera-Gewinner kann direkt ohne Kartenwahl erfasst werden.
+- Der optionale „Compare Primiera“-Button öffnet ein gut bedienbares Detail-Popup für Stechen.
+- Alle Spieler/Teams werden auf einer gemeinsamen Eingabeseite dargestellt.
 - Eingabefelder werden beim Öffnen der Bildschirmtastatur nicht verdeckt.
 - Modale Dialoge passen auf kleine Displays.
 - Buttons besitzen ausreichende Touch-Flächen.
