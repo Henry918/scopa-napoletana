@@ -342,7 +342,7 @@ function App() {
               </div>
             </div>
             {notice && <p className="notice error-notice" role="alert">{notice}</p>}
-            <button className="button button-primary button-full" type="submit">Start game <span aria-hidden="true">→</span></button>
+            <button className="button button-primary button-full" type="submit">Start game</button>
             <p className="privacy-note"><span aria-hidden="true">●</span> No account. Just your game.</p>
           </form>
         </section>
@@ -408,7 +408,7 @@ function App() {
 
       {!roundOpen && !winnerId && (
         <div className="round-launch">
-          <button className="button button-primary" onClick={openRound} type="button">Enter round <span aria-hidden="true">→</span></button>
+          <button className="button button-primary" onClick={openRound} type="button">Enter round</button>
         </div>
       )}
 
@@ -462,7 +462,7 @@ function App() {
           {notice && <p className="notice">{notice}</p>}
           <div className="round-actions">
             <button className="button button-quiet" type="button" onClick={() => setRoundOpen(false)}>Cancel</button>
-            <button className="button button-primary" type="button" disabled={issues.length > 0} onClick={reviewRound}>Review round <span aria-hidden="true">→</span></button>
+            <button className="button button-primary" type="button" disabled={issues.length > 0} onClick={reviewRound}>Review round</button>
           </div>
         </section>
       )}
