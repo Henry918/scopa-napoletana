@@ -1317,7 +1317,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 /* Let round winner panels fit their controls without reserved empty height */
 .game-meta-setup {
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 28px;
 }
 .game-meta-setup input {
   display: block;
