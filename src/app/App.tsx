@@ -701,15 +701,13 @@ function WinnerSection({ title, competitors, value, onChange, allowTie = false, 
   )
 }
 
-function AppFooter({ onExport, onNewGame }: { onExport?: () => void; onNewGame?: () => void } = {}) {
+function AppFooter({ onExport, onNewGame }: { onExport: () => void; onNewGame: () => void }) {
   return (
     <footer className="app-footer">
-      {onExport && onNewGame && (
-        <div className="footer-actions">
-          <button type="button" onClick={onExport}>Export game</button>
-          <button type="button" onClick={onNewGame}>New game</button>
-        </div>
-      )}
+      <div className="footer-actions">
+        <button type="button" onClick={onExport}>Export game</button>
+        <button type="button" onClick={onNewGame}>New game</button>
+      </div>
     </footer>
   )
 }
