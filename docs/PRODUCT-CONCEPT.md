@@ -6,7 +6,7 @@
 
 ## 1. Produktziel
 
-Die App begleitet eine reale Scopa-Partie. Sie ersetzt Papier und Taschenrechner, nicht das physische Kartenspiel. Spielende erfassen nach jeder Runde die erzielten Karten- und Sonderwertungen. Die App berechnet daraus die Rundepunkte, aktualisiert den Gesamtstand und erkennt den Spielsieg.
+Die App ist ausschließlich ein digitaler Scorekeeper für eine reale, mit physischen Karten gespielte Scopa-Partie. Sie ersetzt Papier und Taschenrechner, nicht das Kartenspiel selbst. Es werden keine Karten digital ausgeteilt, keine Spielzüge simuliert und keine digitale Partie gespielt. Spielende erfassen nach jeder Runde die erzielten Karten- und Sonderwertungen. Die App berechnet daraus die Rundepunkte, aktualisiert den Gesamtstand und erkennt den Spielsieg.
 
 Die Anwendung soll auf einem Smartphone am Spieltisch schnell, übersichtlich und mit großen Touch-Flächen bedienbar sein. Sie soll nach dem ersten Laden auch ohne Internetverbindung funktionieren. Ein Benutzerkonto und ein Server sind für die erste Version nicht erforderlich.
 
@@ -179,7 +179,7 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 - Farben dienen nicht allein als Informationsträger. Team und Wertungskategorien erhalten zusätzliche Beschriftungen oder Symbole.
 - Wenige Schritte zwischen laufendem Spiel und Handwertung.
 - Kritische Aktionen wie Partie löschen oder Wertung überschreiben benötigen eine Bestätigung.
-- Die Kartenbilder sollen in der Primiera-Auswahl und dort, wo sie Verständnis fördern, sichtbar eingesetzt werden.
+- Die Kartenbilder dienen ausschließlich als visuelle Hilfen bei der Punkteeingabe, insbesondere bei der Primiera-Auswahl. Es gibt keine interaktive Tisch-, Handkarten- oder Stichansicht.
 - Die Spielfläche soll ruhig und hochwertig wirken, angelehnt an einen grünen Kartentisch. Die Karten bleiben das visuelle Hauptelement.
 
 ## 8. Speicherung und Datenschutz
@@ -217,7 +217,7 @@ Als Standard gilt: Eine letzte Kartenaufnahme, mit der am Handende lediglich die
 - Cloud-Synchronisierung über mehrere Geräte.
 - Teilen einer Partie per Link.
 - Live-Mehrgeräte-Spiel.
-- Vollständiges digitales Kartenspiel mit Austeilen und Spielzügen. Dies ist ausdrücklich nicht Teil von Version 1.0.
+- Digitales Kartenspiel, Austeilen digitaler Karten, virtuelle Handkarten, simulierte Spielzüge, Tisch- oder Stichverwaltung. Dies ist ausdrücklich nicht Teil des Produkts.
 
 ## 10. Abnahmekriterien
 
