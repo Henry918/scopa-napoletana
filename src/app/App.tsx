@@ -537,8 +537,7 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
   onApply: () => void
 }) {
   const [activeSlot, setActiveSlot] = useState<{ competitorId: string; suit: Suit } | null>(null)
-  const [pickerTop, setPickerTop] = useState(0)
-  const primieraOrder = [7, 1, 6, 5, 4, 3, 2, 8, 9, 10]
+  const primieraOrder = [7, 6, 1, 5, 4, 3, 2, 8, 9, 10]
 
   return (
     <div className="primiera-inline">
@@ -561,7 +560,6 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
                           if (isActive) {
                             setActiveSlot(null)
                           } else {
-                            setPickerTop(event.currentTarget.getBoundingClientRect().bottom + 6)
                             setActiveSlot({ competitorId: competitor.id, suit: suit.id })
                           }
                         }}
@@ -569,7 +567,7 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
                         <img src={BASE + 'cards/' + suit.id + '/' + (rank ?? 7) + '.jpg'} alt={rank === null ? 'Unselected 7 of ' + suit.label : RANK_LABELS[rank] + ' of ' + suit.label} />
                       </button>
                       {isActive && (
-                        <div className="primiera-card-picker" style={{ top: pickerTop }} aria-label={'Choose ' + suit.label + ' card'}>
+                        <div className="primiera-card-picker" aria-label={'Choose ' + suit.label + ' card'}>
                           {primieraOrder.map((optionRank) => (
                             <button type="button" key={optionRank} className={rank === optionRank ? 'active' : ''}
                               onClick={() => { onChange(competitor.id, suit.id, String(optionRank)); setActiveSlot(null) }}>
