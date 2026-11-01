@@ -389,9 +389,11 @@ function App() {
   const scoreRows = game.competitors.map((competitor) => ({ competitor, score: totals[competitor.id] ?? 0 }))
 
   return (
-    <main className="page-shell game-shell">
+    <main className={'page-shell game-shell' + (roundOpen ? ' round-entry-active' : '')}>
       <BrandHeader gameMode={game.mode} onHome={goHome} gameName={game.name} gameDate={formatGameDate(game.date)} onRename={() => { setRenameGameDraft(game.name); setRenameGameOpen(true) }} />
 
+      {!roundOpen && (
+        <>
       <div className="game-results">
         {winnerId && (
           <section className={'winner-banner ' + competitorTone(game.competitors.findIndex((competitor) => competitor.id === winnerId), game.mode)}>
@@ -419,6 +421,9 @@ function App() {
         <div className="round-launch">
           <button className="button button-primary" onClick={openRound} type="button">Enter round</button>
         </div>
+      )}
+
+        </>
       )}
 
       {roundOpen && (
@@ -475,6 +480,8 @@ function App() {
         </section>
       )}
 
+      {!roundOpen && (
+        <>
       {game.rounds.length > 0 && (
         <section className="history-section">
           <div className="history-heading"><div><p className="eyebrow">GAME RECORD</p><h2>Round history</h2></div><button className="text-button" type="button" onClick={undoLastRound}>Undo last round</button></div>
@@ -490,6 +497,9 @@ function App() {
       )}
       {notice && !roundOpen && <p className="notice success-notice">{notice}</p>}
       {game.rounds.length > 0 && <AppFooter onExport={exportGame} onNewGame={startNewGame} />}
+
+      </>
+      )}
 
       {renameGameOpen && game && (
         <div className="modal-backdrop rename-game-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setRenameGameOpen(false) }}>
