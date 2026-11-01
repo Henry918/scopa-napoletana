@@ -47,7 +47,7 @@ describe('round validation', () => {
     selections.denariWinnerId = undefined
     selections.primieraWinnerId = undefined
     const issues = validateRound(makeRound(), selections, competitorIds)
-    expect(issues).toContain('Select a result for Cards Taken.')
+    expect(issues).toContain('Select a result for Carte.')
     expect(issues).toContain('Select a result for Denari.')
     expect(issues).toContain('Select a result for Primiera.')
   })
@@ -69,7 +69,7 @@ describe('round validation', () => {
   it('rejects a selected competitor that is not in the game', () => {
     const selections = makeSelections()
     selections.cardsWinnerId = 'unknown'
-    expect(validateRound(makeRound(), selections, competitorIds)).toContain('Select a valid player or team for Cards Taken.')
+    expect(validateRound(makeRound(), selections, competitorIds)).toContain('Select a valid player or team for Carte.')
   })
 
   it('requires one Scopa count per competitor', () => {
