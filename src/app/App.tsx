@@ -438,7 +438,7 @@ function App() {
                 ) : null}
                 {primieraOpen && (
                   <PrimieraModal competitors={displayCompetitors} cards={primieraCards} onChange={updatePrimieraCard}
-                    onClose={() => setPrimieraOpen(false)} onApply={applyPrimieraComparison} />
+                    onApply={applyPrimieraComparison} />
                 )}
               </WinnerSection>
             </div>
@@ -530,20 +530,12 @@ function ModeButton({ active, onClick, title, detail }: { active: boolean; onCli
   return <button className={active ? 'mode-button active' : 'mode-button'} type="button" onClick={onClick}><strong>{title}</strong><span>{detail}</span></button>
 }
 
-function PrimieraModal({ competitors, cards, onChange, onClose, onApply }: {
+function PrimieraModal({ competitors, cards, onChange, onApply }: {
   competitors: Competitor[]
   cards: Record<string, PrimieraCards>
   onChange: (competitorId: string, suit: Suit, value: string) => void
-  onClose: () => void
   onApply: () => void
 }) {
-  const scoreById = Object.fromEntries(competitors.map((competitor) => [
-    competitor.id, calculatePrimiera(cards[competitor.id] ?? EMPTY_PRIMIERA)
-  ]))
-  const scores = Object.values(scoreById)
-  const highScore = Math.max(...scores)
-  const leaders = competitors.filter((competitor) => scoreById[competitor.id] === highScore)
-  const hasTied = leaders.length > 1
   const [activeSlot, setActiveSlot] = useState<{ competitorId: string; suit: Suit } | null>(null)
   const primieraOrder = [7, 1, 6, 5, 4, 3, 2, 8, 9, 10]
 
