@@ -1688,20 +1688,22 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 .primiera-inline .primiera-competitor-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 10px;
 }
 .primiera-inline .primiera-competitor {
   min-width: 0;
-  padding: 9px;
+  padding: 12px;
   border: 1px solid #e3e0d5;
   border-radius: 7px;
-  background: #fffdf8;
+  background: #f6f4ec;
 }
 .primiera-inline .primiera-competitor h3 {
-  margin: 0 0 8px;
+  margin: 0 0 9px;
   color: #45584a;
-  font-size: 12px;
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 500;
 }
 .primiera-inline .primiera-card-grid {
   gap: 5px;
@@ -1718,14 +1720,13 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   padding: 0 18px;
 }
 .primiera-card-picker {
-  position: absolute !important;
-  top: calc(100% + 5px) !important;
-  left: 50% !important;
+  position: fixed !important;
+  left: 50vw !important;
   right: auto !important;
   bottom: auto !important;
-  width: min(270px, 82vw) !important;
-  max-height: 340px !important;
-  overflow-y: auto !important;
+  width: min(360px, 88vw) !important;
+  max-height: none !important;
+  overflow: visible !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   transform: translateX(-50%) !important;
 }
@@ -1765,20 +1766,14 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .primiera-inline .primiera-player-score {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  justify-content: flex-start;
   margin-top: 9px;
   padding-top: 8px;
   border-top: 1px solid #dcd9ce;
 }
-.primiera-inline .primiera-player-score span {
-  color: #68766b;
-  font-size: 10px;
-  font-weight: 600;
-}
 .primiera-inline .primiera-player-score strong {
   color: var(--green);
   font-family: Georgia, serif;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
 }

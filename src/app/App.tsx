@@ -537,6 +537,7 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
   onApply: () => void
 }) {
   const [activeSlot, setActiveSlot] = useState<{ competitorId: string; suit: Suit } | null>(null)
+  const [pickerTop, setPickerTop] = useState(0)
   const primieraOrder = [7, 1, 6, 5, 4, 3, 2, 8, 9, 10]
 
   return (
@@ -556,12 +557,19 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
                                             <button type="button" className={'primiera-card-choice' + (rank === null ? ' unselected' : ' chosen')}
                         aria-label={competitor.name + ' ' + suit.label + ', ' + (rank === null ? 'not selected' : RANK_LABELS[rank])}
                         aria-expanded={isActive}
-                        onClick={() => setActiveSlot(isActive ? null : { competitorId: competitor.id, suit: suit.id })}
+                        onClick={(event) => {
+                          if (isActive) {
+                            setActiveSlot(null)
+                          } else {
+                            setPickerTop(event.currentTarget.getBoundingClientRect().bottom + 6)
+                            setActiveSlot({ competitorId: competitor.id, suit: suit.id })
+                          }
+                        }}
                         onDoubleClick={() => { onChange(competitor.id, suit.id, '7'); setActiveSlot(null) }}>
                         <img src={BASE + 'cards/' + suit.id + '/' + (rank ?? 7) + '.jpg'} alt={rank === null ? 'Unselected 7 of ' + suit.label : RANK_LABELS[rank] + ' of ' + suit.label} />
                       </button>
                       {isActive && (
-                        <div className="primiera-card-picker" aria-label={'Choose ' + suit.label + ' card'}>
+                        <div className="primiera-card-picker" style={{ top: pickerTop }} aria-label={'Choose ' + suit.label + ' card'}>
                           {primieraOrder.map((optionRank) => (
                             <button type="button" key={optionRank} className={rank === optionRank ? 'active' : ''}
                               onClick={() => { onChange(competitor.id, suit.id, String(optionRank)); setActiveSlot(null) }}>
@@ -577,8 +585,7 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
                 })}
               </div>
               <div className="primiera-player-score">
-                <span>Primiera</span>
-                <strong>{calculatePrimiera(selectedCards)}</strong>
+                <strong>Text {calculatePrimiera(selectedCards)}</strong>
               </div>
             </article>
           )
