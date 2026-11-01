@@ -1540,3 +1540,84 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   .primiera-card-choice { padding: 3px; }
   .primiera-card-choice > span { font-size: 8px; }
 }
+
+
+/* Primiera card faces fill their rounded slots without a value caption below */
+.primiera-card-choice {
+  display: block;
+  aspect-ratio: 5 / 7;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fffdf8;
+}
+.primiera-card-choice img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  aspect-ratio: auto;
+  object-fit: cover;
+}
+.primiera-card-choice > span { display: none; }
+
+/* Rank picker is a centered, fully visible overlay rather than a scroll panel */
+.primiera-card-picker {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(430px, calc(100vw - 28px));
+  max-height: none;
+  overflow: visible;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  transform: translate(-50%, -50%);
+}
+.primiera-card-picker > button {
+  min-height: 58px;
+}
+.primiera-card-picker > .primiera-card-none { display: none; }
+
+/* Tie only changes the tie control, never the competitor buttons */
+.winner-option.tie-neutral { 
+  border-color: #deded5;
+  background: #f7f6f0;
+  color: #667269;
+}
+.tie-selector {
+  width: 40px;
+  min-width: 40px;
+  height: 36px;
+  border-radius: 6px;
+  background: #f7f6f0;
+  color: #7d857d;
+}
+.tie-selector.selected {
+  border-color: #454b46;
+  background: #454b46;
+  color: #fffdf7;
+}
+.tie-selector .tie-symbol { color: inherit; }
+
+/* Scopa counters remain neutral regardless of the number of Scopas */
+.scopa-option,
+.scopa-option.has-scope,
+.scopa-option.has-scope.competitor-tone-1,
+.scopa-option.has-scope.competitor-tone-2,
+.scopa-option.has-scope.competitor-tone-3 {
+  border-color: #deded5;
+  background: #f7f6f0;
+  color: #667269;
+}
+.scopa-option .stepper button,
+.scopa-option .stepper output {
+  color: #667269;
+}
+.scopa-option .stepper button {
+  border-color: #deded5;
+  background: #fffdf8;
+}
+@media (max-width: 480px) {
+  .primiera-card-picker { width: min(390px, calc(100vw - 24px)); }
+  .primiera-card-picker > button { grid-template-columns: 32px minmax(0, 1fr) auto; }
+  .primiera-card-picker img { width: 32px; }
+}

@@ -171,10 +171,18 @@ function App() {
 
   function updatePrimieraCard(competitorId: string, suit: Suit, value: string) {
     const rank = value === '' ? null : Number(value)
-    setPrimieraCards((current) => ({
-      ...current,
-      [competitorId]: { ...(current[competitorId] ?? EMPTY_PRIMIERA), [suit]: rank }
-    }))
+    setPrimieraCards((current) => {
+      const next = { ...current }
+      if (rank !== null) {
+        for (const otherId of Object.keys(next)) {
+          if (otherId !== competitorId && next[otherId]?.[suit] === rank) {
+            next[otherId] = { ...(next[otherId] ?? EMPTY_PRIMIERA), [suit]: null }
+          }
+        }
+      }
+      next[competitorId] = { ...(next[competitorId] ?? EMPTY_PRIMIERA), [suit]: rank }
+      return next
+    })
   }
 
   function reviewRound() {
@@ -434,7 +442,7 @@ function App() {
                 {game.competitors.map((competitor) => {
                   const count = entries.find((entry) => entry.competitorId === competitor.id)?.scope ?? 0
                   return (
-                    <div className={'scopa-option' + (count > 0 ? ' has-scope ' + competitorTone(game.competitors.indexOf(competitor)) : '')} key={competitor.id}>
+                    <div className="scopa-option" key={competitor.id}>
                       <span>{competitorDisplayName(competitor, game.mode)}</span>
                       <div className="stepper">
                         <button type="button" aria-label={"Remove Scopa for " + competitor.name} onClick={() => updateScope(competitor.id, Math.max(0, count - 1))}>−</button>
@@ -557,7 +565,6 @@ function PrimieraModal({ competitors, cards, onChange, onClose, onApply }: {
                           onClick={() => setActiveSlot(isActive ? null : { competitorId: competitor.id, suit: suit.id })}
                           onDoubleClick={() => { onChange(competitor.id, suit.id, '7'); setActiveSlot(null) }}>
                           <img src={BASE + 'cards/' + suit.id + '/' + (rank ?? 7) + '.jpg'} alt={rank === null ? 'Unselected 7 of ' + suit.label : RANK_LABELS[rank] + ' of ' + suit.label} />
-                          <span>{rank === null ? '0 pts' : getPrimieraCardValue(rank) + ' pts'}</span>
                         </button>
                         {isActive && (
                           <div className="primiera-card-picker" aria-label={'Choose ' + suit.label + ' card'}>
@@ -569,7 +576,6 @@ function PrimieraModal({ competitors, cards, onChange, onClose, onApply }: {
                                 <strong>{getPrimieraCardValue(optionRank)}</strong>
                               </button>
                             ))}
-                            <button type="button" className="primiera-card-none" onClick={() => { onChange(competitor.id, suit.id, ''); setActiveSlot(null) }}>No card, 0 points</button>
                           </div>
                         )}
                       </div>
@@ -615,7 +621,7 @@ function WinnerSection({ title, competitors, value, onChange, allowTie = false, 
       <div className="winner-options">
         {competitors.map((competitor, index) => (
           <button key={competitor.id} type="button" aria-pressed={value === competitor.id}
-            className={'winner-option ' + competitorTone(index) + (value === competitor.id ? ' selected' : '') + (value === null ? ' tie-neutral' : '')}
+            className={'winner-option ' + competitorTone(index) + (value === competitor.id ? ' selected' : '')}
             onClick={() => onChange(competitor.id)}>{competitor.name}</button>
         ))}
       </div>
