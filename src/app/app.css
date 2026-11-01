@@ -1934,6 +1934,9 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 
 
 /* Match the spacing from the Primiera heading to the player choices */
+.round-category:has(.primiera-inline) > .round-category-heading {
+  margin-bottom: 9px;
+}
 .primiera-inline { padding-top: 0; }
 .primiera-inline .primiera-competitor {
   background: #f7f6f0;
