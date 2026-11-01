@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>Scopa Napoletana app icon</title>
+  <desc>Vintage-inspired Neapolitan playing card emblem in olive, ivory, muted gold, brick red and forest green.</desc>
+  <defs>
+    <style>
+      .ink{stroke:#292b18;stroke-width:8;stroke-linecap:round;stroke-linejoin:round}
+      .fine{stroke:#292b18;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+      .goldline{stroke:#b78b36;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;fill:none}
+      .ivory{fill:#f1e2bd}
+      .gold{fill:#d2a33f}
+      .darkgold{fill:#a87928}
+      .green{fill:#344b32}
+      .red{fill:#a94d35}
+      .blue{fill:#46605a}
+      .olive{fill:#303719}
+    </style>
+  </defs>
+
+  <!-- Solid field -->
+  <rect width="1024" height="1024" fill="#303719"/>
+
+  <!-- Rear cards -->
+  <g class="ink">
+    <g transform="rotate(-23 238 520)">
+      <rect x="100" y="286" width="270" height="500" rx="34" class="ivory"/>
+      <rect x="116" y="302" width="238" height="468" rx="25" fill="none" stroke="#c69a42" stroke-width="8"/>
+      <!-- sword -->
+      <path d="M235 390 L253 615 L218 684 L200 615 Z" class="blue"/>
+      <path d="M235 390 L235 620" class="goldline"/>
+      <path d="M170 466 Q235 442 300 466 L284 487 Q235 472 186 487 Z" class="gold"/>
+      <path d="M225 615 L235 681 L245 615" class="fine" fill="none"/>
+      <circle cx="235" cy="391" r="15" class="gold"/>
+    </g>
+    <g transform="rotate(-11 350 490)">
+      <rect x="216" y="218" width="270" height="570" rx="34" class="ivory"/>
+      <rect x="232" y="234" width="238" height="538" rx="25" fill="none" stroke="#c69a42" stroke-width="8"/>
+      <!-- cup -->
+      <path d="M282 374 Q351 393 420 374 L405 492 Q392 528 351 535 Q310 528 297 492 Z" class="red"/>
+      <path d="M282 374 Q351 397 420 374 L412 398 Q351 419 290 398 Z" class="gold"/>
+      <path d="M307 419 Q351 440 395 419 L386 479 Q351 502 316 479 Z" fill="#344b32" stroke="#292b18" stroke-width="5"/>
+      <path d="M351 535 L351 587 M322 590 Q351 575 380 590 L390 612 Q351 630 312 612 Z" class="gold"/>
+      <path d="M302 612 Q351 629 400 612 L414 638 Q351 660 288 638 Z" class="red"/>
+      <path d="M320 448 Q351 427 382 448 M319 473 Q351 494 383 473" class="goldline"/>
+      <path d="M351 545 L351 575" class="goldline"/>
+    </g>
+    <g transform="rotate(11 674 490)">
+      <rect x="538" y="218" width="270" height="570" rx="34" class="ivory"/>
+      <rect x="554" y="234" width="238" height="538" rx="25" fill="none" stroke="#c69a42" stroke-width="8"/>
+      <!-- sun coin -->
+      <circle cx="673" cy="478" r="112" class="gold"/>
+      <circle cx="673" cy="478" r="94" fill="none" stroke="#292b18" stroke-width="7"/>
+      <g class="fine" fill="none">
+        <path d="M673 344 L673 370 M673 586 L673 612 M539 478 L565 478 M781 478 L807 478
+                 M578 383 L596 401 M750 555 L768 573 M578 573 L596 555 M750 401 L768 383
+                 M620 354 L630 380 M716 576 L726 602 M549 425 L575 435 M771 521 L797 531
+                 M549 531 L575 521 M771 435 L797 425 M620 602 L630 576 M716 380 L726 354"/>
+      </g>
+      <circle cx="673" cy="478" r="57" fill="#d9ad4c" stroke="#292b18" stroke-width="6"/>
+      <path d="M649 465 Q659 454 667 466 M679 466 Q688 454 698 465" class="fine" fill="none"/>
+      <path d="M673 471 L665 491 L680 491" class="fine" fill="none"/>
+      <path d="M650 507 Q673 522 696 507" class="fine" fill="none"/>
+    </g>
+    <g transform="rotate(23 786 520)">
+      <rect x="654" y="286" width="270" height="500" rx="34" class="ivory"/>
+      <rect x="670" y="302" width="238" height="468" rx="25" fill="none" stroke="#c69a42" stroke-width="8"/>
+      <path d="M789 390 L807 615 L772 684 L754 615 Z" class="blue"/>
+      <path d="M789 390 L789 620" class="goldline"/>
+      <path d="M724 466 Q789 442 854 466 L838 487 Q789 472 740 487 Z" class="gold"/>
+      <circle cx="789" cy="391" r="15" class="gold"/>
+    </g>
+  </g>
+
+  <!-- Front central court card -->
+  <g class="ink">
+    <rect x="358" y="158" width="308" height="650" rx="38" class="ivory"/>
+    <rect x="375" y="175" width="274" height="616" rx="27" fill="none" stroke="#c69a42" stroke-width="9"/>
+    <rect x="393" y="193" width="238" height="580" rx="14" fill="#ead8ad" stroke="#b78b36" stroke-width="3"/>
+
+    <!-- King's staff -->
+    <path d="M583 292 Q612 269 625 302 L608 657 Q603 687 582 681 L566 660 Z" class="green"/>
+    <path d="M593 309 Q603 290 612 309 L604 345 L589 345 Z" class="gold"/>
+    <path d="M582 370 Q604 386 616 367 L612 397 Q597 410 579 393 Z" class="gold"/>
+    <path d="M573 646 Q594 631 614 651 L621 678 Q594 700 566 679 Z" class="gold"/>
+    <path d="M592 330 L589 640" class="goldline"/>
+
+    <!-- Body and cloak -->
+    <path d="M405 770 Q413 649 438 559 Q463 496 521 473 Q576 466 610 514 Q632 565 633 770 Z" class="red"/>
+    <path d="M468 770 Q474 584 521 495 Q549 474 575 499 Q600 568 607 770 Z" class="green"/>
+    <path d="M436 562 Q470 527 516 511 L488 770 L405 770 Q411 641 436 562 Z" fill="#a94d35" stroke="#292b18" stroke-width="7"/>
+    <path d="M570 509 Q616 541 625 625 L633 770 L599 770 Q591 627 570 509 Z" fill="#9d4632" stroke="#292b18" stroke-width="7"/>
+    <path d="M520 516 L533 770 M571 515 L590 770" class="goldline"/>
+    <!-- tunic ornaments -->
+    <g fill="#d5a63e" stroke="#292b18" stroke-width="3">
+      <path d="M542 557 Q525 543 532 530 Q544 534 546 545 Q550 532 561 530 Q566 545 550 557 L546 573 Z"/>
+      <path d="M516 626 Q500 612 507 599 Q519 603 521 614 Q525 601 536 599 Q541 614 525 626 L521 642 Z"/>
+      <path d="M565 672 Q549 658 556 645 Q568 649 570 660 Q574 647 585 645 Q590 660 574 672 L570 688 Z"/>
+      <path d="M533 721 Q517 707 524 694 Q536 698 538 709 Q542 696 553 694 Q558 709 542 721 L538 737 Z"/>
+    </g>
+
+    <!-- Face and hair -->
+    <path d="M470 329 Q476 267 536 261 Q589 276 584 353 Q580 412 535 448 Q487 432 470 382 Z" fill="#d7b17a"/>
+    <path d="M469 337 Q462 285 509 258 Q557 238 583 284 Q558 271 540 286 Q521 307 513 345 Q502 391 480 412 Q462 384 469 337 Z" fill="#75472d"/>
+    <path d="M473 337 Q451 367 474 408 Q491 429 511 440 L530 458 Q482 446 456 413 Q442 378 458 347 Z" fill="#75472d"/>
+    <path d="M481 350 Q496 342 510 352 M479 369 Q493 376 506 368" class="fine" fill="none"/>
+    <path d="M471 372 L450 384 L472 391" fill="#d7b17a" stroke="#292b18" stroke-width="5"/>
+    <path d="M482 399 Q497 409 511 399" class="fine" fill="none"/>
+    <circle cx="485" cy="360" r="4" fill="#292b18"/>
+
+    <!-- Crown -->
+    <path d="M448 292 L435 245 L467 264 L486 224 L510 260 L536 221 L551 264 L584 245 L571 300 Z" class="gold"/>
+    <path d="M448 292 Q510 311 571 292 L579 313 Q510 334 440 313 Z" class="gold"/>
+    <path d="M449 303 Q510 322 571 303" class="fine" fill="none"/>
+    <g fill="#a94d35" stroke="#292b18" stroke-width="3">
+      <circle cx="465" cy="300" r="6"/><circle cx="510" cy="309" r="6"/><circle cx="554" cy="300" r="6"/>
+    </g>
+
+    <!-- Collar, medallion and belt -->
+    <path d="M461 475 Q509 503 568 474 L586 499 Q519 533 445 498 Z" class="gold"/>
+    <circle cx="522" cy="493" r="22" class="gold"/>
+    <circle cx="522" cy="493" r="11" fill="#ead8ad" stroke="#292b18" stroke-width="4"/>
+    <path d="M475 672 Q532 685 594 667 L598 691 Q531 710 472 696 Z" class="gold"/>
+    <path d="M478 680 L588 678" class="fine" fill="none"/>
+
+    <!-- Hand gripping staff -->
+    <path d="M574 520 Q594 506 610 520 L621 555 Q618 574 601 578 L579 565 Q566 548 574 520 Z" fill="#d7b17a"/>
+    <path d="M581 532 Q597 542 610 536 M580 548 Q597 559 615 550" class="fine" fill="none"/>
+  </g>
+
+  <!-- Restrained ornamental flourish -->
+  <g fill="none" stroke="#c99b3e" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M512 852 C475 815 438 816 407 839 C373 864 349 854 337 832 C330 865 354 890 391 887 C420 884 445 868 468 887 C484 900 495 921 512 941"/>
+    <path d="M512 852 C549 815 586 816 617 839 C651 864 675 854 687 832 C694 865 670 890 633 887 C604 884 579 868 556 887 C540 900 529 921 512 941"/>
+    <path d="M512 846 C493 823 493 797 512 775 C531 797 531 823 512 846 Z"/>
+    <path d="M512 941 C493 913 466 905 444 914 M512 941 C531 913 558 905 580 914"/>
+  </g>
+  <g fill="#c99b3e">
+    <path d="M512 784 C496 803 498 824 512 839 C526 824 528 803 512 784 Z"/>
+    <path d="M340 833 C319 828 303 840 305 859 C322 860 336 850 340 833 Z"/>
+    <path d="M684 833 C705 828 721 840 719 859 C702 860 688 850 684 833 Z"/>
+  </g>
+</svg>
