@@ -73,8 +73,10 @@ function roundTotals(rounds: RoundResult[], competitors: Competitor[]) {
   return calculateTotals(rounds, competitors.map((competitor) => competitor.id))
 }
 
-function competitorTone(index: number): string {
-  return 'competitor-tone-' + (index % 3 + 1)
+function competitorTone(index: number, mode: GameMode): string {
+  return mode === 'four-player-teams'
+    ? 'team-tone-' + (index + 1)
+    : 'competitor-tone-' + (index + 1)
 }
 
 function competitorDisplayName(competitor: Competitor, mode: GameMode): string {
@@ -393,7 +395,7 @@ function App() {
 
       <section className={'score-grid' + (game.competitors.length === 3 ? ' score-grid-three' : '')} aria-label="Current scores">
         {scoreRows.map(({ competitor, score }, index) => (
-          <article className={'score-card score-card-' + (index + 1) + ' ' + competitorTone(index)} key={competitor.id}>
+          <article className={'score-card score-card-' + (index + 1) + ' ' + competitorTone(index, game.mode)} key={competitor.id}>
             <div className="score-card-top"><span className="score-index">{game.mode === 'four-player-teams' ? 'TEAM ' + (index + 1) : 'PLAYER ' + (index + 1)}</span><span className="score-dot" /></div>
             <h2>{game.mode === 'four-player-teams' && competitor.members.length > 1
               ? competitor.members.map((member) => <span className="score-team-member" key={member}>{member}</span>)
@@ -420,10 +422,10 @@ function App() {
 
           <div className="round-category-list">
             <div className="winner-category-grid">
-              <WinnerSection title="Carte" competitors={displayCompetitors} value={cardsWinnerId} onChange={setCardsWinnerId} allowTie tieLabel="Tie" />
-              <WinnerSection title="Denari" competitors={displayCompetitors} value={denariWinnerId} onChange={setDenariWinnerId} allowTie tieLabel="Tie" />
-              <WinnerSection title="Settebello" competitors={displayCompetitors} value={settebelloWinnerId} onChange={setSettebelloWinnerId} />
-              <WinnerSection title="Primiera" competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId}
+              <WinnerSection title="Carte" mode={game.mode} competitors={displayCompetitors} value={cardsWinnerId} onChange={setCardsWinnerId} allowTie tieLabel="Tie" />
+              <WinnerSection title="Denari" mode={game.mode} competitors={displayCompetitors} value={denariWinnerId} onChange={setDenariWinnerId} allowTie tieLabel="Tie" />
+              <WinnerSection title="Settebello" mode={game.mode} competitors={displayCompetitors} value={settebelloWinnerId} onChange={setSettebelloWinnerId} />
+              <WinnerSection title="Primiera" mode={game.mode} competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId}
                 allowTie={!primieraOpen} tieLabel="Tie" hideCompetitors={primieraOpen}
                 headingAction={!primieraOpen ? (
                   <button className="text-button primiera-heading-compare" type="button" onClick={() => {
@@ -432,7 +434,7 @@ function App() {
                   }}>Compare</button>
                 ) : null}>
                 {primieraOpen && (
-                  <PrimieraModal competitors={displayCompetitors} cards={primieraCards} onChange={updatePrimieraCard}
+                  <PrimieraModal mode={game.mode} competitors={displayCompetitors} cards={primieraCards} onChange={updatePrimieraCard}
                     onApply={applyPrimieraComparison} />
                 )}
               </WinnerSection>
@@ -565,7 +567,8 @@ function ModeButton({ active, onClick, title, detail }: { active: boolean; onCli
   return <button className={active ? 'mode-button active' : 'mode-button'} type="button" onClick={onClick}><strong>{title}</strong><span>{detail}</span></button>
 }
 
-function PrimieraModal({ competitors, cards, onChange, onApply }: {
+function PrimieraModal({ mode, competitors, cards, onChange, onApply }: {
+  mode: GameMode
   competitors: Competitor[]
   cards: Record<string, PrimieraCards>
   onChange: (competitorId: string, suit: Suit, value: string) => void
@@ -615,7 +618,7 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
         {competitors.map((competitor, competitorIndex) => {
           const selectedCards = cards[competitor.id] ?? EMPTY_PRIMIERA
           return (
-            <article className={'primiera-competitor ' + competitorTone(competitorIndex)} key={competitor.id}>
+            <article className={'primiera-competitor ' + competitorTone(competitorIndex, mode)} key={competitor.id}>
               <h3>{competitor.name}</h3>
               <div className="primiera-card-grid">
                 {SUITS.map((suit) => {
@@ -665,8 +668,9 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
   )
 }
 
-function WinnerSection({ title, competitors, value, onChange, allowTie = false, tieLabel = 'Tie', children, hideCompetitors = false, headingAction }: {
+function WinnerSection({ title, mode, competitors, value, onChange, allowTie = false, tieLabel = 'Tie', children, hideCompetitors = false, headingAction }: {
   title: string
+  mode: GameMode
   competitors: Competitor[]
   value: string | null | undefined
   onChange: (value: string | null) => void
@@ -692,7 +696,7 @@ function WinnerSection({ title, competitors, value, onChange, allowTie = false, 
       {!hideCompetitors && <div className={value === null ? 'winner-options tie-selected' : 'winner-options'}>
         {competitors.map((competitor, index) => (
           <button key={competitor.id} type="button" aria-pressed={value === competitor.id}
-            className={'winner-option ' + competitorTone(index) + (value === competitor.id ? ' selected' : '')}
+            className={'winner-option ' + competitorTone(index, mode) + (value === competitor.id ? ' selected' : '')}
             onClick={() => onChange(competitor.id)}>{competitor.name}</button>
         ))}
       </div>}
