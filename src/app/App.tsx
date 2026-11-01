@@ -96,6 +96,7 @@ function App() {
   const [primieraCards, setPrimieraCards] = useState<Record<string, PrimieraCards>>({})
   const [primieraOpen, setPrimieraOpen] = useState(false)
   const [roundOpen, setRoundOpen] = useState(false)
+  const [scoringHelpOpen, setScoringHelpOpen] = useState(false)
   const [roundReviewOpen, setRoundReviewOpen] = useState(false)
   const [notice, setNotice] = useState('')
 
@@ -295,7 +296,6 @@ function App() {
             </div>
             <div className="panel-heading">
               <div><p className="eyebrow">NEW GAME</p><h2>Set up your table</h2></div>
-              <span className="round-mark">♠</span>
             </div>
             <fieldset className="mode-fieldset">
               <legend>Choose your game</legend>
@@ -416,7 +416,7 @@ function App() {
         <section className="panel round-panel">
           <div className="panel-heading round-heading">
             <div><h2>Round {game.rounds.length + 1}</h2></div>
-            <button className="icon-button" type="button" onClick={() => setRoundOpen(false)} aria-label="Close round entry">×</button>
+            <button className="icon-button round-help-trigger" type="button" onClick={() => setScoringHelpOpen(true)} aria-label="How to score points" title="How to score points"><span aria-hidden="true">i</span></button>
           </div>
 
           <div className="round-category-list">
@@ -482,6 +482,42 @@ function App() {
       )}
       {notice && !roundOpen && <p className="notice success-notice">{notice}</p>}
       <AppFooter onExport={exportGame} onNewGame={startNewGame} />
+
+      {scoringHelpOpen && (
+        <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setScoringHelpOpen(false) }}>
+          <section className="primiera-modal scoring-help-modal" role="dialog" aria-modal="true" aria-labelledby="scoring-help-title">
+            <div className="modal-heading">
+              <div><p className="eyebrow">SCORING GUIDE</p><h2 id="scoring-help-title">How to score points</h2><p>There are four card-based points in each round, plus one point for every Scopa.</p></div>
+              <button className="icon-button" type="button" onClick={() => setScoringHelpOpen(false)} aria-label="Close scoring guide">×</button>
+            </div>
+            <div className="scoring-help-list">
+              <article className="scoring-help-item">
+                <span className="scoring-help-number">01</span>
+                <div><h3>Carte · Most cards</h3><p>One point goes to the player or team that captured the most cards out of the 40-card deck. If tied, nobody gets the point.</p></div>
+              </article>
+              <article className="scoring-help-item">
+                <span className="scoring-help-number">02</span>
+                <div><h3>Denari · Most coins</h3><p>One point goes to the player or team that captured the most Denari cards. There are 10 coins in the deck. If tied, nobody gets the point.</p></div>
+              </article>
+              <article className="scoring-help-item">
+                <span className="scoring-help-number">03</span>
+                <div><h3>Settebello · Seven of coins</h3><p>One point goes to whoever captured the 7 of Denari. This point always has a single recipient.</p></div>
+              </article>
+              <article className="scoring-help-item">
+                <span className="scoring-help-number">04</span>
+                <div><h3>Primiera · Best card combination</h3><p>For each suit, count only the highest-value card captured. Add the four values. The highest total earns one point. A tie earns no point.</p>
+                  <p className="scoring-help-values"><strong>Primiera values:</strong> 7 = 21, 6 = 18, Ace = 16, 5 = 15, 4 = 14, 3 = 13, 2 = 12, Fante, Cavallo and Re = 10 each.</p>
+                </div>
+              </article>
+              <article className="scoring-help-item">
+                <span className="scoring-help-number">05</span>
+                <div><h3>Scopa · Clear the table</h3><p>Each time a play captures every card on the table, it is a Scopa and earns one point. The final capture of the round does not count as a Scopa.</p></div>
+              </article>
+            </div>
+            <div className="scoring-help-footer"><span>Ties in Carte, Denari or Primiera award no point.</span><button className="button button-primary" type="button" onClick={() => setScoringHelpOpen(false)}>Got it</button></div>
+          </section>
+        </div>
+      )}
 
       {roundReviewOpen && (
         <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setRoundReviewOpen(false) }}>
