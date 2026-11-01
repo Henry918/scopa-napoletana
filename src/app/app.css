@@ -1729,7 +1729,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   max-height: none !important;
   overflow: visible !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  transform: translateX(-50%) !important;
+  transform: translateX(calc(-50% + var(--picker-horizontal-shift, 0px))) !important;
 }
 .tie-selector,
 .tie-selector:hover,
