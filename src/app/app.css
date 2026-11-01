@@ -56,11 +56,13 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .name-field { display: flex; align-items: center; gap: 12px; margin: 9px 0; }
 .player-index { font-family: Georgia, serif; color: #b39b6c; font-size: 14px; width: 21px; }
 .name-field input, .team-setup-card input, .target-input-wrap input { width: 100%; min-width: 0; height: 42px; padding: 0 12px; border: 1px solid #e4e2d9; background: #fffefa; color: #263c31; border-radius: 5px; font-size: 13px; }
-.team-setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
-.team-setup-card { padding: 13px; border-radius: 7px; background: #edf2ed; display: flex; flex-direction: column; gap: 7px; }
-.team-setup-card.team-b { background: #f4eee2; }
+.team-setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 24px; }
+.team-setup-card { min-width: 0; padding: 0; border-radius: 0; background: transparent; display: flex; flex-direction: column; gap: 0; }
+.team-setup-card.team-b { background: transparent; }
 .field-label { color: #53645a; font-size: 10px; font-weight: 700; letter-spacing: .08em; }
-.team-setup-card input { height: 36px; margin-bottom: 5px; background: rgba(255,255,255,.8); }
+.team-setup-card input { height: 42px; margin-bottom: 0; background: #fffefa; }
+.team-setup-title { margin: 0 0 10px; color: #586a60; font-family: inherit; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.team-player-name-field { gap: 8px; }
 .target-row { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 8px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .field-hint { color: #879188; font-size: 11px; line-height: 1.5; margin: 5px 0 0; }
 .target-input-wrap { display: flex; align-items: center; gap: 8px; }
@@ -74,8 +76,6 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .button-full { width: 100%; margin-top: 22px; }
 .button-quiet { background: transparent; border-color: #dcded4; color: #53645a; }
 .button-quiet:hover { background: #f0f1e9; }
-.privacy-note { text-align: center; color: #929b91; font-size: 10px; margin: 15px 0 0; }
-.privacy-note span { color: #6b9b75; font-size: 8px; margin-right: 6px; }
 .notice { font-size: 12px; color: #6b765f; margin: 12px 0 0; }
 .error-notice { color: var(--red); }
 .success-notice { background: #e9f0e9; border-radius: 7px; padding: 12px 15px; }
@@ -1013,9 +1013,9 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 
 
-/* Let the setup player area use only the height its fields need */
+/* Keep the player area stable at the height required by the three-player mode */
 .setup-player-stage {
-  min-height: 0;
+  min-height: 200px;
 }
 .setup-player-stage > .players-setup,
 .setup-player-stage > .team-setup-grid {
