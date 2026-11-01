@@ -38,7 +38,7 @@ describe('round validation', () => {
   it('rejects duplicate Settebello ownership', () => {
     const entries = makeValidRound()
     entries[1].settebello = true
-    expect(validateRound(entries).some((issue) => issue.includes('only belong to one'))).toBe(true)
+    expect(validateRound(entries).some((issue) => issue.includes('exactly one'))).toBe(true)
   })
 })
 
