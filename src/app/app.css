@@ -1019,9 +1019,9 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 
 
-/* Stable setup panel height across all game modes */
+/* Let the setup player area use only the height its fields need */
 .setup-player-stage {
-  min-height: 220px;
+  min-height: 0;
 }
 .setup-player-stage > .players-setup,
 .setup-player-stage > .team-setup-grid {
