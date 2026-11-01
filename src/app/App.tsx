@@ -531,6 +531,8 @@ function PrimieraModal({ competitors, cards, onChange, onClose, onApply }: {
   const highScore = Math.max(...scores)
   const leaders = competitors.filter((competitor) => scoreById[competitor.id] === highScore)
   const hasTied = leaders.length > 1
+  const [activeSlot, setActiveSlot] = useState<{ competitorId: string; suit: Suit } | null>(null)
+  const primieraOrder = [7, 1, 6, 5, 4, 3, 2, 8, 9, 10]
 
   return (
     <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose() }}>
@@ -542,17 +544,34 @@ function PrimieraModal({ competitors, cards, onChange, onClose, onApply }: {
             return (
               <article className={'primiera-competitor ' + competitorTone(competitors.indexOf(competitor))} key={competitor.id}>
                 <h3>{competitor.name}</h3>
-                <div className="suit-select-list">
+                <div className="primiera-card-grid">
                   {SUITS.map((suit) => {
                     const rank = selectedCards[suit.id]
+                    const isActive = activeSlot?.competitorId === competitor.id && activeSlot.suit === suit.id
                     return (
-                      <div className="suit-select-row" key={suit.id}>
-                        <span>{suit.label}</span>
-                        <select aria-label={competitor.name + ' highest ' + suit.label} value={rank ?? ''} onChange={(event) => onChange(competitor.id, suit.id, event.target.value)}>
-                          <option value="">Not held</option>
-                          {Array.from({ length: 10 }, (_, index) => index + 1).map((value) => <option value={value} key={value}>{RANK_LABELS[value]}</option>)}
-                        </select>
-                        {rank !== null && rank !== undefined ? <img className="primiera-card-thumb" src={BASE + 'cards/' + suit.id + '/' + rank + '.jpg'} alt={suit.label + ' ' + RANK_LABELS[rank]} /> : <span className="card-placeholder" />}
+                      <div className="primiera-card-slot" key={suit.id}>
+                        <span className="primiera-suit-label">{suit.label}</span>
+                        <button type="button" className={'primiera-card-choice' + (rank === null ? ' unselected' : ' chosen')}
+                          aria-label={competitor.name + ' ' + suit.label + ', ' + (rank === null ? 'not selected' : RANK_LABELS[rank])}
+                          aria-expanded={isActive}
+                          onClick={() => setActiveSlot(isActive ? null : { competitorId: competitor.id, suit: suit.id })}
+                          onDoubleClick={() => { onChange(competitor.id, suit.id, '7'); setActiveSlot(null) }}>
+                          <img src={BASE + 'cards/' + suit.id + '/' + (rank ?? 7) + '.jpg'} alt={rank === null ? 'Unselected 7 of ' + suit.label : RANK_LABELS[rank] + ' of ' + suit.label} />
+                          <span>{rank === null ? '0 pts' : getPrimieraCardValue(rank) + ' pts'}</span>
+                        </button>
+                        {isActive && (
+                          <div className="primiera-card-picker" aria-label={'Choose ' + suit.label + ' card'}>
+                            {primieraOrder.map((optionRank) => (
+                              <button type="button" key={optionRank} className={rank === optionRank ? 'active' : ''}
+                                onClick={() => { onChange(competitor.id, suit.id, String(optionRank)); setActiveSlot(null) }}>
+                                <img src={BASE + 'cards/' + suit.id + '/' + optionRank + '.jpg'} alt="" />
+                                <span>{RANK_LABELS[optionRank]}</span>
+                                <strong>{getPrimieraCardValue(optionRank)}</strong>
+                              </button>
+                            ))}
+                            <button type="button" className="primiera-card-none" onClick={() => { onChange(competitor.id, suit.id, ''); setActiveSlot(null) }}>No card, 0 points</button>
+                          </div>
+                        )}
                       </div>
                     )
                   })}
@@ -566,7 +585,6 @@ function PrimieraModal({ competitors, cards, onChange, onClose, onApply }: {
           {hasTied ? 'Current comparison is tied. No Primiera point will be awarded.' : 'Current leader: ' + leaders[0].name + ' (' + highScore + ' points).'}
         </div>
         <div className="modal-actions"><button className="button button-quiet" type="button" onClick={onClose}>Cancel</button><button className="button button-primary" type="button" onClick={onApply}>Use comparison</button></div>
-        <p className="modal-footnote">Values: 7 = 21 · 6 = 18 · Ace = 16 · 5 = 15 · 4 = 14 · 3 = 13 · 2 = 12 · face cards = 10.</p>
       </section>
     </div>
   )
@@ -597,7 +615,7 @@ function WinnerSection({ title, competitors, value, onChange, allowTie = false, 
       <div className="winner-options">
         {competitors.map((competitor, index) => (
           <button key={competitor.id} type="button" aria-pressed={value === competitor.id}
-            className={'winner-option ' + competitorTone(index) + (value === competitor.id ? ' selected' : '')}
+            className={'winner-option ' + competitorTone(index) + (value === competitor.id ? ' selected' : '') + (value === null ? ' tie-neutral' : '')}
             onClick={() => onChange(competitor.id)}>{competitor.name}</button>
         ))}
       </div>
