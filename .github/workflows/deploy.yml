@@ -1,7 +1,9 @@
 name: Deploy Scopa Napoletana to GitHub Pages
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - planning/product-and-technical-concept
   workflow_dispatch:
 permissions:
   contents: read

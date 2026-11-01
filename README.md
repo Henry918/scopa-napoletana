@@ -1,37 +1,45 @@
-# Scopa Napoletana
+# Scopa Napoletana Scorekeeper
 
-Mobile-first Scorekeeper for physical Scopa Napoletana games. This is a scorekeeper, not a digital card game. The app UI is fully in English, while established Italian Scopa terms remain unchanged.
+A mobile-first scorekeeper for physical Scopa Napoletana games. The application records results from a real card game. It does not deal virtual cards or simulate turns, hands, tricks, or a digital table.
 
-## Projektstatus
+## First implementation
 
-Das Repository enthält die Karten-Assets und die Projektgrundstruktur. Der eigentliche Anwendungscode wird auf Basis der Konzept- und Architekturunterlagen aufgebaut.
+The application uses React, TypeScript and Vite. The full user interface is in English, while established Scopa terms such as Carte, Denari, Settebello, Primiera and Scopa remain Italian.
 
-## Confirmed product scope
+### Supported game modes
 
-- 2 Einzelspieler gegeneinander
-- 3 Einzelspieler gegeneinander
-- 4 Spieler in 2 Teams
-- Sieg bei 11 Punkten als Standard, frei einstellbares Ziel
-- Rundenauswertung für Carte, Denari, Settebello, Primiera und Scopa
-- One-page round entry for all players or teams
-- Direct Primiera winner selection with an optional detailed tiebreak popup
-- Fully English UI with established Italian Scopa terms
-- Smartphone-optimierte PWA mit lokal gespeicherten Partien
+- Two individual players
+- Three individual players
+- Four players in two teams
+- Target score of 11 by default, with a custom target
 
-## Projektdokumentation
+### Round scoring
 
-- [Produktkonzept](docs/PRODUCT-CONCEPT.md)
-- [Technische Architektur](docs/TECHNICAL-ARCHITECTURE.md)
-- [Test- und Veröffentlichungsplan](docs/TEST-AND-RELEASE-PLAN.md)
-- [Karten- und Bilddateien](docs/CARD-ASSETS.md)
-- [Produktentscheidungen und offene Regelpunkte](docs/DECISIONS.md)
+- Carte
+- Denari
+- Settebello
+- Primiera, with direct winner selection and an optional card comparison popup
+- Scopa
 
-## Karten-Assets
+All competitors are entered together on one round-entry screen. The app validates the 40-card and 10-Denari totals, calculates points and keeps the round history. Game data is stored locally in the browser.
 
-Die vier Farben liegen in public/cards/. Jede Farbe enthält die Bilddateien 1.jpg bis 10.jpg. public/cards/background/background.jpg ist nur archiviert und wird in Version 1.0 nicht verwendet.
+## Development
 
-## Geplante technische Basis
+Requires Node.js 26. Commands:
 
-React, TypeScript, Vite, vite-plugin-pwa, Vitest und GitHub Pages über GitHub Actions.
+- npm install
+- npm run dev
+- npm test
+- npm run build
 
-Weitere Details stehen in den oben verlinkten Dokumenten.
+## Project documentation
+
+- [Product concept](docs/PRODUCT-CONCEPT.md)
+- [Technical architecture](docs/TECHNICAL-ARCHITECTURE.md)
+- [Test and release plan](docs/TEST-AND-RELEASE-PLAN.md)
+- [Card assets](docs/CARD-ASSETS.md)
+- [Product decisions](docs/DECISIONS.md)
+
+## Card assets
+
+The four suits are stored in public/cards, with ranks 1.jpg to 10.jpg for each suit. Card illustrations are used only in the optional Primiera comparison. The background image is retained as an asset and is not used in the interface.
