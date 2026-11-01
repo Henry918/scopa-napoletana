@@ -1930,3 +1930,16 @@ button:disabled { opacity: .45; cursor: not-allowed; }
     margin-top: 13px;
   }
 }
+
+
+/* Tighten the Primiera compare layout and match the other player controls */
+.primiera-inline { padding-top: 2px; }
+.primiera-inline .primiera-competitor {
+  background: #f7f6f0;
+}
+.primiera-inline .primiera-card-grid {
+  gap: 7px;
+}
+@media (max-width: 480px) {
+  .primiera-inline .primiera-card-grid { gap: 7px; }
+}
