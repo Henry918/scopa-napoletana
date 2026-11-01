@@ -14,6 +14,11 @@ Dieses Dokument trennt ausdrücklich bestätigte Anforderungen von Vorschlägen,
 | Plattform | Mobile-first Web-App |
 | Kartenassets | Vorhandene Kartenbilder aus public/cards/ verwenden |
 | Hauptzweck | Scorekeeper für physisch gespielte Partien, kein digitales Kartenspiel |
+| UI-Sprache | Vollständig Englisch in Version 1.0 |
+| Italienische Begriffe | Etablierte Scopa-Begriffe bleiben italienisch, z. B. Carte, Denari, Settebello, Primiera und Scopa |
+| Handwertung | Alle Spieler/Teams gemeinsam auf einer einzigen Eingabeseite |
+| Primiera-Standard | Gewinner direkt auswählen, ohne Karten einzeln einzugeben |
+| Primiera-Stechen | Kleiner sekundärer Button öffnet optionales Punktevergleichs-Popup |
 
 ## 2. Technische Empfehlungen
 
@@ -38,7 +43,7 @@ Das Produktkonzept plant zunächst die bekannten fünf Kategorien:
 
 Bei Gleichstand in Carte, Denari oder Primiera wird im vorgeschlagenen Standard kein Punkt vergeben. Scope werden direkt gezählt.
 
-Die Primiera-Werte sind im Produktkonzept festgehalten. Der Besitz der höchsten Karte jeder Farbe wird für jede Wertungseinheit erfasst und automatisch berechnet.
+Primiera wird im normalen Ablauf nicht über einzelne Karten erfasst. Die bedienende Person wählt den Gewinner direkt aus. Nur wenn das Ergebnis unklar ist oder ein Stechen nötig wird, öffnet der kleine Button „Compare Primiera“ ein Popup. Dort werden die höchsten Karten je Farbe pro Wertungseinheit ausgewählt und die Primiera-Summen automatisch berechnet.
 
 ## 4. Vor Fertigstellung der Punkteberechnung zu prüfen
 
@@ -56,7 +61,7 @@ Vorgesehen ist die Erfassung der Gesamtwerte pro Spieler oder Team:
 - Karten insgesamt.
 - Denari insgesamt.
 - Settebello-Besitz.
-- höchste Karte jeder Farbe für die Primiera.
+- Primiera-Gewinner direkt auswählen. Optionaler Detailvergleich im Popup, falls ein Stechen nötig ist.
 - Anzahl der Scope.
 
 Die Anwendung kontrolliert die Summen über alle Wertungseinheiten. Pro Hand müssen 40 Karten und 10 Denari zugeordnet sein. Diese Eingabemethode wird verwendet, solange keine vollständige digitale Erfassung einzelner Stiche oder Karten gewünscht ist.
@@ -71,9 +76,10 @@ Version 1.0 speichert Partien ausschließlich lokal im Browser des verwendeten G
 2. Kartendaten, Typen und reine Scoring-Funktionen implementieren.
 3. Unit-Tests für jede Kategorie und für Gleichstände schreiben.
 4. Einrichtung der drei Spielmodi und Spieler-/Teamzuordnung umsetzen.
-5. Handwertung, Vorschau, Gesamtstand und Verlauf implementieren.
-6. lokale Speicherung, Bearbeiten und Rückgängig ergänzen.
-7. Mobile-first Layout und PWA-/Offline-Funktion ergänzen.
-8. Testen und Deployment über GitHub Pages konfigurieren.
+5. Gemeinsame Ein-Seiten-Handwertung für alle Spieler/Teams implementieren, inklusive direkter Primiera-Gewinnerauswahl und optionalem Primiera-Vergleichs-Popup.
+6. Vorschau, Gesamtstand und Verlauf implementieren.
+7. lokale Speicherung, Bearbeiten und Rückgängig ergänzen.
+8. Englische Mobile-first-Oberfläche und PWA-/Offline-Funktion ergänzen.
+9. Testen und Deployment über GitHub Pages konfigurieren.
 
 Die offenen Regelpunkte aus Abschnitt 4 werden vor dem endgültigen Festlegen des Scoring-Verhaltens abgeglichen.
