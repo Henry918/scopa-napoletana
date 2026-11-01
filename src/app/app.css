@@ -1017,3 +1017,120 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   width: 30px;
   height: 30px;
 }
+
+
+/* Stable setup panel height across all game modes */
+.setup-player-stage {
+  min-height: 220px;
+}
+.setup-player-stage > .players-setup,
+.setup-player-stage > .team-setup-grid {
+  margin-bottom: 0;
+}
+
+/* Previous games have a separate open action and a visible options menu */
+.saved-game-card {
+  position: relative;
+  padding: 12px 13px 12px 15px;
+}
+.saved-game-open {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+.saved-game-open:hover {
+  background: transparent;
+}
+.saved-game-menu {
+  position: relative;
+  flex: none;
+  align-self: center;
+}
+.saved-game-menu > summary {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  list-style: none;
+  color: #8c958b;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+}
+.saved-game-menu > summary::-webkit-details-marker {
+  display: none;
+}
+.saved-game-menu > summary:hover,
+.saved-game-menu[open] > summary {
+  background: #efeee7;
+  color: #43594b;
+}
+.saved-game-menu-content {
+  position: absolute;
+  z-index: 9;
+  top: calc(100% + 3px);
+  right: 0;
+  min-width: 142px;
+  padding: 5px;
+  border: 1px solid #e4e0d5;
+  border-radius: 7px;
+  background: #fffdf8;
+  box-shadow: 0 8px 24px rgba(24, 40, 30, .14);
+}
+.saved-game-menu-content button {
+  width: 100%;
+  min-height: 38px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #944d42;
+  font-size: 11px;
+  font-weight: 650;
+  text-align: left;
+}
+.saved-game-menu-content button:hover {
+  background: #f7ece7;
+}
+
+/* Scopa grows with its controls, while each control matches the category buttons */
+.round-category.scopa-category {
+  height: auto;
+  min-height: 0;
+}
+.scopa-option {
+  min-height: 42px;
+}
+.scopa-option:not(.has-scope) {
+  border-color: #deded5;
+  background: #f7f6f0;
+  color: #667269;
+}
+.scopa-option.has-scope.competitor-tone-1 {
+  border-color: var(--tone-border);
+  background: var(--tone-soft);
+  color: var(--tone-ink);
+}
+.scopa-option.has-scope.competitor-tone-2 {
+  border-color: var(--tone-border);
+  background: var(--tone-soft);
+  color: var(--tone-ink);
+}
+.scopa-option.has-scope.competitor-tone-3 {
+  border-color: var(--tone-border);
+  background: var(--tone-soft);
+  color: var(--tone-ink);
+}
+.app-footer {
+  justify-content: flex-end;
+}

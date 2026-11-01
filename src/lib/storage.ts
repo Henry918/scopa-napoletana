@@ -93,3 +93,15 @@ export function saveGame(game: GameSession | null): void {
     // Keep the in-memory game usable if browser storage is unavailable.
   }
 }
+
+
+export function deleteSavedGame(gameId: string): void {
+  try {
+    const active = loadGame()
+    const remaining = loadGames().filter((game) => game.id !== gameId)
+    window.localStorage.setItem(GAMES_KEY, JSON.stringify(remaining))
+    if (active?.id === gameId) window.localStorage.removeItem(STORAGE_KEY)
+  } catch {
+    // Keep the current view usable if browser storage is unavailable.
+  }
+}

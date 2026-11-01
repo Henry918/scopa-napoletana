@@ -5,7 +5,7 @@ import {
   calculatePrimiera, calculateRoundPoints, calculateTotals, getGameWinner,
   validateRound, type ConfirmedRoundWinners, type PrimieraCards, type RoundWinnerSelections
 } from '../features/scoring/scoring'
-import { loadGame, loadGames, saveGame } from '../lib/storage'
+import { deleteSavedGame, loadGame, loadGames, saveGame } from '../lib/storage'
 
 type SetupDraft = {
   gameName: string
@@ -230,6 +230,14 @@ function App() {
     setNotice('Round deleted. Scores updated.')
   }
 
+  function deleteArchivedGame(gameId: string) {
+    const savedGame = savedGames.find((item) => item.id === gameId)
+    if (!savedGame) return
+    if (!window.confirm('Delete "' + savedGame.name + '" permanently from this device?')) return
+    deleteSavedGame(gameId)
+    setSavedGames(loadGames())
+  }
+
   function goHome() {
     if (game) saveGame(game)
     setGame(null)
@@ -297,6 +305,7 @@ function App() {
               </div>
             </fieldset>
 
+            <div className="setup-player-stage">
             {draft.mode === 'four-player-teams' ? (
               <div className="team-setup-grid">
                 {[0, 1].map((teamIndex) => (
@@ -322,6 +331,7 @@ function App() {
                 ))}
               </div>
             )}
+            </div>
 
             <div className="target-row">
               <div><label className="field-label" htmlFor="target-score">Play to</label><p className="field-hint">Default target is 11 points</p></div>
@@ -343,16 +353,23 @@ function App() {
                 const savedTotals = roundTotals(savedGame.rounds, savedGame.competitors)
                 const result = savedGame.competitors.map((competitor) => competitorDisplayName(competitor, savedGame.mode) + ' ' + (savedTotals[competitor.id] ?? 0)).join(' · ')
                 return (
-                  <button className="saved-game-card" type="button" key={savedGame.id} onClick={() => openSavedGame(savedGame)}>
-                    <span className="saved-game-main"><strong>{savedGame.name}</strong><small>{formatGameDate(savedGame.date)} · {savedGame.rounds.length} {savedGame.rounds.length === 1 ? 'round' : 'rounds'}</small><small className="saved-game-result">{result}</small></span>
-                    <span className="saved-game-arrow" aria-hidden="true">→</span>
-                  </button>
+                  <article className="saved-game-card" key={savedGame.id}>
+                    <button className="saved-game-open" type="button" onClick={() => openSavedGame(savedGame)}>
+                      <span className="saved-game-main"><strong>{savedGame.name}</strong><small>{formatGameDate(savedGame.date)} · {savedGame.rounds.length} {savedGame.rounds.length === 1 ? 'round' : 'rounds'}</small><small className="saved-game-result">{result}</small></span>
+                      <span className="saved-game-arrow" aria-hidden="true">→</span>
+                    </button>
+                    <details className="saved-game-menu">
+                      <summary aria-label={'Options for ' + savedGame.name} title="Game options">⋯</summary>
+                      <div className="saved-game-menu-content">
+                        <button type="button" onClick={() => deleteArchivedGame(savedGame.id)}>Delete game</button>
+                      </div>
+                    </details>
+                  </article>
                 )
               })}
             </div>
           </section>
         )}
-        <AppFooter />
       </main>
     )
   }
@@ -366,7 +383,6 @@ function App() {
       <section className="game-topline">
         <div className="game-heading">
           <h1>{game.name}</h1>
-          <p className="game-date">{formatGameDate(game.date)}</p>
         </div>
       </section>
 
@@ -418,7 +434,7 @@ function App() {
                 {game.competitors.map((competitor) => {
                   const count = entries.find((entry) => entry.competitorId === competitor.id)?.scope ?? 0
                   return (
-                    <div className={'scopa-option ' + competitorTone(game.competitors.indexOf(competitor))} key={competitor.id}>
+                    <div className={'scopa-option' + (count > 0 ? ' has-scope ' + competitorTone(game.competitors.indexOf(competitor)) : '')} key={competitor.id}>
                       <span>{competitorDisplayName(competitor, game.mode)}</span>
                       <div className="stepper">
                         <button type="button" aria-label={"Remove Scopa for " + competitor.name} onClick={() => updateScope(competitor.id, Math.max(0, count - 1))}>−</button>
@@ -592,7 +608,6 @@ function WinnerSection({ title, competitors, value, onChange, allowTie = false, 
 function AppFooter({ onExport, onNewGame }: { onExport?: () => void; onNewGame?: () => void } = {}) {
   return (
     <footer className="app-footer">
-      <span>SCOPA NAPOLETANA</span>
       {onExport && onNewGame && (
         <div className="footer-actions">
           <button type="button" onClick={onExport}>Export game</button>
