@@ -2231,3 +2231,23 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   .game-name-trigger strong { font-size: 15px; }
   .rename-game-modal { padding: 20px 16px; }
 }
+
+
+/* A player with at least one Scopa gets their solid player colour. */
+.scopa-option.has-scope.competitor-tone-1,
+.scopa-option.has-scope.competitor-tone-2,
+.scopa-option.has-scope.competitor-tone-3,
+.scopa-option.has-scope.team-tone-1,
+.scopa-option.has-scope.team-tone-2 {
+  border-color: var(--tone-strong);
+  background: var(--tone-strong);
+  color: #fffdf7;
+}
+.scopa-option.has-scope .stepper button,
+.scopa-option.has-scope .stepper output {
+  color: #fffdf7;
+}
+.scopa-option.has-scope .stepper button {
+  border-color: rgba(255,255,255,.42);
+  background: rgba(255,255,255,.12);
+}
