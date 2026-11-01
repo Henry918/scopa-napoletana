@@ -1,6 +1,6 @@
 # Scopa Napoletana
 
-Mobile-first Scorekeeper für physische Partien Scopa Napoletana.
+Mobile-first Scorekeeper für physische Partien Scopa Napoletana. Die App ist kein digitales Kartenspiel.
 
 ## Projektstatus
 
