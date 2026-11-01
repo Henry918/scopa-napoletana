@@ -50,7 +50,7 @@ export function validateRound(
   }
 
   const requiredChoices: Array<[string, string | null | undefined]> = [
-    ['Cards Taken', selections.cardsWinnerId],
+    ['Carte', selections.cardsWinnerId],
     ['Denari', selections.denariWinnerId],
     ['Primiera', selections.primieraWinnerId]
   ]
