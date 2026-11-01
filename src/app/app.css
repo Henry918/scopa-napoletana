@@ -1687,6 +1687,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   display: none;
 }
 .primiera-inline .primiera-competitor-grid {
+  margin-top: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 10px;
