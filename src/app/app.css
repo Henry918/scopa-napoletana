@@ -1911,3 +1911,22 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   .primiera-inline .primiera-competitor { padding: 12px; }
   .primiera-inline .primiera-card-grid { gap: 2px; }
 }
+
+
+/* Match the start page's breathing room below the shared header */
+.game-shell > .winner-banner,
+.game-shell > .score-grid {
+  margin-top: 74px;
+}
+.game-shell > .winner-banner + .score-grid {
+  margin-top: 13px;
+}
+@media (max-width: 760px) {
+  .game-shell > .winner-banner,
+  .game-shell > .score-grid {
+    margin-top: 8px;
+  }
+  .game-shell > .winner-banner + .score-grid {
+    margin-top: 13px;
+  }
+}
