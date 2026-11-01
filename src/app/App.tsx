@@ -480,7 +480,7 @@ function App() {
         </section>
       )}
       {notice && !roundOpen && <p className="notice success-notice">{notice}</p>}
-      <AppFooter onExport={exportGame} onNewGame={startNewGame} />
+      {game.rounds.length > 0 && <AppFooter onExport={exportGame} onNewGame={startNewGame} />}
 
       {scoringHelpOpen && (
         <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setScoringHelpOpen(false) }}>
