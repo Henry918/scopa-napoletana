@@ -1,18 +1,21 @@
 # Scopa Napoletana
 
-Mobile-first Scorekeeper für physische Partien Scopa Napoletana. Die App ist kein digitales Kartenspiel.
+Mobile-first Scorekeeper for physical Scopa Napoletana games. This is a scorekeeper, not a digital card game. The app UI is fully in English, while established Italian Scopa terms remain unchanged.
 
 ## Projektstatus
 
 Das Repository enthält die Karten-Assets und die Projektgrundstruktur. Der eigentliche Anwendungscode wird auf Basis der Konzept- und Architekturunterlagen aufgebaut.
 
-## Festgelegter Spielumfang
+## Confirmed product scope
 
 - 2 Einzelspieler gegeneinander
 - 3 Einzelspieler gegeneinander
 - 4 Spieler in 2 Teams
 - Sieg bei 11 Punkten als Standard, frei einstellbares Ziel
 - Rundenauswertung für Carte, Denari, Settebello, Primiera und Scopa
+- One-page round entry for all players or teams
+- Direct Primiera winner selection with an optional detailed tiebreak popup
+- Fully English UI with established Italian Scopa terms
 - Smartphone-optimierte PWA mit lokal gespeicherten Partien
 
 ## Projektdokumentation
