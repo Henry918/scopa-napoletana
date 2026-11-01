@@ -25,7 +25,7 @@ Das Repository enthält die Karten-Assets und die Projektgrundstruktur. Der eige
 
 ## Karten-Assets
 
-Die vier Farben liegen in public/cards/. Jede Farbe enthält die Bilddateien 1.jpg bis 10.jpg. Der Hintergrund liegt in public/cards/background/background.jpg.
+Die vier Farben liegen in public/cards/. Jede Farbe enthält die Bilddateien 1.jpg bis 10.jpg. public/cards/background/background.jpg ist nur archiviert und wird in Version 1.0 nicht verwendet.
 
 ## Geplante technische Basis
 
