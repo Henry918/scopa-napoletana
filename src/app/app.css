@@ -856,6 +856,9 @@ button:disabled { opacity: .45; cursor: not-allowed; }
     font-size: 7px;
     overflow-wrap: anywhere;
   }
+  .score-grid-three .score-card::after {
+    top: 27px;
+  }
   .saved-games-section { margin-top: 18px; }
   .saved-game-card { padding: 11px 12px; }
   .saved-game-main strong { font-size: 15px; }
