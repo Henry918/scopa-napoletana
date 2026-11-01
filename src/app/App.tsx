@@ -296,7 +296,7 @@ function App() {
           <div className="intro-copy">
             <p className="eyebrow">THE TABLESIDE SCOREKEEPER</p>
             <h1>Keep your game<br /><em>in good hands.</em></h1>
-            <p className="intro-description">A calm, simple way to track a real game of Scopa Napoletana. Keep playing with your physical cards. We’ll take care of the score.</p>
+            <p className="intro-description">A calm, simple way to track a real game of Scopa Napoletane. Keep playing with your physical cards. We’ll take care of the score.</p>
             <div className="feature-line"><span className="feature-dot" /> Works offline after the first visit</div>
             <div className="feature-line"><span className="feature-dot" /> Your scores stay on this device</div>
           </div>
@@ -593,7 +593,7 @@ function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename }: { gameM
   return (
     <header className="brand-header">
       <button className="brand-home" type="button" onClick={onHome} disabled={!onHome} aria-label="Back to home">
-        <span className="brand-lockup"><span className="brand-symbol">S</span><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANA</span></span></span>
+        <span className="brand-lockup"><span className="brand-symbol">S</span><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
       </button>
       <div className="header-right">
         <span className="offline-indicator"><i /> LOCAL SCOREKEEPER</span>
