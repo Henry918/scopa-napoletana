@@ -202,10 +202,7 @@ function App() {
 
   function reviewRound() {
     if (!game) return
-    if (issues.length > 0) {
-      setNotice('Please select a result for every category before reviewing.')
-      return
-    }
+    if (issues.length > 0) return
     setRoundReviewOpen(true)
   }
 
@@ -470,7 +467,6 @@ function App() {
             </section>
           </div>
 
-          {issues.length > 0 && <div className="validation-box" role="status"><ul>{issues.map((issue) => <li key={issue}>{issue}</li>)}</ul></div>}
           {notice && <p className="notice">{notice}</p>}
           <div className="round-actions">
             <button className="button button-quiet" type="button" onClick={() => setRoundOpen(false)}>Cancel</button>
