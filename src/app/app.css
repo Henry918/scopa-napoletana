@@ -2178,6 +2178,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 /* Rename the active game from its title in the header. */
 .game-name-trigger {
   display: inline-flex;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: flex-end;
   gap: 7px;
