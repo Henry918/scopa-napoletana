@@ -2012,3 +2012,88 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   .scoring-help-footer { align-items: stretch; flex-direction: column; }
   .scoring-help-footer .button { width: 100%; }
 }
+
+/* Final player and team palettes. Team colours are independent of player colours. */
+.competitor-tone-1 {
+  --tone-soft: #f4e8ec;
+  --tone-border: #d8b5c0;
+  --tone-ink: #7d1935;
+  --tone-strong: #7d1935;
+  --tone-card: #7d1935;
+}
+.competitor-tone-2 {
+  --tone-soft: #e8f0f0;
+  --tone-border: #b8ced0;
+  --tone-ink: #315b65;
+  --tone-strong: #315b65;
+  --tone-card: #315b65;
+}
+.competitor-tone-3 {
+  --tone-soft: #f4efe3;
+  --tone-border: #dfcea7;
+  --tone-ink: #876526;
+  --tone-strong: #9b762f;
+  --tone-card: #8f6b2b;
+}
+.team-tone-1 {
+  --tone-soft: #f0e9ef;
+  --tone-border: #d2bdcc;
+  --tone-ink: #75415f;
+  --tone-strong: #75415f;
+  --tone-card: #75415f;
+}
+.team-tone-2 {
+  --tone-soft: #eef0e6;
+  --tone-border: #c9cfb2;
+  --tone-ink: #657044;
+  --tone-strong: #657044;
+  --tone-card: #657044;
+}
+
+.score-card.competitor-tone-1,
+.score-card.competitor-tone-2,
+.score-card.competitor-tone-3,
+.score-card.team-tone-1,
+.score-card.team-tone-2 {
+  background: var(--tone-card);
+}
+.winner-option.competitor-tone-1,
+.winner-option.competitor-tone-2,
+.winner-option.competitor-tone-3,
+.winner-option.team-tone-1,
+.winner-option.team-tone-2 {
+  border-color: var(--tone-border);
+  background: var(--tone-soft);
+  color: var(--tone-ink);
+}
+.winner-option.competitor-tone-1.selected,
+.winner-option.competitor-tone-2.selected,
+.winner-option.competitor-tone-3.selected,
+.winner-option.team-tone-1.selected,
+.winner-option.team-tone-2.selected {
+  border-color: var(--tone-strong);
+  background: var(--tone-strong);
+  color: #fffdf7;
+}
+.primiera-competitor.competitor-tone-1,
+.primiera-competitor.competitor-tone-2,
+.primiera-competitor.competitor-tone-3,
+.primiera-competitor.team-tone-1,
+.primiera-competitor.team-tone-2 {
+  border-color: var(--tone-border);
+  background: var(--tone-soft);
+}
+.primiera-competitor.competitor-tone-1 h3,
+.primiera-competitor.competitor-tone-2 h3,
+.primiera-competitor.competitor-tone-3 h3,
+.primiera-competitor.team-tone-1 h3,
+.primiera-competitor.team-tone-2 h3 {
+  color: var(--tone-ink);
+}
+.winner-options.tie-selected .winner-option.team-tone-1,
+.winner-options.tie-selected .winner-option.team-tone-2 {
+  border-color: #454b46;
+  background: #454b46;
+  color: #fffdf7;
+}
+
