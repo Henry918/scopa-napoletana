@@ -81,7 +81,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .notice { font-size: 12px; color: #6b765f; margin: 12px 0 0; }
 .error-notice { color: var(--red); }
 .success-notice { background: #e9f0e9; border-radius: 7px; padding: 12px 15px; }
-.app-footer { display: flex; justify-content: space-between; gap: 15px; color: #9aa198; font-size: 9px; letter-spacing: .1em; padding: 17px 0 0; border-top: 1px solid rgba(32,52,44,.1); }
+.app-footer { display: flex; justify-content: space-between; gap: 15px; color: #9aa198; font-size: 9px; letter-spacing: .1em; padding: 17px 0 0; }
 .app-footer span:last-child { letter-spacing: .02em; font-size: 10px; }
 .game-shell { padding-bottom: 28px; }
 .game-topline { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding: 36px 0 25px; }
