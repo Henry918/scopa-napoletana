@@ -383,12 +383,7 @@ function App() {
 
   return (
     <main className="page-shell game-shell">
-      <BrandHeader gameMode={game.mode} onHome={goHome} />
-      <section className="game-topline">
-        <div className="game-heading">
-          <h1>{game.name}</h1>
-        </div>
-      </section>
+      <BrandHeader gameMode={game.mode} onHome={goHome} gameName={game.name} gameDate={formatGameDate(game.date)} />
 
       {winnerId && (
         <section className="winner-banner">
@@ -429,9 +424,9 @@ function App() {
               <WinnerSection title="Carte" competitors={displayCompetitors} value={cardsWinnerId} onChange={setCardsWinnerId} allowTie tieLabel="Tie" />
               <WinnerSection title="Denari" competitors={displayCompetitors} value={denariWinnerId} onChange={setDenariWinnerId} allowTie tieLabel="Tie" />
               <WinnerSection title="Settebello" competitors={displayCompetitors} value={settebelloWinnerId} onChange={setSettebelloWinnerId} />
-              <WinnerSection title="Primiera" competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId} allowTie={!primieraOpen} tieLabel="Tie">
+              <WinnerSection title="Primiera" competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId} allowTie={!primieraOpen} tieLabel="Tie" hideCompetitors={primieraOpen}>
                 {!primieraOpen ? (
-                  <button className="text-button" type="button" onClick={() => {
+                  <button className="button button-primary primiera-open-action" type="button" onClick={() => {
                     setPrimieraCards(Object.fromEntries(game.competitors.map((competitor) => [competitor.id, { ...(primieraCards[competitor.id] ?? EMPTY_PRIMIERA) }])))
                     setPrimieraOpen(true)
                   }}>Compare</button>
@@ -515,13 +510,17 @@ function App() {
   )
 }
 
-function BrandHeader({ gameMode, onHome }: { gameMode?: GameMode; onHome?: () => void }) {
+function BrandHeader({ gameMode, onHome, gameName, gameDate }: { gameMode?: GameMode; onHome?: () => void; gameName?: string; gameDate?: string }) {
   return (
     <header className="brand-header">
       <button className="brand-home" type="button" onClick={onHome} disabled={!onHome} aria-label="Back to home">
         <span className="brand-lockup"><span className="brand-symbol">S</span><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANA</span></span></span>
       </button>
-      <div className="header-right"><span className="offline-indicator"><i /> LOCAL SCOREKEEPER</span>{gameMode && <span className="header-mode">{gameMode === 'two-players' ? '2 PLAYERS' : gameMode === 'three-players' ? '3 PLAYERS' : '2 TEAMS'}</span>}</div>
+      <div className="header-right">
+        <span className="offline-indicator"><i /> LOCAL SCOREKEEPER</span>
+        {gameMode && <span className="header-mode">{gameMode === 'two-players' ? '2 PLAYERS' : gameMode === 'three-players' ? '3 PLAYERS' : '2 TEAMS'}</span>}
+        {gameName && <div className="game-header-meta"><strong>{gameName}</strong>{gameDate && <time>{gameDate}</time>}</div>}
+      </div>
     </header>
   )
 }
@@ -585,7 +584,8 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
                 })}
               </div>
               <div className="primiera-player-score">
-                <strong>Text {calculatePrimiera(selectedCards)}</strong>
+                <span>Primiera points</span>
+                <strong>{calculatePrimiera(selectedCards)}</strong>
               </div>
             </article>
           )
@@ -596,7 +596,7 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
   )
 }
 
-function WinnerSection({ title, competitors, value, onChange, allowTie = false, tieLabel = 'Tie', children }: {
+function WinnerSection({ title, competitors, value, onChange, allowTie = false, tieLabel = 'Tie', children, hideCompetitors = false }: {
   title: string
   competitors: Competitor[]
   value: string | null | undefined
@@ -604,13 +604,13 @@ function WinnerSection({ title, competitors, value, onChange, allowTie = false, 
   allowTie?: boolean
   tieLabel?: string
   children?: ReactNode
+  hideCompetitors?: boolean
 }) {
   return (
     <section className="round-category">
       <div className="round-category-heading">
         <h3>{title}</h3>
         <div className="round-category-tools">
-          {children}
           {allowTie && (
             <button type="button" aria-pressed={value === null} aria-label={tieLabel} title={tieLabel}
               className="tie-selector"
@@ -618,13 +618,14 @@ function WinnerSection({ title, competitors, value, onChange, allowTie = false, 
           )}
         </div>
       </div>
-      <div className={value === null ? 'winner-options tie-selected' : 'winner-options'}>
+      {!hideCompetitors && <div className={value === null ? 'winner-options tie-selected' : 'winner-options'}>
         {competitors.map((competitor, index) => (
           <button key={competitor.id} type="button" aria-pressed={value === competitor.id}
             className={'winner-option ' + competitorTone(index) + (value === competitor.id ? ' selected' : '')}
             onClick={() => onChange(competitor.id)}>{competitor.name}</button>
         ))}
-      </div>
+      </div>}
+      {children && <div className="winner-section-content">{children}</div>}
     </section>
   )
 }
