@@ -387,7 +387,7 @@ function App() {
       <BrandHeader gameMode={game.mode} onHome={goHome} gameName={game.name} gameDate={formatGameDate(game.date)} />
 
       {winnerId && (
-        <section className="winner-banner">
+        <section className={'winner-banner ' + competitorTone(game.competitors.findIndex((competitor) => competitor.id === winnerId), game.mode)}>
           <div className="winner-star">✦</div>
           <div><p className="eyebrow">WINNER</p><h2>{game.competitors.find((competitor) => competitor.id === winnerId) ? competitorDisplayName(game.competitors.find((competitor) => competitor.id === winnerId)!, game.mode) : ''}</h2><p>Reached {totals[winnerId]} points. Thanks for a great game.</p></div>
         </section>
