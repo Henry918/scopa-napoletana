@@ -73,6 +73,7 @@ function App() {
   const [primieraCards, setPrimieraCards] = useState<Record<string, PrimieraCards>>({})
   const [primieraOpen, setPrimieraOpen] = useState(false)
   const [roundOpen, setRoundOpen] = useState(false)
+  const [roundReviewOpen, setRoundReviewOpen] = useState(false)
   const [notice, setNotice] = useState('')
 
   useEffect(() => { saveGame(game) }, [game])
@@ -85,6 +86,7 @@ function App() {
   const cardsTotal = entries.reduce((sum, entry) => sum + entry.cards, 0)
   const denariTotal = entries.reduce((sum, entry) => sum + entry.denari, 0)
   const winnerId = game ? getGameWinner(totals, game.targetScore) : null
+  const roundPreview = calculateRoundPoints(entries, primieraWinnerId)
 
   function startGame(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -144,12 +146,17 @@ function App() {
     }))
   }
 
-  function confirmRound() {
+  function reviewRound() {
     if (!game) return
     if (issues.length > 0) {
-      setNotice('Please fix the round totals before saving.')
+      setNotice('Please fix the round totals before reviewing.')
       return
     }
+    setRoundReviewOpen(true)
+  }
+
+  function confirmRound() {
+    if (!game) return
     const result = calculateRoundPoints(entries, primieraWinnerId)
     const round: RoundResult = {
       id: newId(), playedAt: new Date().toISOString(),
@@ -160,6 +167,7 @@ function App() {
     const nextWinner = getGameWinner(roundTotals(rounds, game.competitors), game.targetScore)
     setGame({ ...game, rounds, status: nextWinner ? 'finished' : 'playing' })
     setRoundOpen(false)
+    setRoundReviewOpen(false)
     setPrimieraOpen(false)
     setNotice('Round saved.')
   }
@@ -361,7 +369,7 @@ function App() {
 
           {issues.length > 0 && <div className="validation-box" role="status"><strong>Check the round totals</strong><ul>{issues.map((issue) => <li key={issue}>{issue}</li>)}</ul></div>}
           {notice && <p className="notice">{notice}</p>}
-          <div className="round-actions"><button className="button button-quiet" type="button" onClick={() => setRoundOpen(false)}>Cancel</button><button className="button button-primary" type="button" disabled={issues.length > 0} onClick={confirmRound}>Review and save round <span aria-hidden="true">→</span></button></div>
+          <div className="round-actions"><button className="button button-quiet" type="button" onClick={() => setRoundOpen(false)}>Cancel</button><button className="button button-primary" type="button" disabled={issues.length > 0} onClick={reviewRound}>Review round <span aria-hidden="true">→</span></button></div>
         </section>
       )}
 
@@ -382,6 +390,25 @@ function App() {
       {notice && !roundOpen && <p className="notice success-notice">{notice}</p>}
       <AppFooter />
       {primieraOpen && <PrimieraModal competitors={game.competitors} cards={primieraCards} onChange={updatePrimieraCard} onClose={() => setPrimieraOpen(false)} onApply={applyPrimieraComparison} />}
+
+      {roundReviewOpen && (
+        <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setRoundReviewOpen(false) }}>
+          <section className="primiera-modal review-modal" role="dialog" aria-modal="true" aria-labelledby="round-review-title">
+            <div className="modal-heading"><div><p className="eyebrow">ROUND SUMMARY</p><h2 id="round-review-title">Review the points</h2><p>Check the category results before saving this hand.</p></div><button className="icon-button" type="button" onClick={() => setRoundReviewOpen(false)} aria-label="Close round review">×</button></div>
+            <div className="review-categories">
+              {[
+                { label: 'Carte', id: roundPreview.breakdown.cardsWinnerId },
+                { label: 'Denari', id: roundPreview.breakdown.denariWinnerId },
+                { label: 'Settebello', id: roundPreview.breakdown.settebelloWinnerId },
+                { label: 'Primiera', id: roundPreview.breakdown.primieraWinnerId }
+              ].map((category) => <div className="review-category" key={category.label}><span>{category.label}</span><strong>{category.id ? game.competitors.find((competitor) => competitor.id === category.id)?.name : 'No point'}</strong></div>)}
+            </div>
+            <div className="review-points-heading"><span>POINTS ADDED THIS ROUND</span><span>SCOPA INCLUDED</span></div>
+            <div className="review-point-list">{game.competitors.map((competitor) => <div className="review-point-row" key={competitor.id}><span>{competitor.name}</span><strong>+{roundPreview.points[competitor.id] ?? 0}</strong></div>)}</div>
+            <div className="modal-actions"><button className="button button-quiet" type="button" onClick={() => setRoundReviewOpen(false)}>Back to entry</button><button className="button button-primary" type="button" onClick={confirmRound}>Confirm round</button></div>
+          </section>
+        </div>
+      )}
     </main>
   )
 }
