@@ -556,7 +556,7 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
                                             <button type="button" className={'primiera-card-choice' + (rank === null ? ' unselected' : ' chosen')}
                         aria-label={competitor.name + ' ' + suit.label + ', ' + (rank === null ? 'not selected' : RANK_LABELS[rank])}
                         aria-expanded={isActive}
-                        onClick={(event) => {
+                        onClick={() => {
                           if (isActive) {
                             setActiveSlot(null)
                           } else {
