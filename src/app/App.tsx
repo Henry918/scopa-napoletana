@@ -498,7 +498,7 @@ function App() {
         </section>
       )}
       {notice && !roundOpen && <p className="notice success-notice">{notice}</p>}
-      {game.rounds.length > 0 && <AppFooter onExport={exportGame} onNewGame={startNewGame} />}
+      {game.status === 'finished' && <AppFooter onExport={exportGame} onNewGame={startNewGame} />}
 
       </>
       )}
