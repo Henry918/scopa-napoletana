@@ -430,7 +430,10 @@ function App() {
         <section className="panel round-panel">
           <div className="panel-heading round-heading">
             <div><h2>Round {game.rounds.length + 1}</h2></div>
-            <button className="icon-button round-help-trigger" type="button" onClick={() => setScoringHelpOpen(true)} aria-label="How to score points" title="How to score points"><span aria-hidden="true">i</span></button>
+            <div className="round-heading-actions">
+              <button className="icon-button round-help-trigger" type="button" onClick={() => setScoringHelpOpen(true)} aria-label="How to score points" title="How to score points"><span aria-hidden="true">i</span></button>
+              <button className="icon-button round-cancel-trigger" type="button" onClick={() => { setRoundOpen(false); setRoundReviewOpen(false); setPrimieraOpen(false); setScoringHelpOpen(false) }} aria-label="Cancel round entry" title="Cancel round entry"><span aria-hidden="true">×</span></button>
+            </div>
           </div>
 
           <div className="round-category-list">
@@ -474,7 +477,6 @@ function App() {
 
           {notice && <p className="notice">{notice}</p>}
           <div className="round-actions">
-            <button className="button button-quiet" type="button" onClick={() => setRoundOpen(false)}>Cancel</button>
             <button className="button button-primary" type="button" disabled={issues.length > 0} onClick={reviewRound}>Review round</button>
           </div>
         </section>
