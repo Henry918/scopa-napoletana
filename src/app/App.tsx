@@ -283,7 +283,7 @@ function App() {
 
           <form className="panel setup-panel" onSubmit={startGame}>
             <div className="game-meta-setup">
-              <label>Game name<input value={draft.gameName} onChange={(event) => setDraft({ ...draft, gameName: event.target.value })} placeholder="Scopa Game" /></label>
+              <input aria-label="Game name" value={draft.gameName} onChange={(event) => setDraft({ ...draft, gameName: event.target.value })} placeholder="Scopa Game" />
             </div>
             <div className="panel-heading">
               <div><p className="eyebrow">NEW GAME</p><h2>Set up your table</h2></div>

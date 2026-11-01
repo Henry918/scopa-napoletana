@@ -1312,3 +1312,53 @@ button:disabled { opacity: .45; cursor: not-allowed; }
     padding: 10px 12px;
   }
 }
+
+
+/* Let round winner panels fit their controls without reserved empty height */
+.game-meta-setup {
+  display: block;
+  margin-bottom: 16px;
+}
+.game-meta-setup input {
+  display: block;
+}
+.winner-category-grid {
+  grid-template-rows: none;
+  grid-auto-rows: auto;
+  align-items: start;
+}
+.winner-category-grid .round-category {
+  height: auto;
+  min-height: 0;
+  padding: 9px 11px;
+}
+.winner-category-grid .round-category-heading {
+  margin-bottom: 5px;
+}
+.winner-category-grid .winner-options {
+  flex: none;
+  align-content: start;
+  align-items: start;
+  margin-top: 0;
+  gap: 6px;
+}
+.winner-category-grid .winner-option {
+  min-height: 36px;
+}
+@media (max-width: 800px) {
+  .winner-category-grid {
+    grid-template-rows: none;
+    grid-auto-rows: auto;
+  }
+  .winner-category-grid .round-category {
+    height: auto;
+    min-height: 0;
+  }
+}
+@media (max-width: 480px) {
+  .winner-category-grid .round-category {
+    height: auto;
+    min-height: 0;
+    padding: 9px 11px;
+  }
+}
