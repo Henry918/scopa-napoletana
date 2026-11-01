@@ -341,7 +341,7 @@ function App() {
             <div className="saved-games-list">
               {savedGames.map((savedGame) => {
                 const savedTotals = roundTotals(savedGame.rounds, savedGame.competitors)
-                const result = savedGame.competitors.map((competitor) => competitor.name + ' ' + (savedTotals[competitor.id] ?? 0)).join(' · ')
+                const result = savedGame.competitors.map((competitor) => competitorDisplayName(competitor, savedGame.mode) + ' ' + (savedTotals[competitor.id] ?? 0)).join(' · ')
                 return (
                   <button className="saved-game-card" type="button" key={savedGame.id} onClick={() => openSavedGame(savedGame)}>
                     <span className="saved-game-main"><strong>{savedGame.name}</strong><small>{formatGameDate(savedGame.date)} · {savedGame.rounds.length} {savedGame.rounds.length === 1 ? 'round' : 'rounds'}</small><small className="saved-game-result">{result}</small></span>
@@ -569,7 +569,14 @@ function WinnerSection({ title, competitors, value, onChange, allowTie = false, 
     <section className="round-category">
       <div className="round-category-heading">
         <h3>{title}</h3>
-        {children}
+        <div className="round-category-tools">
+          {children}
+          {allowTie && (
+            <button type="button" aria-pressed={value === null} aria-label={tieLabel} title={tieLabel}
+              className={value === null ? 'tie-selector selected' : 'tie-selector'}
+              onClick={() => onChange(null)}><span aria-hidden="true" className="tie-symbol">＝</span><span className="sr-only">{tieLabel}</span></button>
+          )}
+        </div>
       </div>
       <div className="winner-options">
         {competitors.map((competitor, index) => (
@@ -577,11 +584,6 @@ function WinnerSection({ title, competitors, value, onChange, allowTie = false, 
             className={'winner-option ' + competitorTone(index) + (value === competitor.id ? ' selected' : '')}
             onClick={() => onChange(competitor.id)}>{competitor.name}</button>
         ))}
-        {allowTie && (
-          <button type="button" aria-pressed={value === null} aria-label={tieLabel} title={tieLabel}
-            className={value === null ? 'winner-option tie-option selected' : 'winner-option tie-option'}
-            onClick={() => onChange(null)}><span aria-hidden="true" className="tie-symbol">＝</span><span className="sr-only">{tieLabel}</span></button>
-        )}
       </div>
     </section>
   )
