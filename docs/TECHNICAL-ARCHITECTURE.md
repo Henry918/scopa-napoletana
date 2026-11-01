@@ -223,7 +223,7 @@ Vite benötigt einen Build-Schritt vor der Veröffentlichung. Die Veröffentlich
 5. dist/ als Pages-Artefakt hochladen.
 6. Über die GitHub-Pages-Deployment-Aktion veröffentlichen.
 
-Für eine Projektseite muss Vite base: '/scopa-napoletana/' verwenden. Die Pages-Quelle wird auf GitHub Actions gestellt. Die Workflow-Datei wird angelegt, sobald das App-Grundgerüst samt erfolgreichem Produktionsbuild existiert.
+Für eine Projektseite muss Vite base: '/scopa-napoletana/' verwenden. Die Pages-Quelle wird auf GitHub Actions gestellt. Der Workflow unter .github/workflows/deploy.yml ist auf dem Vorbereitungszweig bereits angelegt. Er wird erst nach dem App-Grundgerüst und einem erfolgreichen Produktionsbuild in main übernommen und aktiviert.
 
 ## 9. Qualität und Wartbarkeit
 
