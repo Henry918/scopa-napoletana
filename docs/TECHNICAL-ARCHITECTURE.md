@@ -21,8 +21,8 @@ Es wird kein Backend benötigt. Es gibt keine Benutzerkonten, keine serverseitig
 
 ## 2. Laufzeit und Abhängigkeiten
 
-- Node.js mindestens 22.12.
-- Bevorzugt eine gepflegte Node-LTS-Version, die von der jeweils installierten Vite-Version unterstützt wird.
+- Node.js 26 LTS. Die Hauptversion ist in der Datei .nvmrc hinterlegt.
+- Vite selbst verlangt laut aktueller Dokumentation mindestens Node.js 20.19 beziehungsweise 22.12. Node.js 26 LTS liegt darüber und ist die für dieses Projekt festgelegte Laufzeit.
 - npm als Paketmanager.
 - package-lock.json wird eingecheckt, damit Installationen und CI-Builds reproduzierbar sind.
 - Abhängigkeiten werden bei Projektstart auf stabile, zueinander kompatible Versionen gesetzt. Versionsnummern werden nicht in diesem Konzept eingefroren.
