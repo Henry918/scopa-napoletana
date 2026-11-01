@@ -1229,3 +1229,86 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .saved-game-menu {
   display: none;
 }
+
+
+/* Compact winner panels, while keeping the four categories equal in height */
+.winner-category-grid {
+  grid-auto-rows: 138px;
+  grid-template-rows: repeat(2, 138px);
+  align-items: stretch;
+}
+.winner-category-grid .round-category {
+  height: 138px;
+  min-height: 138px;
+  padding: 10px 12px;
+}
+.winner-category-grid .round-category-heading {
+  margin-bottom: 5px;
+}
+.winner-category-grid .winner-options {
+  align-content: start;
+  align-items: start;
+  gap: 6px;
+  margin-top: 4px;
+}
+.winner-category-grid .winner-option {
+  min-height: 38px;
+  padding: 5px 6px;
+}
+.winner-category-grid .tie-selector,
+.winner-category-grid .round-category-tools:empty::after {
+  width: 27px;
+  height: 27px;
+}
+.winner-category-grid .tie-selector .tie-symbol {
+  font-size: 15px;
+}
+
+/* Scopa uses the same inter-card spacing, with a little more breathing room */
+.round-category-list {
+  gap: 11px;
+}
+.round-category.scopa-category {
+  padding: 14px;
+}
+.scopa-options {
+  gap: 9px;
+}
+.scopa-option {
+  min-height: 44px;
+  padding: 5px 10px 5px 12px;
+}
+.scopa-option .stepper {
+  height: 31px;
+}
+.scopa-option .stepper button {
+  width: 31px;
+  height: 30px;
+}
+.scopa-option .stepper output {
+  min-width: 24px;
+}
+.score-team-member {
+  display: block;
+}
+.score-card h2 .score-team-member + .score-team-member {
+  margin-top: 2px;
+}
+@media (max-width: 800px) {
+  .winner-category-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-rows: 138px;
+  }
+  .winner-category-grid .round-category {
+    height: 138px;
+    min-height: 138px;
+  }
+}
+@media (max-width: 480px) {
+  .winner-category-grid .round-category {
+    height: 138px;
+    min-height: 138px;
+    padding: 10px 12px;
+  }
+}

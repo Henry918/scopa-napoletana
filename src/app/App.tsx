@@ -39,7 +39,7 @@ function formatGameDate(value: string): string {
 
 function makeDefaultDraft(): SetupDraft {
   return {
-    gameName: 'Scopa Game',
+    gameName: '',
     mode: 'two-players',
     targetScore: '11',
     playerNames: ['', '', '', '']
@@ -393,7 +393,9 @@ function App() {
         {scoreRows.map(({ competitor, score }, index) => (
           <article className={'score-card score-card-' + (index + 1) + ' ' + competitorTone(index)} key={competitor.id}>
             <div className="score-card-top"><span className="score-index">{game.mode === 'four-player-teams' ? 'TEAM ' + (index + 1) : 'PLAYER ' + (index + 1)}</span><span className="score-dot" /></div>
-            <h2>{competitorDisplayName(competitor, game.mode)}</h2>
+            <h2>{game.mode === 'four-player-teams' && competitor.members.length > 1
+              ? competitor.members.map((member) => <span className="score-team-member" key={member}>{member}</span>)
+              : competitorDisplayName(competitor, game.mode)}</h2>
             <div className="score-number">{score}<span> pts</span></div>
             <div className="score-progress"><span style={{ width: Math.min(100, (score / game.targetScore) * 100) + '%' }} /></div>
             <p className="score-target">{Math.max(0, game.targetScore - score)} to go</p>
@@ -484,14 +486,13 @@ function App() {
                 { label: 'Primiera', id: roundPreview.breakdown.primieraWinnerId }
               ].map((category) => {
                 const competitor = displayCompetitors.find((item) => item.id === category.id)
-                const scopaCount = entries.find((entry) => entry.competitorId === category.id)?.scope ?? 0
-                return <div className="review-category" key={category.label}><span>{category.label}</span><strong>{competitor ? competitor.name + (scopaCount > 0 ? ' (' + scopaCount + ' Scopa)' : '') : 'Tie'}</strong></div>
+                return <div className="review-category" key={category.label}><span>{category.label}</span><strong>{competitor ? competitor.name : 'Tie'}</strong></div>
               })}
             </div>
             <div className="review-points-heading"><span>POINTS ADDED THIS ROUND</span><span>SCOPA INCLUDED</span></div>
             <div className="review-point-list">{displayCompetitors.map((competitor) => {
               const scopaCount = entries.find((entry) => entry.competitorId === competitor.id)?.scope ?? 0
-              return <div className="review-point-row" key={competitor.id}><span>{competitor.name}{scopaCount > 0 ? ' (' + scopaCount + ' Scopa)' : ''}</span><strong>+{roundPreview.points[competitor.id] ?? 0}</strong></div>
+              return <div className="review-point-row" key={competitor.id}><span>{competitor.name}{scopaCount > 0 ? ' (' + scopaCount + ')' : ''}</span><strong>+{roundPreview.points[competitor.id] ?? 0}</strong></div>
             })}</div>
             <div className="modal-actions"><button className="button button-quiet" type="button" onClick={() => setRoundReviewOpen(false)}>Back to entry</button><button className="button button-primary" type="button" onClick={confirmRound}>Confirm round</button></div>
           </section>
