@@ -534,25 +534,25 @@ function App() {
             </div>
             <div className="scoring-help-list">
               <article className="scoring-help-item">
-                <span className="scoring-help-number">01</span>
+                <span className="scoring-help-number">1</span>
                 <div><h3>Carte · Most cards</h3><p>One point goes to the player or team that captured the most cards out of the 40-card deck. If tied, nobody gets the point.</p></div>
               </article>
               <article className="scoring-help-item">
-                <span className="scoring-help-number">02</span>
+                <span className="scoring-help-number">2</span>
                 <div><h3>Denari · Most coins</h3><p>One point goes to the player or team that captured the most Denari cards. There are 10 coins in the deck. If tied, nobody gets the point.</p></div>
               </article>
               <article className="scoring-help-item">
-                <span className="scoring-help-number">03</span>
+                <span className="scoring-help-number">3</span>
                 <div><h3>Settebello · Seven of coins</h3><p>One point goes to whoever captured the 7 of Denari. This point always has a single recipient.</p></div>
               </article>
               <article className="scoring-help-item">
-                <span className="scoring-help-number">04</span>
+                <span className="scoring-help-number">4</span>
                 <div><h3>Primiera · Best card combination</h3><p>For each suit, count only the highest-value card captured. Add the four values. The highest total earns one point. A tie earns no point.</p>
                   <p className="scoring-help-values"><strong>Primiera values:</strong> 7 = 21, 6 = 18, Ace = 16, 5 = 15, 4 = 14, 3 = 13, 2 = 12, Fante, Cavallo and Re = 10 each.</p>
                 </div>
               </article>
               <article className="scoring-help-item">
-                <span className="scoring-help-number">05</span>
+                <span className="scoring-help-number">S</span>
                 <div><h3>Scopa · Clear the table</h3><p>Each time a play captures every card on the table, it is a Scopa and earns one point. The final capture of the round does not count as a Scopa.</p></div>
               </article>
             </div>
