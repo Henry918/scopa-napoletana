@@ -61,7 +61,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .team-setup-card.team-b { background: transparent; }
 .field-label { color: #53645a; font-size: 10px; font-weight: 700; letter-spacing: .08em; }
 .team-setup-card input { height: 42px; margin-bottom: 0; background: #fffefa; }
-.team-setup-title { margin: 0 0 10px; color: #586a60; font-family: inherit; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.team-setup-title { margin: 0 0 10px; color: #263c31; font-family: inherit; font-size: 13px; font-weight: 400; letter-spacing: normal; text-transform: none; }
 .team-player-name-field { gap: 8px; }
 .target-row { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 8px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .field-hint { color: #879188; font-size: 11px; line-height: 1.5; margin: 5px 0 0; }
@@ -633,9 +633,12 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 .team-setup-title {
   margin: 0 0 5px;
-  color: var(--green);
-  font-family: Georgia, serif;
-  font-size: 16px;
+  color: #263c31;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
 }
 .team-player-field {
   display: flex;
