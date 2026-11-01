@@ -11,9 +11,9 @@ export default defineConfig({
       includeAssets: ['icons/scopa.svg'],
       manifest: {
         id: './',
-        name: 'Scopa Napoletana Scorekeeper',
+        name: 'Scopa Napoletane Scorekeeper',
         short_name: 'Scopa Score',
-        description: 'A scorekeeper for physical Scopa Napoletana games.',
+        description: 'A scorekeeper for physical Scopa Napoletane games.',
         theme_color: '#102c24',
         background_color: '#f3efe4',
         display: 'standalone',
