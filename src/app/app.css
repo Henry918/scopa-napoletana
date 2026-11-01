@@ -1933,8 +1933,8 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 
 
-/* Tighten the Primiera compare layout and match the other player controls */
-.primiera-inline { padding-top: 2px; }
+/* Match the spacing from the Primiera heading to the player choices */
+.primiera-inline { padding-top: 0; }
 .primiera-inline .primiera-competitor {
   background: #f7f6f0;
 }
@@ -1945,5 +1945,3 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   .primiera-inline .primiera-card-grid { gap: 7px; }
 }
 
-/* Match the compact Primiera spacing above the round player choices */
-.round-launch { margin-top: 2px; }
