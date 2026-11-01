@@ -2029,11 +2029,11 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   --tone-card: #315b65;
 }
 .competitor-tone-3 {
-  --tone-soft: #eef0e6;
-  --tone-border: #c9cfb2;
-  --tone-ink: #657044;
-  --tone-strong: #657044;
-  --tone-card: #657044;
+  --tone-soft: #f4efe3;
+  --tone-border: #dfcea7;
+  --tone-ink: #876526;
+  --tone-strong: #B58B3B;
+  --tone-card: #B58B3B;
 }
 .team-tone-1 {
   --tone-soft: #f0e9ef;
@@ -2043,11 +2043,11 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   --tone-card: #75415f;
 }
 .team-tone-2 {
-  --tone-soft: #f4efe3;
-  --tone-border: #dfcea7;
-  --tone-ink: #876526;
-  --tone-strong: #B58B3B;
-  --tone-card: #B58B3B;
+  --tone-soft: #eef0e6;
+  --tone-border: #c9cfb2;
+  --tone-ink: #657044;
+  --tone-strong: #657044;
+  --tone-card: #657044;
 }
 
 .score-card.competitor-tone-1,
