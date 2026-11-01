@@ -2158,3 +2158,21 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .game-shell > .winner-banner + .score-grid {
   margin-top: 0;
 }
+
+/* Final winner banner text colours and zero spacing below the container. */
+.winner-banner .eyebrow {
+  color: #a8884b;
+}
+.winner-banner p:last-child {
+  color: #718078;
+}
+.winner-banner.competitor-tone-1,
+.winner-banner.competitor-tone-2,
+.winner-banner.competitor-tone-3,
+.winner-banner.team-tone-1,
+.winner-banner.team-tone-2 {
+  margin-bottom: 0;
+}
+.game-shell > .winner-banner + .score-grid {
+  margin-top: 0;
+}
