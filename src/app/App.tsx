@@ -216,7 +216,7 @@ function App() {
     const nextWinner = getGameWinner(roundTotals(rounds, game.competitors), game.targetScore)
     setGame({ ...game, rounds, status: nextWinner ? 'finished' : 'playing' })
     setRoundOpen(false)
-    setNotice('Last round removed.')
+    setNotice('')
   }
 
   function deleteArchivedGame(gameId: string) {

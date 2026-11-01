@@ -81,13 +81,15 @@ export function loadGame(): GameSession | null {
 export function saveGame(game: GameSession | null): void {
   try {
     const games = loadGames()
-    if (game) {
+    if (game && game.rounds.length > 0) {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(game))
       const next = [...games.filter((item) => item.id !== game.id), game]
       window.localStorage.setItem(GAMES_KEY, JSON.stringify(next))
     } else {
-      window.localStorage.setItem(GAMES_KEY, JSON.stringify(games))
-      window.localStorage.removeItem(STORAGE_KEY)
+      const next = game ? games.filter((item) => item.id !== game.id) : games
+      window.localStorage.setItem(GAMES_KEY, JSON.stringify(next))
+      const active = loadGame()
+      if (!game || active?.id === game.id) window.localStorage.removeItem(STORAGE_KEY)
     }
   } catch {
     // Keep the in-memory game usable if browser storage is unavailable.

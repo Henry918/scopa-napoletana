@@ -1362,3 +1362,31 @@ button:disabled { opacity: .45; cursor: not-allowed; }
     padding: 9px 11px;
   }
 }
+
+
+/* Selected winner matches the solid colour used in the score overview */
+.winner-option.competitor-tone-1.selected {
+  border-color: #214c37;
+  background: #214c37;
+  color: #fffdf7;
+}
+.winner-option.competitor-tone-2.selected {
+  border-color: #344a6d;
+  background: #344a6d;
+  color: #fffdf7;
+}
+.winner-option.competitor-tone-3.selected {
+  border-color: #725033;
+  background: #725033;
+  color: #fffdf7;
+}
+
+/* Keep equal bottom inset for the four winner panels and the Scopa panel */
+.winner-category-grid .round-category {
+  padding-bottom: 14px;
+}
+@media (max-width: 480px) {
+  .winner-category-grid .round-category {
+    padding-bottom: 14px;
+  }
+}
