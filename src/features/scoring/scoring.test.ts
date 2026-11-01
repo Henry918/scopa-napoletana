@@ -30,6 +30,11 @@ describe('round validation', () => {
     entries[0].cards = 20
     expect(validateRound(entries).some((issue) => issue.includes('exactly 40'))).toBe(true)
   })
+  it('requires exactly one Settebello owner', () => {
+    const entries = makeValidRound()
+    entries[0].settebello = false
+    expect(validateRound(entries).some((issue) => issue.includes('exactly one'))).toBe(true)
+  })
   it('rejects duplicate Settebello ownership', () => {
     const entries = makeValidRound()
     entries[1].settebello = true

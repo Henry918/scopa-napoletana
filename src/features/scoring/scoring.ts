@@ -10,7 +10,7 @@ export function getPrimieraCardValue(rank: number): number {
 }
 
 export function calculatePrimiera(cards: PrimieraCards): number {
-  return (Object.values(cards) as Array<number | null>).reduce(
+  return (Object.values(cards) as Array<number | null>).reduce<number>(
     (total, rank) => total + (rank === null ? 0 : getPrimieraCardValue(rank)), 0
   )
 }
@@ -34,7 +34,7 @@ export function validateRound(entries: RoundInput[]): string[] {
   if (entries.some((entry) => !Number.isInteger(entry.scope) || entry.scope < 0)) issues.push('Scopa counts must be non-negative whole numbers.')
   if (cardsTotal !== 40) issues.push('The cards total must be exactly 40. Current total: ' + cardsTotal + '.')
   if (denariTotal !== 10) issues.push('The Denari total must be exactly 10. Current total: ' + denariTotal + '.')
-  if (settebelloCount > 1) issues.push('The Settebello can only belong to one competitor.')
+  if (settebelloCount !== 1) issues.push('The Settebello must belong to exactly one competitor.')
   return issues
 }
 
