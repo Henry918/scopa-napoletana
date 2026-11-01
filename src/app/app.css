@@ -1934,9 +1934,11 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 
 /* Round scoring guide */
 .round-help-trigger {
+  width: 34px;
+  height: 34px;
   color: var(--gold);
   font-family: Georgia, serif;
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 700;
 }
 .round-help-trigger:hover {
