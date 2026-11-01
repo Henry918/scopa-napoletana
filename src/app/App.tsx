@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
 import type { Competitor, GameMode, GameSession, RoundInput, RoundResult, Suit } from '../types/game'
 import {
@@ -537,7 +537,42 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
   onApply: () => void
 }) {
   const [activeSlot, setActiveSlot] = useState<{ competitorId: string; suit: Suit } | null>(null)
+  const pickerRef = useRef<HTMLDivElement | null>(null)
   const primieraOrder = [7, 6, 1, 5, 4, 3, 2, 8, 9, 10]
+
+  useEffect(() => {
+    const picker = pickerRef.current
+    if (!picker) return
+
+    const keepPickerWithinViewport = () => {
+      picker.style.setProperty('--picker-horizontal-shift', '0px')
+      const rect = picker.getBoundingClientRect()
+      const viewportWidth = document.documentElement.clientWidth
+      const edgePadding = 8
+      let shift = 0
+
+      if (rect.left < edgePadding) {
+        shift = edgePadding - rect.left
+      } else if (rect.right > viewportWidth - edgePadding) {
+        shift = viewportWidth - edgePadding - rect.right
+      }
+
+      picker.style.setProperty('--picker-horizontal-shift', shift + 'px')
+    }
+
+    keepPickerWithinViewport()
+    window.addEventListener('resize', keepPickerWithinViewport)
+    window.addEventListener('scroll', keepPickerWithinViewport, true)
+    window.visualViewport?.addEventListener('resize', keepPickerWithinViewport)
+    window.visualViewport?.addEventListener('scroll', keepPickerWithinViewport)
+
+    return () => {
+      window.removeEventListener('resize', keepPickerWithinViewport)
+      window.removeEventListener('scroll', keepPickerWithinViewport, true)
+      window.visualViewport?.removeEventListener('resize', keepPickerWithinViewport)
+      window.visualViewport?.removeEventListener('scroll', keepPickerWithinViewport)
+    }
+  }, [activeSlot])
 
   return (
     <div className="primiera-inline">
@@ -567,7 +602,7 @@ function PrimieraModal({ competitors, cards, onChange, onApply }: {
                         <img src={BASE + 'cards/' + suit.id + '/' + (rank ?? 7) + '.jpg'} alt={rank === null ? 'Unselected 7 of ' + suit.label : RANK_LABELS[rank] + ' of ' + suit.label} />
                       </button>
                       {isActive && (
-                        <div className="primiera-card-picker" aria-label={'Choose ' + suit.label + ' card'}>
+                        <div ref={pickerRef} className="primiera-card-picker" aria-label={'Choose ' + suit.label + ' card'}>
                           {primieraOrder.map((optionRank) => (
                             <button type="button" key={optionRank} className={rank === optionRank ? 'active' : ''}
                               onClick={() => { onChange(competitor.id, suit.id, String(optionRank)); setActiveSlot(null) }}>
