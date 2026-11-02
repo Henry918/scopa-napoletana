@@ -2306,9 +2306,9 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   margin-bottom: 0;
 }
 .players-setup {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 9px;
 }
 .players-setup-three {
   display: grid;
