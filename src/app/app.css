@@ -48,6 +48,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .round-mark { font-family: Georgia, serif; color: var(--gold); font-size: 32px; }
 .mode-fieldset { border: 0; padding: 0; margin: 28px 0 24px; }
 .mode-fieldset legend, .section-label { font-size: 10px; color: #586a60; font-weight: 700; letter-spacing: .12em; margin-bottom: 10px; }
+.mode-fieldset legend { text-transform: uppercase; }
 .mode-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
 .mode-button { min-height: 74px; padding: 12px 8px; border: 1px solid #e4e2d9; background: #fbfaf5; border-radius: 7px; color: #40544a; display: flex; flex-direction: column; gap: 5px; text-align: center; justify-content: center; transition: .15s ease; }
 .mode-button strong { font-size: 12px; font-weight: 700; }
@@ -62,7 +63,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .team-setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 24px; }
 .team-setup-card { min-width: 0; padding: 0; border-radius: 0; background: transparent; }
 .team-setup-card.team-b { background: transparent; }
-.field-label { color: #53645a; font-size: 10px; font-weight: 700; letter-spacing: .08em; }
+.field-label { color: #53645a; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .team-setup-card input { height: 42px; margin-bottom: 0; background: #fffefa; }
 
 .team-player-name-field { gap: 12px; }
