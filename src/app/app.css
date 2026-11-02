@@ -2610,3 +2610,44 @@ html.viewport-content-fits body {
     min-width: 0;
   }
 }
+
+
+/* Smoothly show and dismiss the Primiera rank picker. */
+.primiera-card-picker {
+  transform-origin: center center;
+  animation: primiera-picker-in 150ms cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.primiera-card-picker.is-closing {
+  pointer-events: none;
+  animation: primiera-picker-out 150ms ease-in both;
+}
+
+@keyframes primiera-picker-in {
+  from {
+    opacity: 0;
+    scale: .97;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes primiera-picker-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: .97;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primiera-card-picker,
+  .primiera-card-picker.is-closing {
+    animation-duration: 1ms;
+  }
+}
