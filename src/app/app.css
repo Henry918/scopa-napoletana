@@ -2510,24 +2510,57 @@ html.viewport-content-fits body {
     width: 100%;
   }
 
-  /* Raise the point-entry categories and tighten the controls within them slightly. */
+  /* Keep the point-entry sections slightly higher while enlarging their controls. */
   .round-category-list {
     transform: translateY(-5px);
   }
 
   .winner-category-grid .round-category {
-    padding-top: 7px;
+    padding: 14px 16px;
   }
 
   .winner-category-grid .round-category-heading {
-    margin-bottom: 4px;
+    margin-bottom: 10px;
+  }
+
+  .winner-category-grid .winner-options {
+    gap: 10px;
   }
 
   .winner-category-grid .winner-option {
-    min-height: 34px;
+    min-height: 44px;
   }
 
   .round-category.scopa-category {
-    padding-top: 12px;
+    padding: 14px 16px;
+  }
+
+  .scopa-option {
+    gap: 10px;
+    padding: 12px 9px;
+  }
+
+  .scopa-option .stepper {
+    max-width: 124px;
+  }
+
+  .scopa-option .stepper button,
+  .scopa-option .stepper output {
+    min-height: 36px;
+  }
+
+  .primiera-open-action,
+  .primiera-compare-action {
+    min-height: 44px;
+    height: 44px;
+    font-size: 12px;
+  }
+
+  .primiera-inline .primiera-competitor {
+    padding: 16px;
+  }
+
+  .primiera-inline .primiera-card-grid {
+    gap: 9px;
   }
 }
