@@ -334,7 +334,7 @@ function App() {
   if (!game) {
     return (
       <main className="page-shell">
-        <BrandHeader homeView={homeView} onToggleHomeView={() => { setHomeView((current) => current === 'new' ? 'history' : 'new'); setManageSavedGames(false) }} />
+        <BrandHeader homeView={homeView} manageSavedGames={manageSavedGames} onToggleManageSavedGames={() => setManageSavedGames((current) => !current)} onToggleHomeView={() => { setHomeView((current) => current === 'new' ? 'history' : 'new'); setManageSavedGames(false) }} />
         <div className="home-view-content">
         {homeView === 'new' && <section className="setup-layout">
           <div className="intro-copy">
@@ -639,14 +639,14 @@ function App() {
   )
 }
 
-function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename, homeView, onToggleHomeView }: { gameMode?: GameMode; onHome?: () => void; gameName?: string; gameDate?: string; onRename?: () => void; homeView?: 'new' | 'history'; onToggleHomeView?: () => void }) {
+function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename, homeView, manageSavedGames, onToggleManageSavedGames, onToggleHomeView }: { gameMode?: GameMode; onHome?: () => void; gameName?: string; gameDate?: string; onRename?: () => void; homeView?: 'new' | 'history'; manageSavedGames?: boolean; onToggleManageSavedGames?: () => void; onToggleHomeView?: () => void }) {
   return (
     <header className="brand-header">
       <button className="brand-home" type="button" onClick={onHome} disabled={!onHome} aria-label="Back to home">
         <span className="brand-lockup"><span className="brand-symbol">S</span><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
       </button>
       <div className="header-right">
-        {onToggleHomeView && <button className="saved-games-manage home-view-toggle" type="button" onClick={onToggleHomeView}>{homeView === 'history' ? 'New game' : 'History'}</button>}
+        {onToggleHomeView && <div className="home-header-actions">{homeView === 'history' && onToggleManageSavedGames && <button className="saved-games-manage" type="button" onClick={onToggleManageSavedGames}>{manageSavedGames ? 'Done' : 'Manage games'}</button>}<button className="saved-games-manage home-view-toggle" type="button" onClick={onToggleHomeView}>{homeView === 'history' ? 'New game' : 'History'}</button></div>}
         <span className="offline-indicator"><i /> LOCAL SCOREKEEPER</span>
         {gameMode && <span className="header-mode">{gameMode === 'two-players' ? '2 PLAYERS' : gameMode === 'three-players' ? '3 PLAYERS' : '2 TEAMS'}</span>}
         {gameName && <div className="game-header-meta"><button className="game-name-trigger" type="button" onClick={onRename} aria-label={'Rename game, current name ' + gameName} title="Rename game"><strong>{gameName}</strong></button>{gameDate && <time>{gameDate}</time>}</div>}
