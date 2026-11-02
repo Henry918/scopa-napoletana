@@ -2355,5 +2355,5 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 
 /* Add a little more breathing room between player names and the score divider. */
 .score-card h2 + .score-number {
-  margin-top: 16px;
+  margin-top: 26px;
 }
