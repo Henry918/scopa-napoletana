@@ -399,13 +399,6 @@ function App() {
         </section>}
         {homeView === 'history' && (
           <section className="saved-games-section">
-
-            <div className="saved-games-heading">
-              <h2>Previous games</h2>
-              <button className="saved-games-manage" type="button" onClick={() => setManageSavedGames((current) => !current)}>
-                {manageSavedGames ? 'Done' : 'Manage games'}
-              </button>
-            </div>
             {savedGames.length > 0 ? <div className={'saved-games-list' + (manageSavedGames ? ' managing-saved-games' : '')}>
               {savedGames.map((savedGame) => {
                 const savedTotals = roundTotals(savedGame.rounds, savedGame.competitors)
