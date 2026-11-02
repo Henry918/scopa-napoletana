@@ -251,8 +251,14 @@ function App() {
 
   function goHome() {
     if (game) saveGame(game)
+    saveGame(null)
     setGame(null)
     setEntries([])
+    setCardsWinnerId(undefined)
+    setDenariWinnerId(undefined)
+    setSettebelloWinnerId(undefined)
+    setPrimieraWinnerId(undefined)
+    setPrimieraCards({})
     setRoundOpen(false)
     setRoundReviewOpen(false)
     setPrimieraOpen(false)
