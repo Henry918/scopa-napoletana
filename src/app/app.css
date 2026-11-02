@@ -2015,10 +2015,12 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   gap: 14px;
   padding-top: 17px;
 }
-.scoring-help-footer > span {
+.scoring-help-footer > span,
+.scoring-help-footer > p {
   color: #879188;
   font-size: 10px;
   line-height: 1.5;
+  margin: 0;
 }
 @media (max-width: 480px) {
   .scoring-help-modal { padding: 18px 14px; }
