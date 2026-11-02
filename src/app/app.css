@@ -2514,9 +2514,15 @@ html.viewport-content-fits body {
     width: 100%;
   }
 
-  /* Keep the point-entry sections slightly higher while enlarging their controls. */
+  /* Keep the Primiera card picker above the round confirmation controls. */
   .round-category-list {
+    position: relative;
+    z-index: 1;
     transform: translateY(-5px);
+  }
+
+  .primiera-card-picker {
+    z-index: 100;
   }
 
   .winner-category-grid .round-category {
