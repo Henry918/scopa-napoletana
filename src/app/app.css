@@ -2460,3 +2460,24 @@ html.viewport-content-fits body {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Desktop header keeps the game identity without redundant device and mode labels. */
+@media (min-width: 801px) {
+  .offline-indicator,
+  .header-mode {
+    display: none;
+  }
+}
+
+/* Stack all four round winner categories vertically on every screen size. */
+.winner-category-grid {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: none;
+  grid-auto-rows: auto;
+}
+.winner-category-grid .round-category {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+}
+
