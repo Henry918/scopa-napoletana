@@ -720,12 +720,25 @@ function PrimieraModal({ mode, competitors, cards, onChange, onApply }: {
   onApply: () => void
 }) {
   const [activeSlot, setActiveSlot] = useState<{ competitorId: string; suit: Suit } | null>(null)
+  const [pickerClosing, setPickerClosing] = useState(false)
   const pickerRef = useRef<HTMLDivElement | null>(null)
   const cardClickTimerRef = useRef<ReturnType<typeof window.setTimeout> | null>(null)
+  const pickerCloseTimerRef = useRef<ReturnType<typeof window.setTimeout> | null>(null)
   const primieraOrder = [7, 6, 1, 5, 4, 3, 2, 8, 9, 10]
+
+  function closePicker() {
+    if (pickerCloseTimerRef.current !== null) window.clearTimeout(pickerCloseTimerRef.current)
+    setPickerClosing(true)
+    pickerCloseTimerRef.current = window.setTimeout(() => {
+      setActiveSlot(null)
+      setPickerClosing(false)
+      pickerCloseTimerRef.current = null
+    }, 150)
+  }
 
   useEffect(() => () => {
     if (cardClickTimerRef.current !== null) window.clearTimeout(cardClickTimerRef.current)
+    if (pickerCloseTimerRef.current !== null) window.clearTimeout(pickerCloseTimerRef.current)
   }, [])
 
   useEffect(() => {
@@ -784,15 +797,18 @@ function PrimieraModal({ mode, competitors, cards, onChange, onApply }: {
                             window.clearTimeout(cardClickTimerRef.current)
                             cardClickTimerRef.current = null
                             onChange(competitor.id, suit.id, '7')
-                            setActiveSlot(null)
+                            closePicker()
                             return
                           }
 
                           cardClickTimerRef.current = window.setTimeout(() => {
                             cardClickTimerRef.current = null
                             if (isActive) {
-                              setActiveSlot(null)
+                              closePicker()
                             } else {
+                              if (pickerCloseTimerRef.current !== null) window.clearTimeout(pickerCloseTimerRef.current)
+                              pickerCloseTimerRef.current = null
+                              setPickerClosing(false)
                               setActiveSlot({ competitorId: competitor.id, suit: suit.id })
                             }
                           }, 220)
@@ -800,10 +816,10 @@ function PrimieraModal({ mode, competitors, cards, onChange, onApply }: {
                         <img src={BASE + 'cards/' + suit.id + '/' + (rank ?? 7) + '.jpg'} alt={rank === null ? 'Unselected 7 of ' + suit.label : RANK_LABELS[rank] + ' of ' + suit.label} />
                       </button>
                       {isActive && (
-                        <div ref={pickerRef} className="primiera-card-picker" aria-label={'Choose ' + suit.label + ' card'}>
+                        <div ref={pickerRef} className={'primiera-card-picker' + (pickerClosing ? ' is-closing' : '')} aria-label={'Choose ' + suit.label + ' card'}>
                           {primieraOrder.map((optionRank) => (
                             <button type="button" key={optionRank} className={rank === optionRank ? 'active' : ''}
-                              onClick={() => { onChange(competitor.id, suit.id, String(optionRank)); setActiveSlot(null) }}>
+                              onClick={() => { onChange(competitor.id, suit.id, String(optionRank)); closePicker() }}>
                               <img src={BASE + 'cards/' + suit.id + '/' + optionRank + '.jpg'} alt="" />
                               <span>{RANK_LABELS[optionRank]}</span>
                               <strong>{getPrimieraCardValue(optionRank)}</strong>
