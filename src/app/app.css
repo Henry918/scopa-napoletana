@@ -24,7 +24,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .page-shell { width: min(1180px, calc(100% - 64px)); margin: 0 auto; padding: 28px 0 20px; }
 .brand-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(32,52,44,.13); padding-bottom: 20px; }
 .brand-lockup { display: flex; align-items: center; gap: 11px; color: var(--green); }
-.brand-symbol { width: 39px; height: 39px; border-radius: 50%; background: var(--green); color: #e5d4ae; display: grid; place-items: center; font-family: Georgia, serif; font-size: 24px; font-style: italic; }
+.brand-symbol { display: block; width: 39px; height: 39px; flex: 0 0 39px; border-radius: 50%; object-fit: cover; }
 .brand-lockup div { display: flex; flex-direction: column; line-height: 1.03; letter-spacing: .15em; }
 .brand-lockup strong { font-size: 15px; font-weight: 700; }
 .brand-lockup span:last-child { font-size: 9px; letter-spacing: .28em; margin-top: 5px; color: #718078; }
@@ -231,7 +231,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 @media (max-width: 480px) {
   .page-shell { width: calc(100% - 28px); }
   .brand-header { padding-bottom: 15px; }
-  .brand-symbol { width: 34px; height: 34px; }
+  .brand-symbol { width: 34px; height: 34px; flex-basis: 34px; }
   .offline-indicator { font-size: 8px; }
   .header-mode { display: none; }
   .setup-panel { padding: 18px 15px; }
