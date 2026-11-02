@@ -385,7 +385,7 @@ function App() {
             </div>
 
             <div className="target-row">
-              <div><label className="field-label" htmlFor="target-score">Play to</label><p className="field-hint">Default target is 11 points</p></div>
+              <div><label className="field-label" htmlFor="target-score">Target score</label><p className="field-hint">Default target is 11 points</p></div>
               <div className="target-input-wrap">
                 <input id="target-score" type="number" min="1" max="999" value={draft.targetScore} onChange={(event) => setDraft({ ...draft, targetScore: event.target.value })} />
                 <span>POINTS</span>
