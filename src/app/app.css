@@ -2518,7 +2518,6 @@ html.viewport-content-fits body {
   .round-category-list {
     position: relative;
     z-index: 1;
-    transform: translateY(-5px);
   }
 
   .primiera-card-picker {
