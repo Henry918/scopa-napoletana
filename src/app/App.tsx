@@ -746,28 +746,34 @@ function PrimieraModal({ mode, competitors, cards, onChange, onApply }: {
     if (!picker) return
 
     const keepPickerWithinViewport = () => {
-      picker.style.setProperty('--picker-horizontal-shift', '0px')
-      const rect = picker.getBoundingClientRect()
+      const anchor = picker.parentElement?.querySelector<HTMLElement>('.primiera-card-choice')
+      if (!anchor) return
+
+      const anchorRect = anchor.getBoundingClientRect()
       const viewportWidth = document.documentElement.clientWidth
       const edgePadding = 8
-      let shift = 0
+      const pickerWidth = picker.getBoundingClientRect().width
+      const maxLeft = Math.max(edgePadding, viewportWidth - edgePadding - pickerWidth)
+      const left = Math.min(Math.max(anchorRect.left + anchorRect.width / 2 - pickerWidth / 2, edgePadding), maxLeft)
 
-      if (rect.left < edgePadding) {
-        shift = edgePadding - rect.left
-      } else if (rect.right > viewportWidth - edgePadding) {
-        shift = viewportWidth - edgePadding - rect.right
-      }
-
-      picker.style.setProperty('--picker-horizontal-shift', shift + 'px')
+      picker.style.setProperty('position', 'fixed', 'important')
+      picker.style.setProperty('left', left + 'px', 'important')
+      picker.style.setProperty('top', anchorRect.bottom + 4 + 'px', 'important')
+      picker.style.setProperty('right', 'auto', 'important')
+      picker.style.setProperty('bottom', 'auto', 'important')
+      picker.style.setProperty('transform', 'none', 'important')
     }
 
     keepPickerWithinViewport()
+    const pickerResizeObserver = new ResizeObserver(keepPickerWithinViewport)
+    pickerResizeObserver.observe(picker)
     window.addEventListener('resize', keepPickerWithinViewport)
     window.addEventListener('scroll', keepPickerWithinViewport, true)
     window.visualViewport?.addEventListener('resize', keepPickerWithinViewport)
     window.visualViewport?.addEventListener('scroll', keepPickerWithinViewport)
 
     return () => {
+      pickerResizeObserver.disconnect()
       window.removeEventListener('resize', keepPickerWithinViewport)
       window.removeEventListener('scroll', keepPickerWithinViewport, true)
       window.visualViewport?.removeEventListener('resize', keepPickerWithinViewport)
