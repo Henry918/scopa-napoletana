@@ -2460,6 +2460,10 @@ html.viewport-content-fits body {
     display: none;
   }
 
+  .game-results {
+    margin-top: 12px;
+  }
+
   .winner-category-grid {
     grid-template-columns: minmax(0, 1fr);
   }
