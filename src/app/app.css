@@ -2440,3 +2440,10 @@ button:disabled { opacity: .45; cursor: not-allowed; }
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+
+/* Prevent unnecessary page scrolling when the complete view fits the viewport. */
+html.viewport-content-fits,
+html.viewport-content-fits body {
+  overflow-y: hidden;
+}
