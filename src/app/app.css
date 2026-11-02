@@ -13,6 +13,7 @@
   --muted: #829087;
   --line: #e6e1d5;
   --red: #a3473b;
+  --section-header-gap: 74px;
 }
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 320px; min-height: 100vh; }
@@ -2141,8 +2142,8 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .game-results {
   display: flex;
   flex-direction: column;
-  gap: 74px;
-  margin-top: 74px;
+  gap: var(--section-header-gap);
+  margin-top: var(--section-header-gap);
 }
 .game-results > .winner-banner,
 .game-results > .score-grid {
@@ -2181,16 +2182,10 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 
 @media (max-width: 800px) {
-  .game-results {
-    gap: 12px;
-    margin-top: 12px;
-  }
+  :root { --section-header-gap: 18px; }
 }
 @media (max-width: 480px) {
-  .game-results {
-    gap: 8px;
-    margin-top: 8px;
-  }
+  :root { --section-header-gap: 11px; }
 }
 
 
@@ -2360,9 +2355,9 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 
 
-/* Home setup and history are exclusive views with a shared header offset. */
+/* Home views and game results share one responsive header offset. */
 .home-view-content {
-  margin-top: 74px;
+  margin-top: var(--section-header-gap);
 }
 .home-view-content > .setup-layout {
   padding-top: 0;
@@ -2383,16 +2378,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   font-size: 13px;
   line-height: 1.6;
 }
-@media (max-width: 800px) {
-  .home-view-content {
-    margin-top: 18px;
-  }
-}
-@media (max-width: 480px) {
-  .home-view-content {
-    margin-top: 11px;
-  }
-}
+
 
 
 .home-header-actions { display: inline-flex; align-items: center; gap: 8px; }
