@@ -101,6 +101,7 @@ function App() {
   const [roundOpen, setRoundOpen] = useState(false)
   const [scoringHelpOpen, setScoringHelpOpen] = useState(false)
   const [roundReviewOpen, setRoundReviewOpen] = useState(false)
+  const [skipRoundReview, setSkipRoundReview] = useState(() => window.localStorage.getItem('scopa-napoletane:skip-round-review') === 'true')
   const [notice, setNotice] = useState('')
 
   useEffect(() => {
@@ -136,6 +137,11 @@ function App() {
 
   function startGame(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    const playerCount = draft.mode === 'four-player-teams' ? 4 : draft.mode === 'two-players' ? 2 : 3
+    if (draft.playerNames.slice(0, playerCount).some((name) => !name.trim())) {
+      setNotice('Enter a name for every player.')
+      return
+    }
     const targetScore = Number(draft.targetScore)
     if (!Number.isInteger(targetScore) || targetScore < 1 || targetScore > 999) {
       setNotice('Enter a target score from 1 to 999.')
@@ -203,6 +209,10 @@ function App() {
   function reviewRound() {
     if (!game) return
     if (issues.length > 0) return
+    if (skipRoundReview) {
+      confirmRound()
+      return
+    }
     setRoundReviewOpen(true)
   }
 
@@ -279,8 +289,34 @@ function App() {
   }
 
   function startNewGame() {
-    if (!window.confirm('Return to the start screen? This game will be saved and can be reopened later.')) return
-    goHome()
+    if (!game) return
+    if (!window.confirm('Save this game and start a new one with the same players and settings?')) return
+    saveGame(game)
+    saveGame(null)
+    const nextGame: GameSession = {
+      schemaVersion: 1,
+      id: newId(),
+      name: game.name,
+      date: todayForInput(),
+      mode: game.mode,
+      targetScore: game.targetScore,
+      competitors: game.competitors.map((competitor) => ({ ...competitor, members: [...competitor.members] })),
+      rounds: [],
+      status: 'playing',
+      createdAt: new Date().toISOString()
+    }
+    setGame(nextGame)
+    setEntries(emptyEntries(nextGame.competitors))
+    setCardsWinnerId(undefined)
+    setDenariWinnerId(undefined)
+    setSettebelloWinnerId(undefined)
+    setPrimieraWinnerId(undefined)
+    setPrimieraCards(Object.fromEntries(nextGame.competitors.map((competitor) => [competitor.id, { ...EMPTY_PRIMIERA }])))
+    setRoundOpen(true)
+    setRoundReviewOpen(false)
+    setPrimieraOpen(false)
+    setScoringHelpOpen(false)
+    setNotice('')
   }
 
   function exportGame() {
@@ -329,7 +365,7 @@ function App() {
                     {[teamIndex * 2, teamIndex * 2 + 1].map((playerIndex) => (
                       <label className="name-field team-player-name-field" key={playerIndex}>
                         <span className="player-index">{String(playerIndex + 1).padStart(2, '0')}</span>
-                        <input id={'player-' + (playerIndex + 1)} aria-label={'Player ' + (playerIndex + 1) + ' name'} placeholder={'Player ' + (playerIndex + 1)} value={draft.playerNames[playerIndex]} onChange={(event) => setDraft({ ...draft, playerNames: draft.playerNames.map((name, index) => index === playerIndex ? event.target.value : name) })} />
+                        <input id={'player-' + (playerIndex + 1)} aria-label={'Player ' + (playerIndex + 1) + ' name'} placeholder={'Player ' + (playerIndex + 1)} value={draft.playerNames[playerIndex]} required onChange={(event) => setDraft({ ...draft, playerNames: draft.playerNames.map((name, index) => index === playerIndex ? event.target.value : name) })} />
                       </label>
                     ))}
                   </div>
@@ -341,7 +377,7 @@ function App() {
                 {draft.playerNames.slice(0, draft.mode === 'two-players' ? 2 : 3).map((name, index) => (
                   <label className={'name-field player-name-field-' + (index + 1)} key={index}>
                     <span className="player-index">{String(index + 1).padStart(2, '0')}</span>
-                    <input aria-label={'Player ' + (index + 1) + ' name'} placeholder={'Player ' + (index + 1)} value={name} onChange={(event) => setDraft({ ...draft, playerNames: draft.playerNames.map((current, nameIndex) => nameIndex === index ? event.target.value : current) })} />
+                    <input aria-label={'Player ' + (index + 1) + ' name'} placeholder={'Player ' + (index + 1)} value={name} required onChange={(event) => setDraft({ ...draft, playerNames: draft.playerNames.map((current, nameIndex) => nameIndex === index ? event.target.value : current) })} />
                   </label>
                 ))}
               </div>
@@ -483,7 +519,7 @@ function App() {
 
           {notice && <p className="notice">{notice}</p>}
           <div className="round-actions">
-            <button className="button button-primary" type="button" disabled={issues.length > 0} onClick={reviewRound}>Review round</button>
+            <button className="button button-primary" type="button" disabled={issues.length > 0} onClick={reviewRound}>Confirm round</button>
           </div>
         </section>
       )}
@@ -587,7 +623,11 @@ function App() {
               const scopaCount = entries.find((entry) => entry.competitorId === competitor.id)?.scope ?? 0
               return <div className="review-point-row" key={competitor.id}><span>{competitor.name}{scopaCount > 0 ? ' (' + scopaCount + ')' : ''}</span><strong>+{roundPreview.points[competitor.id] ?? 0}</strong></div>
             })}</div>
-            <div className="modal-actions"><button className="button button-quiet" type="button" onClick={() => setRoundReviewOpen(false)}>Back to entry</button><button className="button button-primary" type="button" onClick={confirmRound}>Confirm round</button></div>
+            <div className="modal-actions"><button className="button button-quiet" type="button" onClick={() => {
+                window.localStorage.setItem('scopa-napoletane:skip-round-review', 'true')
+                setSkipRoundReview(true)
+                confirmRound()
+              }}>Don't ask again</button><button className="button button-primary" type="button" onClick={confirmRound}>Accept round</button></div>
           </section>
         </div>
       )}
