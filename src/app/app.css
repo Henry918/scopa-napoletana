@@ -2433,6 +2433,10 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 
 @media (max-width: 800px) {
+  .primiera-inline .primiera-competitor-grid {
+    gap: 6px;
+  }
+
   .scopa-options {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2564,10 +2568,14 @@ html.viewport-content-fits body {
     gap: 9px;
   }
 
+  .scopa-options {
+    gap: 10px;
+  }
+
   .primiera-inline .primiera-competitor-grid {
     display: flex;
     flex-direction: row;
-    gap: 6px;
+    gap: 10px;
     width: 100%;
   }
 
