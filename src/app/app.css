@@ -118,7 +118,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .winner-banner p:last-child { font-size: 11px; color: #718078; margin: 4px 0 0; }
 .round-panel { padding: 25px; margin: 22px 0 28px; }
 .round-heading { align-items: center; }
-.round-heading h2 { font-size: 29px; }
+.round-heading h2 { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 29px; text-transform: uppercase; }
 .round-heading .field-hint { font-size: 12px; }
 .icon-button { flex: none; display: grid; place-items: center; border: 1px solid #e2e0d7; border-radius: 50%; width: 37px; height: 37px; background: transparent; color: #67766c; font-size: 23px; line-height: 1; }
 .totals-ribbon { display: flex; align-items: center; gap: 10px; border-radius: 7px; background: #f2f2e9; padding: 11px 14px; margin: 20px 0 15px; }
@@ -169,7 +169,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .history-heading h2 { font-size: 25px; }
 .history-list { border-top: 1px solid #e0ddd2; }
 .history-row { display: flex; align-items: center; gap: 15px; padding: 13px 3px; border-bottom: 1px solid #e0ddd2; }
-.history-round { width: 35px; height: 35px; flex: none; border-radius: 50%; background: #e9eee7; display: grid; place-items: center; color: #667b6b; font-size: 10px; font-weight: 700; }
+.history-round { width: 35px; height: 35px; flex: none; border-radius: 50%; background: #e9eee7; display: grid; place-items: center; color: #667b6b; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; }
 .history-details { display: flex; flex-direction: column; gap: 4px; min-width: 160px; }
 .history-details strong { font-size: 11px; color: #41564a; }
 .history-details span { font-size: 9px; color: #939b92; }
