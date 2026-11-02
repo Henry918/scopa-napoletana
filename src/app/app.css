@@ -2670,3 +2670,11 @@ body {
     left: 8px !important;
   }
 }
+
+/* Slightly reduce the maximum Primiera picker width on desktop. */
+@media (min-width: 801px) {
+  .primiera-card-picker {
+    width: min(410px, calc(100vw - 16px)) !important;
+    max-width: calc(100vw - 16px) !important;
+  }
+}
