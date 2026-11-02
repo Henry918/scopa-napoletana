@@ -2711,3 +2711,10 @@ body {
     font-size: clamp(38px, calc(5.3vw - 4px), 62px);
   }
 }
+
+/* Set the Primiera comparison player gap on narrow mobile screens. */
+@media (max-width: 480px) {
+  .primiera-inline .primiera-competitor-grid {
+    gap: 9px;
+  }
+}
