@@ -2382,4 +2382,5 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 
 
 .home-header-actions { display: inline-flex; align-items: center; gap: 8px; }
+.home-header-actions .saved-games-manage:not(.home-view-toggle) { width: 104px; min-width: 104px; padding: 0 8px; }
 .home-header-actions .home-view-toggle { width: 82px; min-width: 82px; padding: 0 8px; }
