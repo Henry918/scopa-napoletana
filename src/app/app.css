@@ -2426,9 +2426,9 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .scopa-option .stepper output {
   flex: 1 1 0;
 }
-.scopa-options:not(.scopa-options-three) .scopa-option .stepper {
+.scopa-option .stepper {
   width: 100%;
-  max-width: 130px;
+  max-width: 110px;
   margin-inline: auto;
 }
 
