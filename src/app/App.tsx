@@ -336,10 +336,10 @@ function App() {
                 ))}
               </div>
             ) : (
-              <div className="players-setup">
+              <div className={'players-setup' + (draft.mode === 'three-players' ? ' players-setup-three' : '')}>
                 <div className="section-label">PLAYER NAMES</div>
                 {draft.playerNames.slice(0, draft.mode === 'two-players' ? 2 : 3).map((name, index) => (
-                  <label className="name-field" key={index}>
+                  <label className={'name-field player-name-field-' + (index + 1)} key={index}>
                     <span className="player-index">{String(index + 1).padStart(2, '0')}</span>
                     <input aria-label={'Player ' + (index + 1) + ' name'} placeholder={'Player ' + (index + 1)} value={name} onChange={(event) => setDraft({ ...draft, playerNames: draft.playerNames.map((current, nameIndex) => nameIndex === index ? event.target.value : current) })} />
                   </label>
