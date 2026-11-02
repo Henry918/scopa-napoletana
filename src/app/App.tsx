@@ -721,7 +721,12 @@ function PrimieraModal({ mode, competitors, cards, onChange, onApply }: {
 }) {
   const [activeSlot, setActiveSlot] = useState<{ competitorId: string; suit: Suit } | null>(null)
   const pickerRef = useRef<HTMLDivElement | null>(null)
+  const cardClickTimerRef = useRef<ReturnType<typeof window.setTimeout> | null>(null)
   const primieraOrder = [7, 6, 1, 5, 4, 3, 2, 8, 9, 10]
+
+  useEffect(() => () => {
+    if (cardClickTimerRef.current !== null) window.clearTimeout(cardClickTimerRef.current)
+  }, [])
 
   useEffect(() => {
     const picker = pickerRef.current
@@ -775,13 +780,23 @@ function PrimieraModal({ mode, competitors, cards, onChange, onApply }: {
                         aria-label={competitor.name + ' ' + suit.label + ', ' + (rank === null ? 'not selected' : RANK_LABELS[rank])}
                         aria-expanded={isActive}
                         onClick={() => {
-                          if (isActive) {
+                          if (cardClickTimerRef.current !== null) {
+                            window.clearTimeout(cardClickTimerRef.current)
+                            cardClickTimerRef.current = null
+                            onChange(competitor.id, suit.id, '7')
                             setActiveSlot(null)
-                          } else {
-                            setActiveSlot({ competitorId: competitor.id, suit: suit.id })
+                            return
                           }
-                        }}
-                        onDoubleClick={() => { onChange(competitor.id, suit.id, '7'); setActiveSlot(null) }}>
+
+                          cardClickTimerRef.current = window.setTimeout(() => {
+                            cardClickTimerRef.current = null
+                            if (isActive) {
+                              setActiveSlot(null)
+                            } else {
+                              setActiveSlot({ competitorId: competitor.id, suit: suit.id })
+                            }
+                          }, 220)
+                        }}>
                         <img src={BASE + 'cards/' + suit.id + '/' + (rank ?? 7) + '.jpg'} alt={rank === null ? 'Unselected 7 of ' + suit.label : RANK_LABELS[rank] + ' of ' + suit.label} />
                       </button>
                       {isActive && (
