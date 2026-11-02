@@ -822,7 +822,7 @@ function PrimieraModal({ mode, competitors, cards, onChange, onApply }: {
                               setPickerClosing(false)
                               setActiveSlot({ competitorId: competitor.id, suit: suit.id })
                             }
-                          }, 220)
+                          }, 180)
                         }}>
                         <img src={BASE + 'cards/' + suit.id + '/' + (rank ?? 7) + '.jpg'} alt={rank === null ? 'Unselected 7 of ' + suit.label : RANK_LABELS[rank] + ' of ' + suit.label} />
                       </button>
