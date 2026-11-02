@@ -2427,7 +2427,8 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 .scopa-options:not(.scopa-options-three) .scopa-option .stepper {
   width: 100%;
-  max-width: 180px;
+  max-width: 130px;
+  margin-inline: auto;
 }
 
 @media (max-width: 800px) {
