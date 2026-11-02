@@ -1185,20 +1185,19 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .saved-games-heading h2 {
   margin: 0;
 }
-.saved-games-manage {
+.saved-games-manage,
+.saved-games-manage:hover,
+.saved-games-manage:active,
+.saved-games-manage:focus {
   flex: none;
   min-height: 35px;
   padding: 0 12px;
   border: 1px solid #d8d5ca;
   border-radius: 5px;
-  background: #fffdf7;
+  background: transparent;
   color: #6e725f;
   font-size: 10px;
   font-weight: 700;
-}
-.saved-games-manage:hover {
-  border-color: #b8aa88;
-  background: #f5f0e4;
 }
 .saved-game-card {
   align-items: center;
@@ -2383,13 +2382,4 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 
 
 .home-header-actions { display: inline-flex; align-items: center; gap: 8px; }
-.home-header-actions .saved-games-manage { width: 104px; min-width: 104px; padding: 0 8px; }
-
-/* Keep the History / New game toggle visually consistent in every interaction state. */
-.home-view-toggle,
-.home-view-toggle:hover,
-.home-view-toggle:active,
-.home-view-toggle:focus {
-  border-color: #b8aa88;
-  background: transparent;
-}
+.home-header-actions .home-view-toggle { width: 82px; min-width: 82px; padding: 0 8px; }
