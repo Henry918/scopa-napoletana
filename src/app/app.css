@@ -2016,10 +2016,13 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 .scoring-help-footer {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-end;
   gap: 14px;
   padding-top: 17px;
+}
+.scoring-help-footer > p {
+  width: 100%;
 }
 .scoring-help-footer > span,
 .scoring-help-footer > p {
