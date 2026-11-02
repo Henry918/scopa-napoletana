@@ -2446,6 +2446,13 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 
 
+/* Keep a small breathing space above Primiera when it is brought into view. */
+@media (max-width: 800px) {
+  .round-category:has(.primiera-inline) {
+    scroll-margin-top: 8px;
+  }
+}
+
 /* Prevent unnecessary page scrolling when the complete view fits the viewport. */
 html.viewport-content-fits,
 html.viewport-content-fits body {
