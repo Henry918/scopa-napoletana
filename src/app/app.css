@@ -2316,9 +2316,11 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   column-gap: 28px;
   row-gap: 9px;
 }
+.players-setup > .section-label {
+  margin-bottom: 0;
+}
 .players-setup-three > .section-label {
   grid-column: 1 / -1;
-  margin-bottom: 0;
 }
 .players-setup-three > .player-name-field-1 {
   grid-column: 1;
