@@ -2660,3 +2660,13 @@ html,
 body {
   overflow-x: clip;
 }
+
+/* On mobile, the rank picker spans the viewport with fixed 8px side gutters. */
+@media (max-width: 800px) {
+  .primiera-card-picker {
+    box-sizing: border-box;
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    left: 8px !important;
+  }
+}
