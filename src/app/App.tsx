@@ -696,7 +696,7 @@ function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename, homeView,
   return (
     <header className="brand-header">
       <button className="brand-home" type="button" onClick={onHome} disabled={!onHome} aria-label="Back to home">
-        <span className="brand-lockup"><span className="brand-symbol">S</span><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
+        <span className="brand-lockup"><img className="brand-symbol" src={BASE + 'icons/scopa.svg'} alt="" /><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
       </button>
       <div className="header-right">
         {onToggleHomeView && <div className="home-header-actions">{homeView === 'history' && onToggleManageSavedGames && <button className="saved-games-manage" type="button" onClick={onToggleManageSavedGames}>{manageSavedGames ? 'Done' : 'Manage games'}</button>}<button className="saved-games-manage home-view-toggle" type="button" onClick={onToggleHomeView}>{homeView === 'history' ? 'New game' : 'History'}</button></div>}
