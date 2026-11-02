@@ -87,6 +87,7 @@ function App() {
   const [game, setGame] = useState<GameSession | null>(() => loadGame())
   const [savedGames, setSavedGames] = useState<GameSession[]>(() => loadGames())
   const [manageSavedGames, setManageSavedGames] = useState(false)
+  const [homeView, setHomeView] = useState<'new' | 'history'>('new')
   const [renameGameOpen, setRenameGameOpen] = useState(false)
   const [renameGameDraft, setRenameGameDraft] = useState('')
   const renameInputRef = useRef<HTMLInputElement | null>(null)
@@ -333,8 +334,9 @@ function App() {
   if (!game) {
     return (
       <main className="page-shell">
-        <BrandHeader />
-        <section className="setup-layout">
+        <BrandHeader homeView={homeView} onToggleHomeView={() => { setHomeView((current) => current === 'new' ? 'history' : 'new'); setManageSavedGames(false) }} />
+        <div className="home-view-content">
+        {homeView === 'new' && <section className="setup-layout">
           <div className="intro-copy">
             <p className="eyebrow">THE TABLESIDE SCOREKEEPER</p>
             <h1>Keep your game<br /><em>in good hands.</em></h1>
@@ -394,16 +396,17 @@ function App() {
             {notice && <p className="notice error-notice" role="alert">{notice}</p>}
             <button className="button button-primary button-full" type="submit">Start game</button>
           </form>
-        </section>
-        {savedGames.length > 0 && (
+        </section>}
+        {homeView === 'history' && (
           <section className="saved-games-section">
+
             <div className="saved-games-heading">
               <h2>Previous games</h2>
               <button className="saved-games-manage" type="button" onClick={() => setManageSavedGames((current) => !current)}>
                 {manageSavedGames ? 'Done' : 'Manage games'}
               </button>
             </div>
-            <div className={'saved-games-list' + (manageSavedGames ? ' managing-saved-games' : '')}>
+            {savedGames.length > 0 ? <div className={'saved-games-list' + (manageSavedGames ? ' managing-saved-games' : '')}>
               {savedGames.map((savedGame) => {
                 const savedTotals = roundTotals(savedGame.rounds, savedGame.competitors)
                 const result = savedGame.competitors.map((competitor) => competitorDisplayName(competitor, savedGame.mode) + ' ' + (savedTotals[competitor.id] ?? 0)).join(' · ')
@@ -420,9 +423,10 @@ function App() {
                   </article>
                 )
               })}
-            </div>
+            </div> : <p className="saved-games-empty">No previous games yet. Start a new game to begin your history.</p>}
           </section>
         )}
+        </div>
       </main>
     )
   }
@@ -635,13 +639,14 @@ function App() {
   )
 }
 
-function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename }: { gameMode?: GameMode; onHome?: () => void; gameName?: string; gameDate?: string; onRename?: () => void }) {
+function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename, homeView, onToggleHomeView }: { gameMode?: GameMode; onHome?: () => void; gameName?: string; gameDate?: string; onRename?: () => void; homeView?: 'new' | 'history'; onToggleHomeView?: () => void }) {
   return (
     <header className="brand-header">
       <button className="brand-home" type="button" onClick={onHome} disabled={!onHome} aria-label="Back to home">
         <span className="brand-lockup"><span className="brand-symbol">S</span><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
       </button>
       <div className="header-right">
+        {onToggleHomeView && <button className="home-view-toggle" type="button" onClick={onToggleHomeView} aria-label={homeView === 'history' ? 'Show new game' : 'Show game history'} title={homeView === 'history' ? 'New game' : 'History'}><span aria-hidden="true">{homeView === 'history' ? '+' : '↻'}</span>{homeView === 'history' ? 'New game' : 'History'}</button>}
         <span className="offline-indicator"><i /> LOCAL SCOREKEEPER</span>
         {gameMode && <span className="header-mode">{gameMode === 'two-players' ? '2 PLAYERS' : gameMode === 'three-players' ? '3 PLAYERS' : '2 TEAMS'}</span>}
         {gameName && <div className="game-header-meta"><button className="game-name-trigger" type="button" onClick={onRename} aria-label={'Rename game, current name ' + gameName} title="Rename game"><strong>{gameName}</strong></button>{gameDate && <time>{gameDate}</time>}</div>}
