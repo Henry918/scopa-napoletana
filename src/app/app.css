@@ -2447,3 +2447,16 @@ html.viewport-content-fits,
 html.viewport-content-fits body {
   overflow-y: hidden;
 }
+
+
+/* Desktop header and round-entry layout refinements. */
+@media (min-width: 801px) {
+  .offline-indicator,
+  .header-mode {
+    display: none;
+  }
+
+  .winner-category-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
