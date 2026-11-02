@@ -1965,6 +1965,12 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .scoring-help-modal {
   width: min(650px, 100%);
 }
+
+@media (min-width: 801px) {
+  .scoring-help-modal {
+    width: min(480px, 100%);
+  }
+}
 .scoring-help-list {
   display: grid;
   gap: 0;
