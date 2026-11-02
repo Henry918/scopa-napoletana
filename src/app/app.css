@@ -2685,3 +2685,17 @@ body {
     width: min(1080px, calc(100% - 64px));
   }
 }
+
+
+/* Tighten the desktop home layout and slightly reduce the intro heading. */
+@media (min-width: 801px) {
+  .setup-layout {
+    gap: clamp(32px, 6vw, 88px);
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+  .intro-copy h1 {
+    font-size: clamp(38px, calc(5.3vw - 4px), 62px);
+  }
+}
