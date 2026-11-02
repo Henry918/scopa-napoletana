@@ -159,6 +159,9 @@ function App() {
   useEffect(() => {
     if (!primieraOpen || !window.matchMedia('(max-width: 800px)').matches) return
 
+    // Allow the expanded Primiera section to scroll even if the previous view was locked.
+    document.documentElement.classList.remove('viewport-content-fits')
+
     let firstFrame = 0
     let secondFrame = 0
     firstFrame = window.requestAnimationFrame(() => {
