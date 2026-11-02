@@ -2385,3 +2385,45 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .home-header-actions { display: inline-flex; align-items: center; gap: 8px; }
 .home-header-actions .saved-games-manage:not(.home-view-toggle) { width: 104px; min-width: 104px; padding: 0 8px; }
 .home-header-actions .home-view-toggle { width: 82px; min-width: 82px; padding: 0 8px; }
+
+/* Scopa entries mirror the player selector columns, with names above counters. */
+.scopa-options {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.scopa-options.scopa-options-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.scopa-option {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 0;
+  padding: 9px 7px;
+}
+.scopa-option-name {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.scopa-option .stepper {
+  display: flex;
+  width: 100%;
+  flex: none;
+  justify-content: center;
+}
+.scopa-option .stepper button,
+.scopa-option .stepper output {
+  flex: 1 1 0;
+}
+@media (max-width: 800px) {
+  .scopa-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .scopa-options.scopa-options-three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
