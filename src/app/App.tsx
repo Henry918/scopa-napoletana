@@ -646,7 +646,7 @@ function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename, homeView,
         <span className="brand-lockup"><span className="brand-symbol">S</span><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
       </button>
       <div className="header-right">
-        {onToggleHomeView && <button className="home-view-toggle" type="button" onClick={onToggleHomeView} aria-label={homeView === 'history' ? 'Show new game' : 'Show game history'} title={homeView === 'history' ? 'New game' : 'History'}><span aria-hidden="true">{homeView === 'history' ? '+' : '↻'}</span>{homeView === 'history' ? 'New game' : 'History'}</button>}
+        {onToggleHomeView && <button className="saved-games-manage home-view-toggle" type="button" onClick={onToggleHomeView}>{homeView === 'history' ? 'New game' : 'History'}</button>}
         <span className="offline-indicator"><i /> LOCAL SCOREKEEPER</span>
         {gameMode && <span className="header-mode">{gameMode === 'two-players' ? '2 PLAYERS' : gameMode === 'three-players' ? '3 PLAYERS' : '2 TEAMS'}</span>}
         {gameName && <div className="game-header-meta"><button className="game-name-trigger" type="button" onClick={onRename} aria-label={'Rename game, current name ' + gameName} title="Rename game"><strong>{gameName}</strong></button>{gameDate && <time>{gameDate}</time>}</div>}
