@@ -655,7 +655,7 @@ function App() {
                 <div><h3>Scopa · Clear the table</h3><p>Each time a play captures every card on the table, it is a Scopa and earns one point. The final capture of the round does not count as a Scopa.</p></div>
               </article>
             </div>
-            <div className="scoring-help-footer"><p className="scoring-help-tie-note">If two or more players or teams tie for a point, nobody gets that point.</p><button className="button button-primary" type="button" onClick={() => setScoringHelpOpen(false)}>Got it</button></div>
+            <div className="scoring-help-footer"><p className="scoring-help-tie-note">If two players tie for a point, nobody gets that point.</p><button className="button button-primary" type="button" onClick={() => setScoringHelpOpen(false)}>Got it</button></div>
           </section>
         </div>
       )}
