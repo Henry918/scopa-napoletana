@@ -2552,11 +2552,20 @@ html.viewport-content-fits body {
 
   .scopa-option .stepper {
     max-width: 124px;
+    height: 36px;
+    align-items: center;
   }
 
   .scopa-option .stepper button,
   .scopa-option .stepper output {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 36px;
     min-height: 36px;
+    padding: 0;
+    line-height: 1;
   }
 
   .primiera-open-action,
