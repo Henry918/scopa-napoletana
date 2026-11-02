@@ -106,6 +106,45 @@ function App() {
   const [notice, setNotice] = useState('')
 
   useEffect(() => {
+    const root = document.documentElement
+    const page = document.querySelector('.page-shell')
+    let frame = 0
+
+    const updateScrollLock = () => {
+      window.cancelAnimationFrame(frame)
+      frame = window.requestAnimationFrame(() => {
+        const viewportHeight = window.visualViewport?.height ?? window.innerHeight
+        const contentHeight = Math.max(root.scrollHeight, document.body.scrollHeight)
+        const isAtTop = window.scrollY <= 1
+        root.classList.toggle('viewport-content-fits', contentHeight <= viewportHeight + 1 && isAtTop)
+      })
+    }
+
+    const resizeObserver = new ResizeObserver(updateScrollLock)
+    resizeObserver.observe(root)
+    resizeObserver.observe(document.body)
+    if (page) resizeObserver.observe(page)
+
+    window.addEventListener('resize', updateScrollLock)
+    window.addEventListener('scroll', updateScrollLock, { passive: true })
+    window.visualViewport?.addEventListener('resize', updateScrollLock)
+    window.visualViewport?.addEventListener('scroll', updateScrollLock)
+
+    updateScrollLock()
+
+    return () => {
+      window.cancelAnimationFrame(frame)
+      resizeObserver.disconnect()
+      window.removeEventListener('resize', updateScrollLock)
+      window.removeEventListener('scroll', updateScrollLock)
+      window.visualViewport?.removeEventListener('resize', updateScrollLock)
+      window.visualViewport?.removeEventListener('scroll', updateScrollLock)
+      root.classList.remove('viewport-content-fits')
+    }
+  }, [])
+
+
+  useEffect(() => {
     if (!renameGameOpen) return
     renameInputRef.current?.focus()
     renameInputRef.current?.select()
