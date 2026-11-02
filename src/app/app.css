@@ -1734,16 +1734,18 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   padding: 0 18px;
 }
 .primiera-card-picker {
-  position: absolute !important;
-  top: calc(100% + 4px) !important;
-  left: 50% !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 8px !important;
   right: auto !important;
   bottom: auto !important;
-  width: min(430px, calc(100vw - 28px)) !important;
+  box-sizing: border-box;
+  width: min(430px, calc(100vw - 16px)) !important;
+  max-width: calc(100vw - 16px);
   max-height: none !important;
   overflow: visible !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  transform: translateX(calc(-50% + var(--picker-horizontal-shift, 0px))) !important;
+  transform: none !important;
 }
 .tie-selector,
 .tie-selector:hover,
@@ -2650,4 +2652,11 @@ html.viewport-content-fits body {
   .primiera-card-picker.is-closing {
     animation-duration: 1ms;
   }
+}
+
+
+/* The card picker is viewport-positioned and must never widen the page. */
+html,
+body {
+  overflow-x: clip;
 }
