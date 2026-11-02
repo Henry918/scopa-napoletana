@@ -2481,3 +2481,53 @@ html.viewport-content-fits body {
   min-height: 0;
 }
 
+
+
+/* Desktop round actions and popup actions use the same centered full-width layout as mobile. */
+@media (min-width: 801px) {
+  .round-launch .button {
+    display: flex;
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .round-actions,
+  .modal-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .round-actions .button,
+  .modal-actions .button {
+    width: 100%;
+  }
+
+  .scoring-help-footer {
+    justify-content: center;
+  }
+
+  .scoring-help-footer .button {
+    width: 100%;
+  }
+
+  /* Raise the point-entry categories and tighten the controls within them slightly. */
+  .round-category-list {
+    transform: translateY(-5px);
+  }
+
+  .winner-category-grid .round-category {
+    padding-top: 7px;
+  }
+
+  .winner-category-grid .round-category-heading {
+    margin-bottom: 4px;
+  }
+
+  .winner-category-grid .winner-option {
+    min-height: 34px;
+  }
+
+  .round-category.scopa-category {
+    padding-top: 12px;
+  }
+}
