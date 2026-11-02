@@ -1276,7 +1276,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   font-size: 15px;
 }
 
-/* Scopa uses the same inter-card spacing, with a little more breathing room */
+/* Scopa uses the same inter-card spacing as the winner entries */
 .round-category-list {
   gap: 11px;
 }
@@ -1284,7 +1284,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   padding: 14px;
 }
 .scopa-options {
-  gap: 9px;
+  gap: 6px;
 }
 .scopa-option {
   min-height: 44px;
