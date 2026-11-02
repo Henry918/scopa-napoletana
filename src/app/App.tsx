@@ -496,12 +496,12 @@ function App() {
             </div>
             <section className="round-category scopa-category">
               <div className="round-category-heading"><h3>Scopa</h3></div>
-              <div className="scopa-options">
+              <div className={'scopa-options' + (game.mode === 'three-players' ? ' scopa-options-three' : '')}>
                 {game.competitors.map((competitor, index) => {
                   const count = entries.find((entry) => entry.competitorId === competitor.id)?.scope ?? 0
                   return (
                     <div className={'scopa-option ' + competitorTone(index, game.mode) + (count > 0 ? ' has-scope' : '')} key={competitor.id}>
-                      <span>{competitorDisplayName(competitor, game.mode)}</span>
+                      <span className="scopa-option-name">{competitorDisplayName(competitor, game.mode)}</span>
                       <div className="stepper">
                         <button type="button" aria-label={"Remove Scopa for " + competitor.name} onClick={() => updateScope(competitor.id, Math.max(0, count - 1))}>−</button>
                         <output>{count}</output>
