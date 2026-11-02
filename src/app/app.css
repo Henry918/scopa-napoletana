@@ -2671,10 +2671,17 @@ body {
   }
 }
 
-/* Slightly reduce the maximum Primiera picker width on desktop. */
+/* Preserve the 430px desktop width of the Primiera picker. */
 @media (min-width: 801px) {
   .primiera-card-picker {
-    width: min(410px, calc(100vw - 16px)) !important;
+    width: min(430px, calc(100vw - 16px)) !important;
     max-width: calc(100vw - 16px) !important;
+  }
+}
+
+/* Slightly narrow the overall application layout on desktop. */
+@media (min-width: 801px) {
+  .page-shell {
+    width: min(1160px, calc(100% - 64px));
   }
 }
