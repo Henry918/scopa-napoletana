@@ -2138,6 +2138,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   color: #667269;
 }
 
+/* Recommit responsive section spacing so the Pages workflow runs again. */
 /* Keep the winner-to-score gap equal to the header-to-results offset at each breakpoint. */
 .game-results {
   display: flex;
