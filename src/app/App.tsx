@@ -312,7 +312,7 @@ function App() {
     setSettebelloWinnerId(undefined)
     setPrimieraWinnerId(undefined)
     setPrimieraCards(Object.fromEntries(nextGame.competitors.map((competitor) => [competitor.id, { ...EMPTY_PRIMIERA }])))
-    setRoundOpen(true)
+    setRoundOpen(false)
     setRoundReviewOpen(false)
     setPrimieraOpen(false)
     setScoringHelpOpen(false)
