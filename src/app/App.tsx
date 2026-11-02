@@ -752,12 +752,17 @@ function PrimieraModal({ mode, competitors, cards, onChange, onApply }: {
       const anchorRect = anchor.getBoundingClientRect()
       const viewportWidth = document.documentElement.clientWidth
       const edgePadding = 8
-      const pickerWidth = picker.getBoundingClientRect().width
+      const isMobile = window.matchMedia('(max-width: 800px)').matches
+      const pickerWidth = isMobile ? viewportWidth - edgePadding * 2 : picker.getBoundingClientRect().width
       const maxLeft = Math.max(edgePadding, viewportWidth - edgePadding - pickerWidth)
-      const left = Math.min(Math.max(anchorRect.left + anchorRect.width / 2 - pickerWidth / 2, edgePadding), maxLeft)
+      const left = isMobile
+        ? edgePadding
+        : Math.min(Math.max(anchorRect.left + anchorRect.width / 2 - pickerWidth / 2, edgePadding), maxLeft)
 
       picker.style.setProperty('position', 'fixed', 'important')
       picker.style.setProperty('left', left + 'px', 'important')
+      if (isMobile) picker.style.setProperty('width', pickerWidth + 'px', 'important')
+      else picker.style.removeProperty('width')
       picker.style.setProperty('top', anchorRect.bottom + 4 + 'px', 'important')
       picker.style.setProperty('right', 'auto', 'important')
       picker.style.setProperty('bottom', 'auto', 'important')
