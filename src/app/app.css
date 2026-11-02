@@ -2384,3 +2384,12 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 
 .home-header-actions { display: inline-flex; align-items: center; gap: 8px; }
 .home-header-actions .saved-games-manage { width: 104px; min-width: 104px; padding: 0 8px; }
+
+/* Keep the History / New game toggle visually consistent in every interaction state. */
+.home-view-toggle,
+.home-view-toggle:hover,
+.home-view-toggle:active,
+.home-view-toggle:focus {
+  border-color: #b8aa88;
+  background: transparent;
+}
