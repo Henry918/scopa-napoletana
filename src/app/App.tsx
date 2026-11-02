@@ -352,9 +352,9 @@ function App() {
             <fieldset className="mode-fieldset">
               <legend>Choose your game</legend>
               <div className="mode-grid">
-                <ModeButton active={draft.mode === 'two-players'} onClick={() => setDraft({ ...draft, mode: 'two-players' })} title="2 players" detail="1 vs 1" />
-                <ModeButton active={draft.mode === 'three-players'} onClick={() => setDraft({ ...draft, mode: 'three-players' })} title="3 players" detail="Free for all" />
-                <ModeButton active={draft.mode === 'four-player-teams'} onClick={() => setDraft({ ...draft, mode: 'four-player-teams' })} title="4 players" detail="2 teams" />
+                <ModeButton active={draft.mode === 'two-players'} onClick={() => setDraft({ ...draft, mode: 'two-players' })} title="2 players" />
+                <ModeButton active={draft.mode === 'three-players'} onClick={() => setDraft({ ...draft, mode: 'three-players' })} title="3 players" />
+                <ModeButton active={draft.mode === 'four-player-teams'} onClick={() => setDraft({ ...draft, mode: 'four-player-teams' })} title="4 players" />
               </div>
             </fieldset>
 
@@ -648,8 +648,8 @@ function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename, homeView,
   )
 }
 
-function ModeButton({ active, onClick, title, detail }: { active: boolean; onClick: () => void; title: string; detail: string }) {
-  return <button className={active ? 'mode-button active' : 'mode-button'} type="button" onClick={onClick}><strong>{title}</strong><span>{detail}</span></button>
+function ModeButton({ active, onClick, title }: { active: boolean; onClick: () => void; title: string }) {
+  return <button className={active ? 'mode-button active' : 'mode-button'} type="button" onClick={onClick}><strong>{title}</strong></button>
 }
 
 function PrimieraModal({ mode, competitors, cards, onChange, onApply }: {
