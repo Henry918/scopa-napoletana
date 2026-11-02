@@ -99,6 +99,7 @@ function App() {
   const [primieraWinnerId, setPrimieraWinnerId] = useState<string | null | undefined>(undefined)
   const [primieraCards, setPrimieraCards] = useState<Record<string, PrimieraCards>>({})
   const [primieraOpen, setPrimieraOpen] = useState(false)
+  const primieraSectionRef = useRef<HTMLElement | null>(null)
   const [roundOpen, setRoundOpen] = useState(false)
   const [scoringHelpOpen, setScoringHelpOpen] = useState(false)
   const [roundReviewOpen, setRoundReviewOpen] = useState(false)
@@ -154,6 +155,23 @@ function App() {
     window.addEventListener('keydown', closeOnEscape)
     return () => window.removeEventListener('keydown', closeOnEscape)
   }, [renameGameOpen])
+
+  useEffect(() => {
+    if (!primieraOpen || !window.matchMedia('(max-width: 800px)').matches) return
+
+    let firstFrame = 0
+    let secondFrame = 0
+    firstFrame = window.requestAnimationFrame(() => {
+      secondFrame = window.requestAnimationFrame(() => {
+        primieraSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    })
+
+    return () => {
+      window.cancelAnimationFrame(firstFrame)
+      window.cancelAnimationFrame(secondFrame)
+    }
+  }, [primieraOpen])
 
   useEffect(() => {
     saveGame(game)
@@ -519,7 +537,7 @@ function App() {
               <WinnerSection title="Carte" mode={game.mode} competitors={displayCompetitors} value={cardsWinnerId} onChange={setCardsWinnerId} allowTie tieLabel="Tie" />
               <WinnerSection title="Denari" mode={game.mode} competitors={displayCompetitors} value={denariWinnerId} onChange={setDenariWinnerId} allowTie tieLabel="Tie" />
               <WinnerSection title="Settebello" mode={game.mode} competitors={displayCompetitors} value={settebelloWinnerId} onChange={setSettebelloWinnerId} />
-              <WinnerSection title="Primiera" mode={game.mode} competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId}
+              <WinnerSection sectionRef={primieraSectionRef} title="Primiera" mode={game.mode} competitors={displayCompetitors} value={primieraWinnerId} onChange={setPrimieraWinnerId}
                 allowTie={!primieraOpen} tieLabel="Tie" hideCompetitors={primieraOpen}
                 headingAction={!primieraOpen ? (
                   <button className="text-button primiera-heading-compare" type="button" onClick={() => {
@@ -792,7 +810,7 @@ function PrimieraModal({ mode, competitors, cards, onChange, onApply }: {
   )
 }
 
-function WinnerSection({ title, mode, competitors, value, onChange, allowTie = false, tieLabel = 'Tie', children, hideCompetitors = false, headingAction }: {
+function WinnerSection({ title, mode, competitors, value, onChange, allowTie = false, tieLabel = 'Tie', children, hideCompetitors = false, headingAction, sectionRef }: {
   title: string
   mode: GameMode
   competitors: Competitor[]
@@ -803,9 +821,10 @@ function WinnerSection({ title, mode, competitors, value, onChange, allowTie = f
   children?: ReactNode
   hideCompetitors?: boolean
   headingAction?: ReactNode
+  sectionRef?: React.Ref<HTMLElement>
 }) {
   return (
-    <section className="round-category">
+    <section ref={sectionRef} className="round-category">
       <div className="round-category-heading">
         <h3>{title}</h3>
         <div className="round-category-tools">
