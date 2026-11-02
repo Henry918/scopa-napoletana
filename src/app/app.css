@@ -2682,6 +2682,6 @@ body {
 /* Slightly narrow the overall application layout on desktop. */
 @media (min-width: 801px) {
   .page-shell {
-    width: min(1160px, calc(100% - 64px));
+    width: min(1080px, calc(100% - 64px));
   }
 }
