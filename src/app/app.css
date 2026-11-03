@@ -3048,3 +3048,33 @@ body {
     width: 58px;
   }
 }
+
+
+/* Scopa and round-end details are subordinate topics within Playing a round. */
+.rules-subsection {
+  margin-top: 21px;
+  padding-top: 17px;
+  border-top: 1px solid #e8e4d9;
+}
+.rules-subsection > h3 {
+  margin: 0 0 9px;
+  color: var(--green);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+.rules-subsection > p {
+  margin: 8px 0;
+  color: #66776d;
+  font-size: 13px;
+  line-height: 1.75;
+}
+@media (max-width: 480px) {
+  .rules-subsection > h3 {
+    font-size: 17px;
+  }
+  .rules-subsection > p {
+    font-size: 12px;
+  }
+}
