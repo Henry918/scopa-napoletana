@@ -4153,7 +4153,9 @@ body {
 .score-card-main + .score-number {
   margin-top: 14px;
 }
-.score-card.score-card-winner .score-number {
+.score-card.score-card-winner .score-number,
+.score-card.score-card-winner h2,
+.score-card.score-card-winner h2 .score-team-member {
   color: #d3b878 !important;
 }
 .score-card.score-card-non-winner {
