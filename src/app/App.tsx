@@ -821,7 +821,10 @@ function RulesPage() {
 
       <section className="panel setup-panel rules-container rules-scoring-container" aria-labelledby="rules-scoring-title">
         <section className="rules-section rules-scoring-section">
-          <h2 id="rules-scoring-title">Scoring</h2>
+          <header className="rules-section-heading">
+            <p className="eyebrow">SCORING GUIDE</p>
+            <h2 id="rules-scoring-title">Scoring</h2>
+          </header>
           <p className="rules-scoring-intro">{SCORING_INTRO}</p>
           <ScoringExamplesList className="rules-scoring-list" />
         </section>
@@ -829,7 +832,10 @@ function RulesPage() {
 
       <section className="panel setup-panel rules-container rules-card-container" aria-labelledby="rules-card-overview-title">
         <section className="rules-section rules-card-overview-section">
-          <h2 id="rules-card-overview-title">Card overview</h2>
+          <header className="rules-section-heading">
+            <p className="eyebrow">CARD REFERENCE</p>
+            <h2 id="rules-card-overview-title">Card overview</h2>
+          </header>
           <p>The game uses a 40-card Neapolitan deck. Each of the four suits contains ten cards. Asso counts as 1, Fante as 8, Cavallo as 9 and Re as 10.</p>
           <div className="rules-card-scroll" id="rules-card-panel" role="tabpanel" aria-labelledby={'rules-tab-' + activeSuit} tabIndex={0}>
             <div className="rules-card-grid">
