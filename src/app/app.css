@@ -1256,7 +1256,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .history-round {
   border: 0;
   background: #e0ddd2;
-  color: #102c24;
+  color: #a1844f;
 }
 
 /* Remove obsolete per-round deletion affordances */
