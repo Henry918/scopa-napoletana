@@ -133,8 +133,6 @@ function App() {
   const roundScrollRef = useRef<HTMLDivElement | null>(null)
   const [roundOpen, setRoundOpen] = useState(false)
   const [scoringHelpOpen, setScoringHelpOpen] = useState(false)
-  const [roundReviewOpen, setRoundReviewOpen] = useState(false)
-  const [skipRoundReview, setSkipRoundReview] = useState(() => window.localStorage.getItem('scopa-napoletane:skip-round-review') === 'true')
   const [notice, setNotice] = useState('')
 
   useEffect(() => {
@@ -229,13 +227,6 @@ function App() {
   const competitorIds = game?.competitors.map((competitor) => competitor.id) ?? []
   const issues = useMemo(() => game ? validateRound(entries, selections, competitorIds) : [], [game, entries, cardsWinnerId, denariWinnerId, settebelloWinnerId, primieraWinnerId])
   const winnerId = game ? getGameWinner(totals, game.targetScore) : null
-  const roundPreview = calculateRoundPoints(entries, {
-    cardsWinnerId: cardsWinnerId ?? null,
-    denariWinnerId: denariWinnerId ?? null,
-    settebelloWinnerId: settebelloWinnerId ?? null,
-    primieraWinnerId: primieraWinnerId ?? null
-  })
-
   function startGame(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const playerCount = draft.mode === 'four-player-teams' ? 4 : draft.mode === 'two-players' ? 2 : 3
@@ -307,16 +298,6 @@ function App() {
     })
   }
 
-  function reviewRound() {
-    if (!game) return
-    if (issues.length > 0) return
-    if (skipRoundReview) {
-      confirmRound()
-      return
-    }
-    setRoundReviewOpen(true)
-  }
-
   function confirmRound() {
     if (!game) return
     const winners: ConfirmedRoundWinners = {
@@ -335,7 +316,6 @@ function App() {
     const nextWinner = getGameWinner(roundTotals(rounds, game.competitors), game.targetScore)
     setGame({ ...game, rounds, status: nextWinner ? 'finished' : 'playing' })
     setRoundOpen(false)
-    setRoundReviewOpen(false)
     setPrimieraOpen(false)
     setNotice('')
   }
@@ -372,7 +352,6 @@ function App() {
     setPrimieraWinnerId(undefined)
     setPrimieraCards({})
     setRoundOpen(false)
-    setRoundReviewOpen(false)
     setPrimieraOpen(false)
     setDraft(makeDefaultDraft())
     setNotice('')
@@ -385,7 +364,6 @@ function App() {
     setManageSavedGames(false)
     setEntries(emptyEntries(savedGame.competitors))
     setRoundOpen(false)
-    setRoundReviewOpen(false)
     setPrimieraOpen(false)
     setNotice('')
   }
@@ -415,7 +393,6 @@ function App() {
     setPrimieraWinnerId(undefined)
     setPrimieraCards(Object.fromEntries(nextGame.competitors.map((competitor) => [competitor.id, { ...EMPTY_PRIMIERA }])))
     setRoundOpen(false)
-    setRoundReviewOpen(false)
     setPrimieraOpen(false)
     setScoringHelpOpen(false)
     setNotice('')
@@ -550,16 +527,9 @@ function App() {
       {!roundOpen && (
         <>
       <div className="game-results">
-        {winnerId && (
-          <section className={'winner-banner ' + competitorTone(game.competitors.findIndex((competitor) => competitor.id === winnerId), game.mode)}>
-            <div className="winner-star">✦</div>
-            <div><p className="eyebrow">WINNER</p><h2>{game.competitors.find((competitor) => competitor.id === winnerId) ? competitorDisplayName(game.competitors.find((competitor) => competitor.id === winnerId)!, game.mode) : ''}</h2><p>Reached {totals[winnerId]} points. Thanks for a great game.</p></div>
-          </section>
-        )}
-
         <section className={'score-grid' + (game.competitors.length === 3 ? ' score-grid-three' : '')} aria-label="Current scores">
         {scoreRows.map(({ competitor, score }, index) => (
-          <article className={'score-card score-card-' + (index + 1) + ' ' + competitorTone(index, game.mode)} key={competitor.id}>
+          <article className={'score-card score-card-' + (index + 1) + ' ' + competitorTone(index, game.mode) + (winnerId ? (winnerId === competitor.id ? ' score-card-winner' : ' score-card-non-winner') : '')} key={competitor.id}>
             <div className="score-card-top"><span className="score-index">{game.mode === 'four-player-teams' ? 'TEAM ' + (index + 1) : 'PLAYER ' + (index + 1)}</span><span className="score-dot" /></div>
             <h2>{game.mode === 'four-player-teams' && competitor.members.length > 1
               ? competitor.members.map((member) => <span className="score-team-member" key={member}>{member}</span>)
@@ -594,7 +564,7 @@ function App() {
             <div><h2>Round {game.rounds.length + 1}</h2></div>
             <div className="round-heading-actions">
               <button className="icon-button round-help-trigger" type="button" onClick={() => setScoringHelpOpen(true)} aria-label="How to score points" title="How to score points"><span aria-hidden="true">i</span></button>
-              <button className="icon-button round-cancel-trigger" type="button" onClick={() => { setRoundOpen(false); setRoundReviewOpen(false); setPrimieraOpen(false); setScoringHelpOpen(false) }} aria-label="Cancel round entry" title="Cancel round entry"><span aria-hidden="true">×</span></button>
+              <button className="icon-button round-cancel-trigger" type="button" onClick={() => { setRoundOpen(false); setPrimieraOpen(false); setScoringHelpOpen(false) }} aria-label="Cancel round entry" title="Cancel round entry"><span aria-hidden="true">×</span></button>
             </div>
           </div>
 
@@ -639,7 +609,7 @@ function App() {
 
           {notice && <p className="notice">{notice}</p>}
           <div className="round-actions">
-            <button className="button button-primary" type="button" disabled={issues.length > 0} onClick={reviewRound}>Confirm round</button>
+            <button className="button button-primary" type="button" disabled={issues.length > 0} onClick={confirmRound}>Confirm round</button>
           </div>
         </section>
         </div>
@@ -701,34 +671,6 @@ function App() {
         </div>
       )}
 
-      {roundReviewOpen && (
-        <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setRoundReviewOpen(false) }}>
-          <section className="primiera-modal review-modal" role="dialog" aria-modal="true" aria-labelledby="round-review-title">
-            <div className="modal-heading"><div><p className="eyebrow">ROUND SUMMARY</p><h2 id="round-review-title">Review the points</h2></div><button className="icon-button" type="button" onClick={() => setRoundReviewOpen(false)} aria-label="Close round review">×</button></div>
-            <div className="review-categories">
-              {[
-                { label: 'Carte', id: roundPreview.breakdown.cardsWinnerId },
-                { label: 'Denari', id: roundPreview.breakdown.denariWinnerId },
-                { label: 'Settebello', id: roundPreview.breakdown.settebelloWinnerId },
-                { label: 'Primiera', id: roundPreview.breakdown.primieraWinnerId }
-              ].map((category) => {
-                const competitor = displayCompetitors.find((item) => item.id === category.id)
-                return <div className="review-category" key={category.label}><span>{category.label}</span><strong>{competitor ? competitor.name : 'Tie'}</strong></div>
-              })}
-            </div>
-            <div className="review-points-heading"><span>POINTS ADDED THIS ROUND</span><span>SCOPA INCLUDED</span></div>
-            <div className="review-point-list">{displayCompetitors.map((competitor) => {
-              const scopaCount = entries.find((entry) => entry.competitorId === competitor.id)?.scope ?? 0
-              return <div className="review-point-row" key={competitor.id}><span>{competitor.name}{scopaCount > 0 ? ' (' + scopaCount + ')' : ''}</span><strong>+{roundPreview.points[competitor.id] ?? 0}</strong></div>
-            })}</div>
-            <div className="modal-actions"><button className="button button-quiet" type="button" onClick={() => {
-                window.localStorage.setItem('scopa-napoletane:skip-round-review', 'true')
-                setSkipRoundReview(true)
-                confirmRound()
-              }}>Don't ask again</button><button className="button button-primary" type="button" onClick={confirmRound}>Accept round</button></div>
-          </section>
-        </div>
-      )}
     </main>
   )
 }
