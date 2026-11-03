@@ -29,12 +29,12 @@ const SCORING_EXAMPLES: Array<{ id: string; title: string; description: string; 
   {
     id: 'carte', title: 'Carte · Most cards',
     description: 'One point goes to the player or team that captured the most cards out of the 40-card deck.',
-    cards: [{ suit: 'spade', rank: 8 }, { suit: 'spade', rank: 5 }, { suit: 'coppe', rank: 10 }]
+    cards: [{ suit: 'bastoni', rank: 3 }, { suit: 'spade', rank: 5 }, { suit: 'coppe', rank: 10 }]
   },
   {
     id: 'denari', title: 'Denari · Most coins',
     description: 'One point goes to the player or team that captured the most Denari cards. There are 10 Denari cards in the deck.',
-    cards: [{ suit: 'denari', rank: 1 }, { suit: 'denari', rank: 6 }, { suit: 'denari', rank: 3 }]
+    cards: [{ suit: 'denari', rank: 8 }, { suit: 'denari', rank: 6 }, { suit: 'denari', rank: 3 }]
   },
   {
     id: 'settebello', title: 'Settebello · Seven of coins',
@@ -44,7 +44,7 @@ const SCORING_EXAMPLES: Array<{ id: string; title: string; description: string; 
   {
     id: 'primiera', title: 'Primiera · Best card combination',
     description: 'For each suit, count only the highest-value card captured. Add the four values together. The highest total earns one point.',
-    cards: [{ suit: 'coppe', rank: 7 }, { suit: 'bastoni', rank: 7 }, { suit: 'spade', rank: 7 }]
+    cards: [{ suit: 'coppe', rank: 7 }, { suit: 'bastoni', rank: 7 }, { suit: 'denari', rank: 7 }, { suit: 'spade', rank: 7 }]
   },
   {
     id: 'scopa', title: 'Scopa · Clear the table',
@@ -776,7 +776,6 @@ function RulesPage() {
       <section className="rules-section" aria-labelledby="rules-preparation-title">
         <h2 id="rules-preparation-title">Game preparation</h2>
         <p>Scopa can be played by 2, 3 or 4 players. When playing with 4 players, players form two teams. Teammates sit opposite each other.</p>
-        <p>The game uses a 40-card Neapolitan deck. Each of the four suits contains ten cards, ranked from Asso to Re.</p>
         <p>At the beginning of each round:</p>
         <ol>
           <li>Choose a dealer.</li>
@@ -797,7 +796,6 @@ function RulesPage() {
           <li>If there is no match or combination, the played card remains on the table.</li>
           <li>If the played card matches a single card and also a combination of cards, the single matching card must be captured.</li>
         </ul>
-        <p>For capturing cards, Asso counts as 1, numbered cards use their face value, Fante counts as 8, Cavallo as 9 and Re as 10.</p>
         <p>When all players have played their three cards, the dealer deals another three cards to each player. This continues until all cards have been dealt and played. The same dealer deals throughout the entire round.</p>
 
         <section className="rules-subsection" aria-labelledby="rules-scopa-title">
@@ -837,6 +835,8 @@ function RulesPage() {
 
       <section className="rules-section rules-card-overview-section" aria-labelledby="rules-card-overview-title">
         <h2 id="rules-card-overview-title">Card overview</h2>
+        <p>The game uses a 40-card Neapolitan deck. Each of the four suits contains ten cards, ranked from Asso to Re.</p>
+        <p>Asso counts as 1, Fante as 8, Cavallo as 9 and Re as 10.</p>
         <div className="rules-suit-tabs" role="tablist" aria-label="Card suits">
           {SUITS.map((suit) => (
             <button key={suit.id} className={'rules-suit-tab' + (activeSuit === suit.id ? ' active' : '')} type="button" role="tab" id={'rules-tab-' + suit.id} aria-selected={activeSuit === suit.id} aria-controls="rules-card-panel" onClick={() => setActiveSuit(suit.id)}>{suit.label}</button>
