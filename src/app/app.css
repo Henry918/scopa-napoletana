@@ -4126,16 +4126,52 @@ body {
 
 /* A finished game marks the winner on the scoreboard itself. */
 .score-card.score-card-winner::after {
-  content: '👑';
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-  opacity: 0.9;
+  content: none;
+}
+.score-card .score-crown {
+  position: absolute;
+  top: 31px;
+  right: 17px;
+  width: 58px;
+  height: 48px;
+  color: #d3b878;
+  opacity: 0.95;
+  pointer-events: none;
 }
 .score-card.score-card-non-winner {
   background: #454b46 !important;
 }
+.score-card.score-card-non-winner::after {
+  color: rgba(214, 216, 213, 0.12) !important;
+}
+.score-card.score-card-non-winner .score-index,
+.score-card.score-card-non-winner .score-dot,
+.score-card.score-card-non-winner h2,
+.score-card.score-card-non-winner .score-team-member,
+.score-card.score-card-non-winner .score-number,
+.score-card.score-card-non-winner .score-number span,
+.score-card.score-card-non-winner .score-target {
+  color: #d6d8d5 !important;
+}
+.score-card.score-card-non-winner .score-dot,
+.score-card.score-card-non-winner .score-progress span {
+  background: #d6d8d5 !important;
+}
+.score-card.score-card-non-winner .score-progress {
+  background: rgba(214, 216, 213, 0.22) !important;
+}
 @media (max-width: 800px) {
-  .score-card.score-card-winner::after { font-size: 48px; }
+  .score-card .score-crown {
+    top: 29px;
+    width: 48px;
+    height: 40px;
+  }
 }
 @media (max-width: 480px) {
-  .score-grid-three .score-card.score-card-winner::after { top: 27px; font-size: 38px; }
+  .score-grid-three .score-card .score-crown {
+    top: 22px;
+    right: 6px;
+    width: 34px;
+    height: 30px;
+  }
 }
