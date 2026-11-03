@@ -4120,7 +4120,7 @@ body {
 }
 
 
-/* Square card-suit icons stay in the scorecard flow, above the score and progress bar. */
+/* Keep the suit icon horizontally aligned with the competitor name. */
 .score-card-main {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 60px;
@@ -4132,7 +4132,9 @@ body {
 .score-card-main h2 {
   min-width: 0;
   margin: 0;
-  overflow-wrap: anywhere;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .score-card .score-card-symbol {
   display: block;
@@ -4154,8 +4156,7 @@ body {
   margin-top: 14px;
 }
 .score-card.score-card-winner .score-number,
-.score-card.score-card-winner h2,
-.score-card.score-card-winner h2 .score-team-member {
+.score-card.score-card-winner h2 {
   color: #d3b878 !important;
 }
 .score-card.score-card-non-winner {
@@ -4167,7 +4168,6 @@ body {
 .score-card.score-card-non-winner .score-index,
 .score-card.score-card-non-winner .score-dot,
 .score-card.score-card-non-winner h2,
-.score-card.score-card-non-winner .score-team-member,
 .score-card.score-card-non-winner .score-number,
 .score-card.score-card-non-winner .score-number span,
 .score-card.score-card-non-winner .score-target {
@@ -4180,26 +4180,37 @@ body {
 .score-card.score-card-non-winner .score-progress {
   background: rgba(214, 216, 213, 0.22) !important;
 }
+
+@media (max-width: 800px) {
+  .score-card-main {
+    grid-template-columns: minmax(0, 1fr) 48px;
+    gap: 6px;
+  }
+  .score-card .score-card-symbol {
+    width: 48px;
+    height: 48px;
+  }
+}
+
 @media (max-width: 480px) {
   .score-card-main {
     margin-top: 30px;
-    gap: 6px;
+  }
+  .score-card-main h2 {
+    margin: 0;
   }
   .score-card-main + .score-number {
     margin-top: 12px;
   }
   .score-grid-three .score-card-main {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    align-items: center;
     margin-top: 30px;
     gap: 6px;
   }
   .score-grid-three .score-card-main h2 {
-    margin-top: 0;
-  }
-  .score-grid-three .score-card .score-card-symbol {
-    align-self: flex-end;
+    margin: 0;
   }
   .score-grid-three .score-card-main + .score-number {
     margin-top: 10px;
