@@ -4111,3 +4111,22 @@ body {
   background: #a1844f !important;
   color: #fffdf7 !important;
 }
+
+
+/* Restore borders on the four main navigation buttons. */
+.home-header-actions .home-new-game-button,
+.home-header-actions .home-manage-toggle,
+.home-bottom-nav button {
+  border: 1px solid #d8d5ca !important;
+}
+
+/* History and Rules remain transparent, including interaction states. */
+.home-bottom-nav button {
+  background: transparent !important;
+}
+
+.home-bottom-nav button:hover,
+.home-bottom-nav button:focus-visible,
+.home-bottom-nav button:active {
+  background: rgba(161, 132, 79, 0.08) !important;
+}
