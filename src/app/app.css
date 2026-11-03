@@ -615,6 +615,9 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   color: #536b5b;
   font-weight: 600;
 }
+.saved-game-main .saved-game-winner {
+  color: #a1844f;
+}
 .saved-game-arrow {
   flex: none;
   color: #a78d5b;
