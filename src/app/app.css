@@ -4143,3 +4143,14 @@ body {
 .primiera-inline .primiera-compare-action:focus-visible {
   background: #a58851 !important;
 }
+
+
+/* Match Compare to the application's dark green primary buttons. */
+.primiera-inline .primiera-compare-action,
+.primiera-inline .primiera-compare-action:hover,
+.primiera-inline .primiera-compare-action:active,
+.primiera-inline .primiera-compare-action:focus,
+.primiera-inline .primiera-compare-action:focus-visible {
+  background: var(--green) !important;
+  color: #fffdf7 !important;
+}
