@@ -4059,3 +4059,18 @@ body {
 .home-bottom-nav button:active {
   background: #D6C7B1 !important;
 }
+
+/* Use the page background for the New Game and Manage Games header actions. */
+.home-header-actions .home-new-game-button,
+.home-header-actions .home-new-game-button:hover,
+.home-header-actions .home-new-game-button:active,
+.home-header-actions .home-new-game-button:focus,
+.home-header-actions .home-new-game-button:focus-visible,
+.home-header-actions .home-manage-toggle,
+.home-header-actions .home-manage-toggle:hover,
+.home-header-actions .home-manage-toggle:active,
+.home-header-actions .home-manage-toggle:focus,
+.home-header-actions .home-manage-toggle:focus-visible {
+  background: #f3efe4 !important;
+}
+
