@@ -3158,3 +3158,15 @@ body {
     transform: rotate(14deg);
   }
 }
+
+
+/* Match the opening Rules text gap to the heading-to-paragraph spacing below. */
+.rules-page-heading {
+  padding-bottom: 0;
+}
+.rules-page > .rules-section:first-of-type {
+  padding-top: 0;
+}
+.rules-page > .rules-section:first-of-type > p:first-of-type {
+  margin-top: 12px;
+}
