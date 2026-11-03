@@ -4154,3 +4154,13 @@ body {
   background: var(--green) !important;
   color: #fffdf7 !important;
 }
+
+
+/* Selected card in the Primiera picker uses the page cream without a border. */
+.primiera-card-picker > button.active,
+.primiera-card-picker > button.active:hover,
+.primiera-card-picker > button.active:focus,
+.primiera-card-picker > button.active:focus-visible {
+  border: 0 !important;
+  background: #f3efe4 !important;
+}
