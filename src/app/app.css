@@ -4174,8 +4174,7 @@ body {
 }
 .score-card.score-card-non-winner h2,
 .score-card.score-card-non-winner .score-number,
-.score-card.score-card-non-winner .score-number span,
-.score-card.score-card-non-winner .score-target {
+.score-card.score-card-non-winner .score-number span {
   color: #d6d8d5 !important;
 }
 .score-card.score-card-non-winner .score-dot {
@@ -4192,6 +4191,7 @@ body {
   .score-card-main {
     grid-template-columns: minmax(0, 1fr) 48px;
     gap: 6px;
+    margin-top: 12px;
   }
   .score-card .score-card-symbol {
     width: 48px;
@@ -4201,7 +4201,7 @@ body {
 
 @media (max-width: 480px) {
   .score-card-main {
-    margin-top: 20px;
+    margin-top: 12px;
   }
   .score-card-main h2 {
     margin: 0;
@@ -4213,7 +4213,7 @@ body {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 48px;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 12px;
     gap: 6px;
   }
   .score-grid-three .score-card-main h2 {
