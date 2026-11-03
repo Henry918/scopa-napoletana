@@ -777,21 +777,18 @@ function RulesPage() {
           <h1 id="rules-page-title">How to play Scopa</h1>
         </header>
 
-        <section className="rules-section rules-intro-section" aria-labelledby="rules-setup-title">
-          <h2 id="rules-setup-title">Players and setup</h2>
-          <p>Scopa is played by 2 to 4 players. With 4 players, form two teams and sit opposite your teammate.</p>
+        <p className="rules-players-intro">Scopa is played by 2 to 4 players. With 4 players, form two teams and sit opposite your teammate.</p>
+
+        <section className="rules-section rules-playing-section" aria-labelledby="rules-playing-title">
+          <h2 id="rules-playing-title">How a round works</h2>
           <p><strong>At the start of each round:</strong></p>
-          <ol>
+          <ol className="rules-deal-steps">
             <li>Choose a dealer.</li>
             <li>The dealer shuffles the deck.</li>
             <li>Deal three cards to each player.</li>
             <li>Place four cards face up on the table.</li>
             <li>Place the remaining cards face down beside the table.</li>
           </ol>
-        </section>
-
-        <section className="rules-section rules-playing-section" aria-labelledby="rules-playing-title">
-          <h2 id="rules-playing-title">Playing a round</h2>
           <p>The player to the dealer's left starts. Turns continue clockwise.</p>
 
           <div className="rules-turn-guide">
