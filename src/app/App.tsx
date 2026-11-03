@@ -44,12 +44,12 @@ const SCORING_EXAMPLES: Array<{ id: string; title: string; description: string; 
   {
     id: 'primiera', title: 'Primiera · Best card combination',
     description: 'For each suit, count only the highest-value card captured. Add the four values together. The highest total earns one point.',
-    cards: [{ suit: 'bastoni', rank: 7 }, { suit: 'denari', rank: 7 }, { suit: 'coppe', rank: 7 }, { suit: 'spade', rank: 7 }]
+    cards: [{ suit: 'bastoni', rank: 7 }, { suit: 'coppe', rank: 7 }, { suit: 'denari', rank: 7 }, { suit: 'spade', rank: 7 }]
   },
   {
     id: 'scopa', title: 'Scopa · Clear the table',
     description: 'Each time a play captures every card on the table, it is a Scopa and earns one point. The final capture of the round does not count as a Scopa.',
-    cards: [{ suit: 'spade', rank: 1 }, { background: true }]
+    cards: [{ suit: 'coppe', rank: 4 }, { background: true }]
   }
 ]
 const EMPTY_PRIMIERA: PrimieraCards = { coppe: null, denari: null, spade: null, bastoni: null }
