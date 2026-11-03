@@ -3508,7 +3508,7 @@ body {
 /* Shared fixed bottom action bar on desktop and mobile. */
 .game-shell:has(.round-launch),
 .game-shell:has(.app-footer) {
-  padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
 }
 
 .round-launch,
@@ -3643,4 +3643,11 @@ body {
 .game-shell:has(.round-launch) > .notice,
 .game-shell:has(.app-footer) > .notice {
   flex: 0 0 auto;
+}
+
+
+/* Reduce the gap between the scrollable history and the fixed bottom actions. */
+.game-shell:has(.round-launch) > .history-section,
+.game-shell:has(.app-footer) > .history-section {
+  margin-bottom: 8px !important;
 }
