@@ -321,6 +321,7 @@ function App() {
   }
 
   function goHome() {
+    setHomeView('new')
     if (game) saveGame(game)
     saveGame(null)
     setGame(null)
