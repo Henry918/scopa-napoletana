@@ -532,9 +532,7 @@ function App() {
           <article className={'score-card score-card-' + (index + 1) + ' ' + competitorTone(index, game.mode) + (winnerId ? (winnerId === competitor.id ? ' score-card-winner' : ' score-card-non-winner') : '')} key={competitor.id}>
             <div className="score-card-top"><span className="score-index">{winnerId === competitor.id ? 'WINNER' : game.mode === 'four-player-teams' ? 'TEAM ' + (index + 1) : 'PLAYER ' + (index + 1)}</span><span className="score-dot" /></div>
             <div className="score-card-main">
-              <h2>{game.mode === 'four-player-teams' && competitor.members.length > 1
-                ? competitor.members.map((member) => <span className="score-team-member" key={member}>{member}</span>)
-                : competitorDisplayName(competitor, game.mode)}</h2>
+              <h2>{competitorDisplayName(competitor, game.mode)}</h2>
               {winnerId === competitor.id ? (
                 <svg className="score-card-symbol score-card-crown" viewBox="0 0 60 60" aria-hidden="true" focusable="false">
                   <path d="M5 16 16 25 29 7 42 25 55 16 50 51H10L5 16Z" fill="currentColor" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
