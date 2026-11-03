@@ -322,7 +322,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   position: fixed;
   z-index: 15;
   left: max(32px, calc((100vw - 1180px) / 2));
-  bottom: 14px;
+  bottom: max(32px, calc((100vw - 1180px) / 2));
   display: flex;
   margin: 0;
 }
@@ -335,6 +335,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 @media (max-width: 800px) {
   .round-launch {
     left: max(18px, calc((100vw - 620px) / 2));
+    bottom: max(18px, calc((100vw - 620px) / 2));
   }
 }
 @media (max-width: 480px) {
