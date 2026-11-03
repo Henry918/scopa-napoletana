@@ -3700,3 +3700,58 @@ body {
     font-size: 21px;
   }
 }
+
+/* Make the turn instructions easier to scan in the Rules Page. */
+.rules-intro-section > h2 {
+  margin-bottom: 12px;
+}
+
+.rules-turn-guide {
+  margin-top: 12px;
+  padding: 13px 16px;
+  border-radius: 7px;
+  background: #f3f0e6;
+}
+
+.rules-turn-guide-title {
+  margin: 0 0 8px;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.rules-turn-actions {
+  margin: 0;
+  padding-left: 18px;
+  color: #66776d;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.rules-turn-actions li {
+  margin: 4px 0;
+  padding-left: 3px;
+}
+
+.rules-turn-actions li:last-child {
+  margin-bottom: 0;
+}
+
+.rules-turn-actions strong {
+  color: var(--green);
+}
+
+.rules-deal-continuation {
+  margin-top: 12px !important;
+}
+
+@media (max-width: 480px) {
+  .rules-turn-guide {
+    padding: 11px 12px;
+  }
+
+  .rules-turn-actions {
+    font-size: 11px;
+  }
+}
