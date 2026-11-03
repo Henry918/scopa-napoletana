@@ -3667,8 +3667,8 @@ body {
 
 .rules-playing-section {
   margin-top: 22px;
-  padding-top: 20px !important;
-  border-top: 1px solid #e6e1d5 !important;
+  padding-top: 0 !important;
+  border-top: 0 !important;
 }
 
 .rules-container .rules-section > h2 {
