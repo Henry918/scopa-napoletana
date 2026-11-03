@@ -49,7 +49,7 @@ const SCORING_EXAMPLES: Array<{ id: string; title: string; description: string; 
   {
     id: 'scopa', title: 'Scopa · Clear the table',
     description: 'Each time a play captures every card on the table, it is a Scopa and earns one point. The final capture of the round does not count as a Scopa.',
-    cards: [{ suit: 'denari', rank: 1 }, { background: true }]
+    cards: [{ suit: 'spade', rank: 10 }, { background: true }]
   }
 ]
 const EMPTY_PRIMIERA: PrimieraCards = { coppe: null, denari: null, spade: null, bastoni: null }
@@ -835,6 +835,11 @@ function RulesPage() {
       <section className="rules-section rules-card-overview-section" aria-labelledby="rules-card-overview-title">
         <h2 id="rules-card-overview-title">Card overview</h2>
         <p>The game uses a 40-card Neapolitan deck. Each of the four suits contains ten cards. Asso counts as 1, Fante as 8, Cavallo as 9 and Re as 10.</p>
+        <div className="rules-suit-tabs" role="tablist" aria-label="Card suits">
+          {SUITS.map((suit) => (
+            <button key={suit.id} className={'rules-suit-tab' + (activeSuit === suit.id ? ' active' : '')} type="button" role="tab" id={'rules-tab-' + suit.id} aria-selected={activeSuit === suit.id} aria-controls="rules-card-panel" onClick={() => setActiveSuit(suit.id)}>{suit.label}</button>
+          ))}
+        </div>
         <div className="rules-card-scroll" id="rules-card-panel" role="tabpanel" aria-labelledby={'rules-tab-' + activeSuit} tabIndex={0}>
           <div className="rules-card-grid">
             {CARD_ORDER.map((rank) => (
@@ -844,11 +849,6 @@ function RulesPage() {
               </figure>
             ))}
           </div>
-        </div>
-        <div className="rules-suit-tabs" role="tablist" aria-label="Card suits">
-          {SUITS.map((suit) => (
-            <button key={suit.id} className={'rules-suit-tab' + (activeSuit === suit.id ? ' active' : '')} type="button" role="tab" id={'rules-tab-' + suit.id} aria-selected={activeSuit === suit.id} aria-controls="rules-card-panel" onClick={() => setActiveSuit(suit.id)}>{suit.label}</button>
-          ))}
         </div>
       </section>
     </section>
