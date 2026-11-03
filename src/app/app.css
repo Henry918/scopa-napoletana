@@ -3933,3 +3933,24 @@ body {
   width: 0;
   height: 0;
 }
+
+
+/* Match all Rules Page titles to the New Game setup heading. */
+.rules-page-heading h1,
+.rules-section-heading h2 {
+  font-size: 27px;
+  line-height: 1.12;
+}
+
+/* Double the gap between the scoreboard and Game Record at every breakpoint. */
+.game-shell:has(.round-launch) > .history-section,
+.game-shell:has(.app-footer) > .history-section {
+  margin-top: calc(var(--section-header-gap) * 2) !important;
+}
+
+@media (min-width: 801px) {
+  .game-shell:has(.round-launch) > .history-section,
+  .game-shell:has(.app-footer) > .history-section {
+    margin-top: 24px !important;
+  }
+}
