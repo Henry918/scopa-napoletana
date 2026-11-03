@@ -3666,3 +3666,17 @@ body {
   width: 0;
   height: 0;
 }
+
+
+/* Match the gap before Round History to the header-to-scoreboard gap. */
+.game-shell:has(.round-launch) > .history-section,
+.game-shell:has(.app-footer) > .history-section {
+  margin-top: var(--section-header-gap) !important;
+}
+
+@media (min-width: 801px) {
+  .game-shell:has(.round-launch) > .history-section,
+  .game-shell:has(.app-footer) > .history-section {
+    margin-top: 12px !important;
+  }
+}
