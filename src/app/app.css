@@ -3230,6 +3230,7 @@ body {
 @media (max-width: 800px) {
   .rules-card-overview-section {
     padding-top: 19px;
+    padding-bottom: 16px;
   }
 }
 
