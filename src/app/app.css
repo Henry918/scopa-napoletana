@@ -1256,7 +1256,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .history-round {
   border: 0;
   background: #e0ddd2;
-  color: #a1844f;
+  color: #102c24;
 }
 
 /* Remove obsolete per-round deletion affordances */
@@ -4155,6 +4155,9 @@ body {
 .score-card-main + .score-number {
   margin-top: 14px;
 }
+.score-card .score-number span {
+  color: inherit;
+}
 .score-card.score-card-winner .score-number,
 .score-card.score-card-winner h2 {
   color: #d3b878 !important;
@@ -4163,7 +4166,7 @@ body {
   background: #454b46 !important;
 }
 .score-card.score-card-non-winner .score-card-diamond {
-  color: rgba(214, 216, 213, 0.12);
+  color: #d6d8d5 !important;
 }
 .score-card.score-card-non-winner .score-index,
 .score-card.score-card-non-winner .score-dot,
