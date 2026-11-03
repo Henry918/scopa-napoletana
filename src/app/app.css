@@ -531,6 +531,9 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   opacity: 1;
   cursor: default;
 }
+.brand-home-static {
+  cursor: default;
+}
 .brand-wordmark {
   display: flex;
   flex-direction: column;
@@ -2376,6 +2379,65 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 
 
+/* Keep room for the fixed bottom navigation on the New Game screen. */
+.home-view-content-new {
+  padding-bottom: 112px;
+}
+
+/* The New Game screen keeps its two navigation actions at opposite screen corners. */
+.home-bottom-nav {
+  position: fixed;
+  z-index: 100;
+  left: max(32px, calc((100vw - 1080px) / 2));
+  right: max(32px, calc((100vw - 1080px) / 2));
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+}
+.home-bottom-nav button {
+  width: min(148px, calc(50% - 6px));
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid #d8d5ca;
+  border-radius: 6px;
+  background: #fffdf7;
+  color: #53645a;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(38, 48, 39, .09);
+  pointer-events: auto;
+  transition: border-color .15s ease, background .15s ease, color .15s ease;
+}
+.home-bottom-nav button:hover {
+  border-color: #b8c2b7;
+  background: #f6f7f0;
+  color: var(--green);
+}
+@media (max-width: 800px) {
+  .home-bottom-nav {
+    left: max(18px, calc((100vw - 620px) / 2));
+    right: max(18px, calc((100vw - 620px) / 2));
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+  .home-bottom-nav button {
+    min-height: 46px;
+  }
+}
+@media (max-width: 480px) {
+  .home-bottom-nav {
+    left: 11px;
+    right: 11px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+  .home-bottom-nav button {
+    width: calc(50% - 6px);
+    min-height: 44px;
+  }
+}
+
 /* Home views and game results share one responsive header offset. */
 .home-view-content {
   margin-top: var(--section-header-gap);
@@ -2403,8 +2465,8 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 
 
 .home-header-actions { display: inline-flex; align-items: center; gap: 8px; }
-.home-header-actions .saved-games-manage:not(.home-view-toggle) { width: 104px; min-width: 104px; padding: 0 8px; }
-.home-header-actions .home-view-toggle { width: 82px; min-width: 82px; padding: 0 8px; }
+.home-header-actions .home-new-game-button { width: 100px; min-width: 100px; padding: 0 8px; }
+.home-header-actions .home-manage-toggle { width: 104px; min-width: 104px; padding: 0 8px; }
 
 /* Scopa entries mirror the player selector columns, with names above counters. */
 .scopa-options {
