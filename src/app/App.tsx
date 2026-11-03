@@ -779,16 +779,17 @@ function RulesPage() {
 
         <p className="rules-players-intro">Scopa is played by 2 to 4 players. With 4 players, form two teams and sit opposite your teammate.</p>
 
-        <section className="rules-section rules-playing-section" aria-labelledby="rules-playing-title">
-          <h2 id="rules-playing-title">How a round works</h2>
-          <p><strong>At the start of each round:</strong></p>
-          <ol className="rules-deal-steps">
-            <li>Choose a dealer.</li>
-            <li>The dealer shuffles the deck.</li>
-            <li>Deal three cards to each player.</li>
-            <li>Place four cards face up on the table.</li>
-            <li>Place the remaining cards face down beside the table.</li>
-          </ol>
+        <section className="rules-section rules-playing-section">
+          <div className="rules-turn-guide rules-setup-guide">
+            <h3 className="rules-turn-guide-title">At the start of each round:</h3>
+            <ol className="rules-deal-steps">
+              <li>Choose a dealer.</li>
+              <li>The dealer shuffles the deck.</li>
+              <li>Deal three cards to each player.</li>
+              <li>Place four cards face up on the table.</li>
+              <li>Place the remaining cards face down beside the table.</li>
+            </ol>
+          </div>
           <p>The player to the dealer's left starts. Turns continue clockwise.</p>
 
           <div className="rules-turn-guide">
@@ -834,7 +835,7 @@ function RulesPage() {
         <section className="rules-section rules-card-overview-section">
           <header className="rules-section-heading">
             <p className="eyebrow">CARD REFERENCE</p>
-            <h2 id="rules-card-overview-title">Card overview</h2>
+            <h2 id="rules-card-overview-title">Neapolitan deck</h2>
           </header>
           <p>The game uses a 40-card Neapolitan deck. Each of the four suits contains ten cards. Asso counts as 1, Fante as 8, Cavallo as 9 and Re as 10.</p>
           <div className="rules-card-scroll" id="rules-card-panel" role="tabpanel" aria-labelledby={'rules-tab-' + activeSuit} tabIndex={0}>
