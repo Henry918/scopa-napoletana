@@ -3861,3 +3861,39 @@ body {
 .rules-nutshell-container .rules-subsection > p {
   margin: 0 !important;
 }
+
+
+/* Keep the Rules header fixed while only its content region scrolls. */
+.page-shell.rules-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  padding-bottom: 0;
+  box-sizing: border-box;
+}
+
+.rules-shell > .brand-header {
+  flex: 0 0 auto;
+}
+
+.rules-shell > .rules-scroll-region {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 24px;
+  box-sizing: border-box;
+}
+
+.rules-shell > .rules-scroll-region::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
