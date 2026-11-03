@@ -4138,6 +4138,14 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.score-card-main h2 .score-team-member {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .score-card .score-card-symbol {
   display: block;
   position: static;
