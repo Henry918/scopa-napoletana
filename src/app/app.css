@@ -31,7 +31,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #E4D8C5;
+  background: transparent;
   border-bottom: 1px solid rgba(32,52,44,.13);
   margin-inline: calc(var(--page-gutter) * -1);
   padding: 24px var(--page-gutter);
@@ -4045,22 +4045,12 @@ body {
 }
 
 
-/* Match the Home History and Rules navigation buttons to the header surface. */
-.home-bottom-nav button {
-  background: #E4D8C5 !important;
-  transition: background-color 140ms ease;
-}
-
+/* Keep the header and all Home navigation actions visually transparent. */
+.home-bottom-nav button,
 .home-bottom-nav button:hover,
-.home-bottom-nav button:focus-visible {
-  background: #DDD1BF !important;
-}
-
-.home-bottom-nav button:active {
-  background: #D6C7B1 !important;
-}
-
-/* Use the page background for the New Game and Manage Games header actions. */
+.home-bottom-nav button:active,
+.home-bottom-nav button:focus,
+.home-bottom-nav button:focus-visible,
 .home-header-actions .home-new-game-button,
 .home-header-actions .home-new-game-button:hover,
 .home-header-actions .home-new-game-button:active,
@@ -4071,6 +4061,5 @@ body {
 .home-header-actions .home-manage-toggle:active,
 .home-header-actions .home-manage-toggle:focus,
 .home-header-actions .home-manage-toggle:focus-visible {
-  background: #f3efe4 !important;
+  background: transparent !important;
 }
-
