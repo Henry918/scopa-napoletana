@@ -31,7 +31,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #efebdf;
+  background: #D7C6AC;
   border-bottom: 1px solid rgba(32,52,44,.13);
   margin-inline: calc(var(--page-gutter) * -1);
   padding: 0 var(--page-gutter) 20px;
