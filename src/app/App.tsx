@@ -538,8 +538,7 @@ function App() {
               </svg>
             ) : (
               <svg className="score-card-symbol score-card-diamond" viewBox="0 0 66 50" aria-hidden="true" focusable="false">
-                <path d="M16 8H50L61 22 33 45 5 22 16 8Z" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round" />
-                <path d="M5 22H61M16 8 23 22 33 45 43 22 50 8M23 22H43" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+                <path d="M33 4 C27 13 17 20 6 25 C17 30 27 38 33 46 C39 38 49 30 60 25 C49 20 39 13 33 4Z" fill="currentColor" />
               </svg>
             )}
             <h2>{game.mode === 'four-player-teams' && competitor.members.length > 1
