@@ -4130,13 +4130,16 @@ body {
 }
 .score-card .score-crown {
   position: absolute;
-  top: 31px;
-  right: 17px;
-  width: 58px;
-  height: 48px;
+  top: 40px;
+  right: 18px;
+  width: 66px;
+  height: 49.5px;
   color: #d3b878;
   opacity: 0.95;
   pointer-events: none;
+}
+.score-card.score-card-winner .score-number {
+  color: #a58851 !important;
 }
 .score-card.score-card-non-winner {
   background: #454b46 !important;
@@ -4160,18 +4163,13 @@ body {
 .score-card.score-card-non-winner .score-progress {
   background: rgba(214, 216, 213, 0.22) !important;
 }
-@media (max-width: 800px) {
-  .score-card .score-crown {
-    top: 29px;
-    width: 48px;
-    height: 40px;
-  }
-}
 @media (max-width: 480px) {
+  .score-card .score-crown {
+    width: 48px;
+    height: 36px;
+  }
   .score-grid-three .score-card .score-crown {
-    top: 22px;
-    right: 6px;
-    width: 34px;
-    height: 30px;
+    top: 27px;
+    right: 18px;
   }
 }
