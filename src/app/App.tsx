@@ -735,15 +735,9 @@ function App() {
 function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename, homeView, manageSavedGames, onToggleManageSavedGames, onShowHomeView }: { gameMode?: GameMode; onHome?: () => void; gameName?: string; gameDate?: string; onRename?: () => void; homeView?: 'new' | 'history' | 'rules'; manageSavedGames?: boolean; onToggleManageSavedGames?: () => void; onShowHomeView?: (view: 'new' | 'history' | 'rules') => void }) {
   return (
     <header className="brand-header">
-      {onShowHomeView ? (
-        <div className="brand-home brand-home-static">
-          <span className="brand-lockup"><img className="brand-symbol" src={BASE + 'icons/scopa.svg'} alt="" /><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
-        </div>
-      ) : (
-        <button className="brand-home" type="button" onClick={onHome} disabled={!onHome} aria-label="Back to home">
-          <span className="brand-lockup"><img className="brand-symbol" src={BASE + 'icons/scopa.svg'} alt="" /><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
-        </button>
-      )}
+      <button className="brand-home" type="button" onClick={onHome} disabled={!onHome} aria-label="Go to new game">
+        <span className="brand-lockup"><img className="brand-symbol" src={BASE + 'icons/scopa.svg'} alt="" /><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
+      </button>
       <div className="header-right">
         {onShowHomeView && homeView !== 'new' && <div className="home-header-actions">
           {homeView === 'history' && onToggleManageSavedGames && <button className="saved-games-manage home-manage-toggle" type="button" onClick={onToggleManageSavedGames}>{manageSavedGames ? 'Done' : 'Manage games'}</button>}
