@@ -3575,3 +3575,23 @@ body {
     bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
   }
 }
+
+
+/* Keep game footer button appearance identical on desktop and mobile. */
+.footer-actions button,
+.footer-actions button:hover,
+.footer-actions button:active,
+.footer-actions button:focus,
+.footer-actions button:focus-visible {
+  border: 1px solid #dcded4 !important;
+  border-radius: 5px !important;
+  background: transparent !important;
+  color: #53645a !important;
+  box-shadow: none !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+}
+
+.footer-actions button:hover {
+  background: #f0f1e9 !important;
+}
