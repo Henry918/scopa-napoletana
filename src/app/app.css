@@ -3595,3 +3595,52 @@ body {
 .footer-actions button:hover {
   background: #f0f1e9 !important;
 }
+
+
+/* Keep the game viewport fixed and let only the round history list scroll.
+   Apply the same layout to the active game dock and the finished game footer. */
+.game-shell:has(.round-launch),
+.game-shell:has(.app-footer) {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.game-shell:has(.round-launch) > .brand-header,
+.game-shell:has(.round-launch) > .game-results,
+.game-shell:has(.app-footer) > .brand-header,
+.game-shell:has(.app-footer) > .game-results {
+  flex: 0 0 auto;
+}
+
+.game-shell:has(.round-launch) > .history-section,
+.game-shell:has(.app-footer) > .history-section {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.game-shell:has(.round-launch) .history-heading,
+.game-shell:has(.app-footer) .history-heading {
+  flex: 0 0 auto;
+}
+
+.game-shell:has(.round-launch) .history-list,
+.game-shell:has(.app-footer) .history-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.game-shell:has(.round-launch) > .notice,
+.game-shell:has(.app-footer) > .notice {
+  flex: 0 0 auto;
+}
