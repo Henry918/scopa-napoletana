@@ -3258,7 +3258,7 @@ body {
     margin-bottom: 0;
   }
 
-  .page-shell {
+  .page-shell:has(.rules-page) {
     padding-bottom: 0;
   }
 }
