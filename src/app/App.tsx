@@ -489,11 +489,15 @@ function App() {
             {savedGames.length > 0 ? <div className={'saved-games-list' + (manageSavedGames ? ' managing-saved-games' : '')}>
               {savedGames.map((savedGame) => {
                 const savedTotals = roundTotals(savedGame.rounds, savedGame.competitors)
-                const result = savedGame.competitors.map((competitor) => competitorDisplayName(competitor, savedGame.mode) + ' ' + (savedTotals[competitor.id] ?? 0)).join(' · ')
+                const savedWinnerId = savedGame.status === 'finished'
+                  ? getGameWinner(savedTotals, savedGame.targetScore)
+                  : null
                 return (
                   <article className="saved-game-card" key={savedGame.id}>
                     <button className="saved-game-open" type="button" disabled={manageSavedGames} onClick={() => openSavedGame(savedGame)}>
-                      <span className="saved-game-main"><strong>{savedGame.name}</strong><small>{formatGameDate(savedGame.date)} · {savedGame.rounds.length} {savedGame.rounds.length === 1 ? 'round' : 'rounds'}</small><small className="saved-game-result">{result}</small></span>
+                      <span className="saved-game-main"><strong>{savedGame.name}</strong><small>{formatGameDate(savedGame.date)} · {savedGame.rounds.length} {savedGame.rounds.length === 1 ? 'round' : 'rounds'}</small><small className="saved-game-result">{savedGame.competitors.map((competitor, index) => (
+                        <span key={competitor.id}>{index > 0 ? ' · ' : ''}<span className={savedWinnerId === competitor.id ? 'saved-game-winner' : undefined}>{competitorDisplayName(competitor, savedGame.mode)}</span> {savedTotals[competitor.id] ?? 0}</span>
+                      ))}</small></span>
                       {!manageSavedGames && <span className="saved-game-arrow" aria-hidden="true">→</span>}
                     </button>
                     {manageSavedGames && (
