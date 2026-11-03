@@ -3626,3 +3626,11 @@ body {
     margin-top: 12px !important;
   }
 }
+
+
+/* Center the single Settebello card in the same visual area as the card stacks. */
+.rules-card-stack-settebello .rules-card-stack-image {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
