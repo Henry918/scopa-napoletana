@@ -4068,6 +4068,21 @@ body {
   background: #fffdf7 !important;
 }
 
+/* Give History, Rules and Manage Games the same subtle interaction highlight. */
+.home-header-actions .home-manage-toggle,
+.home-bottom-nav button {
+  transition: background-color 140ms ease;
+}
+
+.home-header-actions .home-manage-toggle:hover,
+.home-header-actions .home-manage-toggle:focus-visible,
+.home-header-actions .home-manage-toggle:active,
+.home-bottom-nav button:hover,
+.home-bottom-nav button:focus-visible,
+.home-bottom-nav button:active {
+  background: #F3EFE4 !important;
+}
+
 /* The Neapolitan deck controls use the general page background. */
 .rules-card-overview-section button,
 .rules-card-overview-section button:hover,
