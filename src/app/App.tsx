@@ -777,9 +777,10 @@ function RulesPage() {
           <h1 id="rules-page-title">How to play Scopa</h1>
         </header>
 
-        <section className="rules-section rules-intro-section">
-          <p>Scopa can be played by 2, 3 or 4 players. When playing with 4 players, players form two teams. Teammates sit opposite each other.</p>
-          <p>At the beginning of each round:</p>
+        <section className="rules-section rules-intro-section" aria-labelledby="rules-setup-title">
+          <h2 id="rules-setup-title">Players and setup</h2>
+          <p>Scopa is played by 2 to 4 players. With 4 players, form two teams and sit opposite your teammate.</p>
+          <p><strong>At the start of each round:</strong></p>
           <ol>
             <li>Choose a dealer.</li>
             <li>The dealer shuffles the deck.</li>
@@ -791,28 +792,32 @@ function RulesPage() {
 
         <section className="rules-section rules-playing-section" aria-labelledby="rules-playing-title">
           <h2 id="rules-playing-title">Playing a round</h2>
-          <p>The player sitting to the left of the dealer starts. Play continues clockwise.</p>
-          <p>On each turn, a player plays one card from their hand:</p>
-          <ul>
-            <li>If the card matches a card on the table, the player captures that card.</li>
-            <li>If no single matching card is available, the player can capture a combination of cards whose values add up to the value of the played card.</li>
-            <li>If there is no match or combination, the played card remains on the table.</li>
-            <li>If the played card matches a single card and also a combination of cards, the single matching card must be captured.</li>
-          </ul>
-          <p>When all players have played their three cards, the dealer deals another three cards to each player. This continues until all cards have been dealt and played. The same dealer deals throughout the entire round.</p>
+          <p>The player to the dealer's left starts. Turns continue clockwise.</p>
+
+          <div className="rules-turn-guide">
+            <h3 className="rules-turn-guide-title">On your turn, play one card from your hand:</h3>
+            <ul className="rules-turn-actions">
+              <li><strong>Take a matching card</strong> from the table, if available.</li>
+              <li><strong>Or combine cards</strong> whose values add up to the value of your card.</li>
+              <li><strong>No match?</strong> Place your card face up on the table.</li>
+              <li><strong>Single card takes priority.</strong> If both a single card and a combination are possible, you must take the single card.</li>
+            </ul>
+          </div>
+
+          <p className="rules-deal-continuation">After everyone has played their three cards, the dealer deals another three to each player. Repeat until all cards have been dealt and played. The same dealer deals throughout the round.</p>
 
           <section className="rules-subsection" aria-labelledby="rules-scopa-title">
             <h3 id="rules-scopa-title">Scopa</h3>
-            <p>If a player captures every card on the table with a single play, they score a Scopa worth 1 point.</p>
-            <p>After a Scopa, the table is empty. On the next turn, the next player must place one card face up in the middle. That card stays on the table, and play continues normally.</p>
-            <p>The final capture of the round does not count as a Scopa.</p>
+            <p>Capture every card on the table in a single play to score a Scopa.</p>
+            <p>After a Scopa, the next player starts with an empty table by placing one card face up. Play then continues as usual.</p>
+            <p><em>The final capture of the round does not count as a Scopa.</em></p>
           </section>
 
           <section className="rules-subsection" aria-labelledby="rules-end-title">
             <h3 id="rules-end-title">End of the round</h3>
-            <p>The round ends when all players have played all their cards.</p>
-            <p>Any cards remaining on the table are awarded to the player or team who made the last capture.</p>
-            <p>The points are then counted. The next player clockwise becomes the dealer, and a new round begins.</p>
+            <p>The round ends when everyone has played all their cards.</p>
+            <p>Any cards left on the table go to the player or team who made the last capture.</p>
+            <p>Count the points, then the next player clockwise becomes dealer and a new round begins.</p>
           </section>
         </section>
       </section>
