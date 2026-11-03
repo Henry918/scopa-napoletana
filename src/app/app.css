@@ -4120,14 +4120,14 @@ body {
 }
 
 
-/* Keep the diamond or crown in the card's content flow, above the score and progress bar. */
+/* Square card-suit icons stay in the scorecard flow, above the score and progress bar. */
 .score-card-main {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) 60px;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   min-width: 0;
-  margin-top: 14px;
+  margin-top: 22px;
 }
 .score-card-main h2 {
   min-width: 0;
@@ -4140,6 +4140,7 @@ body {
   flex: none;
   width: 60px;
   height: 60px;
+  aspect-ratio: 1 / 1;
   pointer-events: none;
 }
 .score-card .score-card-diamond {
@@ -4179,15 +4180,24 @@ body {
 }
 @media (max-width: 480px) {
   .score-card-main {
-    margin-top: 18px;
-    gap: 5px;
+    margin-top: 24px;
+    gap: 6px;
   }
   .score-card-main + .score-number {
     margin-top: 12px;
   }
   .score-grid-three .score-card-main {
-    margin-top: 20px;
-    gap: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 22px;
+    gap: 6px;
+  }
+  .score-grid-three .score-card-main h2 {
+    margin-top: 0;
+  }
+  .score-grid-three .score-card .score-card-symbol {
+    align-self: flex-end;
   }
   .score-grid-three .score-card-main + .score-number {
     margin-top: 10px;
