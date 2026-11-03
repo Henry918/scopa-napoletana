@@ -4147,11 +4147,16 @@ body {
 
 /* Match Compare to the application's dark green primary buttons. */
 .primiera-inline .primiera-compare-action,
-.primiera-inline .primiera-compare-action:hover,
 .primiera-inline .primiera-compare-action:active,
 .primiera-inline .primiera-compare-action:focus,
 .primiera-inline .primiera-compare-action:focus-visible {
   background: var(--green) !important;
+  color: #fffdf7 !important;
+}
+
+/* Match the Confirm round button hover color. */
+.primiera-inline .primiera-compare-action:hover:not(:disabled) {
+  background: #1e4b3b !important;
   color: #fffdf7 !important;
 }
 
