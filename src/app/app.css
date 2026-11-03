@@ -1255,8 +1255,8 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 .history-round {
   border: 0;
-  background: #f0e6d1;
-  color: #765b2e;
+  background: #e0ddd2;
+  color: #667b6b;
 }
 
 /* Remove obsolete per-round deletion affordances */
@@ -4138,8 +4138,8 @@ body {
   display: block;
   position: static;
   flex: none;
-  width: 66px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   pointer-events: none;
 }
 .score-card .score-card-diamond {
@@ -4182,20 +4182,12 @@ body {
     margin-top: 18px;
     gap: 5px;
   }
-  .score-card .score-card-symbol {
-    width: 48px;
-    height: 36px;
-  }
   .score-card-main + .score-number {
     margin-top: 12px;
   }
   .score-grid-three .score-card-main {
     margin-top: 20px;
     gap: 3px;
-  }
-  .score-grid-three .score-card .score-card-symbol {
-    width: 34px;
-    height: 26px;
   }
   .score-grid-three .score-card-main + .score-number {
     margin-top: 10px;
