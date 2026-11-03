@@ -4043,3 +4043,13 @@ body {
     padding-top: 11px;
   }
 }
+
+
+/* Match the Home History and Rules navigation buttons to the header surface. */
+.home-bottom-nav button,
+.home-bottom-nav button:hover,
+.home-bottom-nav button:active,
+.home-bottom-nav button:focus,
+.home-bottom-nav button:focus-visible {
+  background: #E4D8C5 !important;
+}
