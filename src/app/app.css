@@ -3308,3 +3308,62 @@ body {
     margin-top: 12px;
   }
 }
+
+
+/* Final overrides: fixed-size Home navigation with no hover or press animation. */
+.home-bottom-nav .saved-games-manage,
+.home-bottom-nav .saved-games-manage:hover,
+.home-bottom-nav .saved-games-manage:active,
+.home-bottom-nav .saved-games-manage:focus,
+.home-bottom-nav .saved-games-manage:focus-visible {
+  height: 46px !important;
+  min-height: 46px !important;
+  padding-block: 0 !important;
+  transform: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline-offset: 2px;
+}
+
+/* Keep Enter round compact, left-aligned, and anchored to the page's bottom margin. */
+.game-shell:has(.round-launch) {
+  padding-bottom: 84px;
+}
+.round-launch {
+  position: fixed;
+  z-index: 15;
+  left: max(32px, calc((100vw - 1080px) / 2));
+  right: auto;
+  bottom: max(32px, calc((100vw - 1080px) / 2));
+  width: auto;
+  display: block;
+  margin: 0;
+}
+.round-launch .button,
+.round-launch .button:hover,
+.round-launch .button:active {
+  display: inline-flex !important;
+  width: auto !important;
+  min-width: 190px;
+  flex: none !important;
+  margin: 0 !important;
+}
+@media (max-width: 800px) {
+  .round-launch {
+    left: max(18px, calc((100vw - 620px) / 2));
+    bottom: max(18px, calc((100vw - 620px) / 2));
+  }
+}
+@media (max-width: 480px) {
+  .round-launch {
+    left: 14px;
+    bottom: 14px;
+  }
+  .round-launch .button,
+  .round-launch .button:hover,
+  .round-launch .button:active {
+    width: auto !important;
+    min-width: 190px;
+  }
+}
