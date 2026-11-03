@@ -434,16 +434,16 @@ function App() {
 
   if (!game) {
     return (
-      <main className={"page-shell" + (homeView === 'rules' ? ' rules-shell' : '')}>
+      <main className={"page-shell" + (homeView === 'rules' ? ' rules-shell' : homeView === 'history' ? ' history-shell' : '')}>
         <BrandHeader homeView={homeView} manageSavedGames={manageSavedGames}
           onHome={() => { setHomeView('new'); setManageSavedGames(false) }}
           onToggleManageSavedGames={() => setManageSavedGames((current) => !current)}
           onShowHomeView={(view) => { setHomeView(view); setManageSavedGames(false) }} />
         <div
-          className={"home-view-content home-view-content-" + homeView + (homeView === 'rules' ? ' rules-scroll-region' : '')}
-          role={homeView === 'rules' ? 'region' : undefined}
-          aria-label={homeView === 'rules' ? 'Rules content' : undefined}
-          tabIndex={homeView === 'rules' ? 0 : undefined}
+          className={"home-view-content home-view-content-" + homeView + (homeView === 'rules' ? ' rules-scroll-region' : homeView === 'history' ? ' history-scroll-region' : '')}
+          role={homeView === 'rules' || homeView === 'history' ? 'region' : undefined}
+          aria-label={homeView === 'rules' ? 'Rules content' : homeView === 'history' ? 'Game history' : undefined}
+          tabIndex={homeView === 'rules' || homeView === 'history' ? 0 : undefined}
         >
         {homeView === 'new' && <section className="setup-layout">
           <div className="intro-copy">
