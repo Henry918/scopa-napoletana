@@ -3503,3 +3503,75 @@ body {
     box-shadow: 0 3px 14px rgba(27, 43, 34, .12);
   }
 }
+
+
+/* Shared fixed bottom action bar on desktop and mobile. */
+.game-shell:has(.round-launch),
+.game-shell:has(.app-footer) {
+  padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+.round-launch,
+.app-footer {
+  position: fixed !important;
+  z-index: 50 !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+  transform: translateX(-50%) !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  width: min(1080px, calc(100vw - 32px)) !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.round-launch {
+  justify-content: stretch !important;
+}
+
+.round-launch .button,
+.round-launch .button:hover,
+.round-launch .button:active,
+.round-launch .button:focus,
+.round-launch .button:focus-visible {
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex: 1 1 100% !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: 50px !important;
+  min-height: 50px !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+.footer-actions {
+  display: flex !important;
+  flex: 1 1 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  gap: 10px !important;
+}
+
+.footer-actions button {
+  box-sizing: border-box !important;
+  flex: 1 1 0 !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: 50px !important;
+  min-height: 50px !important;
+  margin: 0 !important;
+  padding: 0 12px !important;
+}
+
+@media (max-width: 800px) {
+  .round-launch,
+  .app-footer {
+    width: calc(100vw - 28px) !important;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
