@@ -516,8 +516,8 @@ function App() {
         </div>
         {homeView === 'new' && (
           <nav className="home-bottom-nav" aria-label="Main navigation">
-            <button type="button" onClick={() => setHomeView('rules')}>Rules</button>
-            <button type="button" onClick={() => setHomeView('history')}>History</button>
+            <button className="saved-games-manage" type="button" onClick={() => setHomeView('history')}>History</button>
+            <button className="saved-games-manage" type="button" onClick={() => setHomeView('rules')}>Rules</button>
           </nav>
         )}
       </main>
@@ -746,8 +746,8 @@ function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename, homeView,
       )}
       <div className="header-right">
         {onShowHomeView && homeView !== 'new' && <div className="home-header-actions">
-          <button className="saved-games-manage home-new-game-button" type="button" onClick={() => onShowHomeView('new')}>New Game</button>
           {homeView === 'history' && onToggleManageSavedGames && <button className="saved-games-manage home-manage-toggle" type="button" onClick={onToggleManageSavedGames}>{manageSavedGames ? 'Done' : 'Manage games'}</button>}
+          <button className="saved-games-manage home-new-game-button" type="button" onClick={() => onShowHomeView('new')}>New Game</button>
         </div>}
         <span className="offline-indicator"><i /> LOCAL SCOREKEEPER</span>
         {gameMode && <span className="header-mode">{gameMode === 'two-players' ? '2 PLAYERS' : gameMode === 'three-players' ? '3 PLAYERS' : '2 TEAMS'}</span>}
