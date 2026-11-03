@@ -514,6 +514,12 @@ function App() {
           </section>
         )}
         </div>
+        {homeView === 'new' && (
+          <nav className="home-bottom-nav" aria-label="Main navigation">
+            <button type="button" onClick={() => setHomeView('rules')}>Rules</button>
+            <button type="button" onClick={() => setHomeView('history')}>History</button>
+          </nav>
+        )}
       </main>
     )
   }
@@ -729,14 +735,19 @@ function App() {
 function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename, homeView, manageSavedGames, onToggleManageSavedGames, onShowHomeView }: { gameMode?: GameMode; onHome?: () => void; gameName?: string; gameDate?: string; onRename?: () => void; homeView?: 'new' | 'history' | 'rules'; manageSavedGames?: boolean; onToggleManageSavedGames?: () => void; onShowHomeView?: (view: 'new' | 'history' | 'rules') => void }) {
   return (
     <header className="brand-header">
-      <button className="brand-home" type="button" onClick={onHome} disabled={!onHome} aria-label={onShowHomeView ? 'Go to New Game' : 'Back to home'}>
-        <span className="brand-lockup"><img className="brand-symbol" src={BASE + 'icons/scopa.svg'} alt="" /><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
-      </button>
+      {onShowHomeView ? (
+        <div className="brand-home brand-home-static">
+          <span className="brand-lockup"><img className="brand-symbol" src={BASE + 'icons/scopa.svg'} alt="" /><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
+        </div>
+      ) : (
+        <button className="brand-home" type="button" onClick={onHome} disabled={!onHome} aria-label="Back to home">
+          <span className="brand-lockup"><img className="brand-symbol" src={BASE + 'icons/scopa.svg'} alt="" /><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
+        </button>
+      )}
       <div className="header-right">
-        {onShowHomeView && <div className="home-header-actions">
+        {onShowHomeView && homeView !== 'new' && <div className="home-header-actions">
+          <button className="saved-games-manage home-new-game-button" type="button" onClick={() => onShowHomeView('new')}>New Game</button>
           {homeView === 'history' && onToggleManageSavedGames && <button className="saved-games-manage home-manage-toggle" type="button" onClick={onToggleManageSavedGames}>{manageSavedGames ? 'Done' : 'Manage games'}</button>}
-          <button className="saved-games-manage home-view-toggle" type="button" aria-current={homeView === 'rules' ? 'page' : undefined} onClick={() => onShowHomeView('rules')}>Rules</button>
-          <button className="saved-games-manage home-view-toggle" type="button" aria-current={homeView === 'history' ? 'page' : undefined} onClick={() => onShowHomeView('history')}>History</button>
         </div>}
         <span className="offline-indicator"><i /> LOCAL SCOREKEEPER</span>
         {gameMode && <span className="header-mode">{gameMode === 'two-players' ? '2 PLAYERS' : gameMode === 'three-players' ? '3 PLAYERS' : '2 TEAMS'}</span>}
