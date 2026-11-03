@@ -3078,3 +3078,31 @@ body {
     font-size: 12px;
   }
 }
+
+
+/* Keep nested topics visually grouped without their own divider rules. */
+.rules-subsection {
+  margin-top: 17px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* Centre the two-card Scopa example within its illustration column. */
+.rules-card-stack-scopa .rules-card-stack-image:nth-child(1) {
+  left: 10px;
+  top: 10px;
+}
+.rules-card-stack-scopa .rules-card-stack-image:nth-child(2) {
+  left: 26px;
+  top: 0;
+}
+@media (max-width: 480px) {
+  .rules-card-stack-scopa .rules-card-stack-image:nth-child(1) {
+    left: 8px;
+    top: 8px;
+  }
+  .rules-card-stack-scopa .rules-card-stack-image:nth-child(2) {
+    left: 21px;
+    top: 0;
+  }
+}
