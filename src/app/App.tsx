@@ -531,7 +531,17 @@ function App() {
         {scoreRows.map(({ competitor, score }, index) => (
           <article className={'score-card score-card-' + (index + 1) + ' ' + competitorTone(index, game.mode) + (winnerId ? (winnerId === competitor.id ? ' score-card-winner' : ' score-card-non-winner') : '')} key={competitor.id}>
             <div className="score-card-top"><span className="score-index">{winnerId === competitor.id ? 'WINNER' : game.mode === 'four-player-teams' ? 'TEAM ' + (index + 1) : 'PLAYER ' + (index + 1)}</span><span className="score-dot" /></div>
-            {winnerId === competitor.id && <svg className="score-crown" viewBox="0 0 64 48" aria-hidden="true" focusable="false"><path d="M5 10 18 21 29 4 40 21 59 9 52 38H11L5 10Z" fill="currentColor" /><path d="M10 42H53" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" /></svg>}
+            {winnerId === competitor.id ? (
+              <svg className="score-card-symbol score-card-crown" viewBox="0 0 66 50" aria-hidden="true" focusable="false">
+                <path d="M7 13 19 23 31 7 43 23 59 13 53 43H13L7 13Z" fill="currentColor" />
+                <path d="M13 35H53" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg className="score-card-symbol score-card-diamond" viewBox="0 0 66 50" aria-hidden="true" focusable="false">
+                <path d="M16 8H50L61 22 33 45 5 22 16 8Z" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round" />
+                <path d="M5 22H61M16 8 23 22 33 45 43 22 50 8M23 22H43" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+              </svg>
+            )}
             <h2>{game.mode === 'four-player-teams' && competitor.members.length > 1
               ? competitor.members.map((member) => <span className="score-team-member" key={member}>{member}</span>)
               : competitorDisplayName(competitor, game.mode)}</h2>
