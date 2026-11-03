@@ -3500,8 +3500,10 @@ body {
   font-weight: 700 !important;
 }
 
-.footer-actions button:hover {
-  background: #f0f1e9 !important;
+.footer-actions button:hover,
+.footer-actions button:focus-visible,
+.footer-actions button:active {
+  background: rgba(161, 132, 79, 0.08) !important;
 }
 
 
