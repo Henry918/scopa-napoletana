@@ -1254,8 +1254,8 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   background: #f6dfd8;
 }
 .history-round {
-  border: 0;
-  background: #e0ddd2;
+  border: 1px solid #e0ddd2;
+  background: transparent;
   color: #a1844f;
 }
 
