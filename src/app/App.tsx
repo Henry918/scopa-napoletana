@@ -24,17 +24,17 @@ const RANK_LABELS: Record<number, string> = {
   8: 'Fante', 9: 'Cavallo', 10: 'Re'
 }
 const CARD_ORDER = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-type RulesCard = { suit: Suit; rank: number }
+type RulesCard = { suit?: Suit; rank?: number; background?: boolean }
 const SCORING_EXAMPLES: Array<{ id: string; title: string; description: string; cards: RulesCard[] }> = [
   {
     id: 'carte', title: 'Carte · Most cards',
     description: 'One point goes to the player or team that captured the most cards out of the 40-card deck.',
-    cards: [{ suit: 'coppe', rank: 4 }, { suit: 'denari', rank: 6 }, { suit: 'spade', rank: 3 }]
+    cards: [{ background: true }, { background: true }, { background: true }]
   },
   {
     id: 'denari', title: 'Denari · Most coins',
     description: 'One point goes to the player or team that captured the most Denari cards. There are 10 Denari cards in the deck.',
-    cards: [{ suit: 'denari', rank: 1 }, { suit: 'denari', rank: 6 }, { suit: 'denari', rank: 2 }]
+    cards: [{ suit: 'denari', rank: 1 }, { suit: 'denari', rank: 6 }, { suit: 'denari', rank: 3 }]
   },
   {
     id: 'settebello', title: 'Settebello · Seven of coins',
@@ -49,7 +49,7 @@ const SCORING_EXAMPLES: Array<{ id: string; title: string; description: string; 
   {
     id: 'scopa', title: 'Scopa · Clear the table',
     description: 'Each time a play captures every card on the table, it is a Scopa and earns one point. The final capture of the round does not count as a Scopa.',
-    cards: [{ suit: 'coppe', rank: 9 }, { suit: 'spade', rank: 5 }, { suit: 'bastoni', rank: 6 }]
+    cards: [{ suit: 'bastoni', rank: 9 }, { background: true }]
   }
 ]
 const EMPTY_PRIMIERA: PrimieraCards = { coppe: null, denari: null, spade: null, bastoni: null }
@@ -750,7 +750,13 @@ function RulesCardStack({ cards, variant }: { cards: RulesCard[]; variant: strin
   return (
     <div className={'rules-card-stack rules-card-stack-' + variant} aria-hidden="true">
       {cards.map((card, index) => (
-        <img key={card.suit + '-' + card.rank} className="rules-card-stack-image" src={BASE + 'cards/' + card.suit + '/' + card.rank + '.jpg'} alt="" style={{ zIndex: index + 1 }} />
+        <img
+          key={card.background ? 'background-' + index : card.suit + '-' + card.rank}
+          className="rules-card-stack-image"
+          src={card.background ? BASE + 'cards/background/background.jpg' : BASE + 'cards/' + card.suit + '/' + card.rank + '.jpg'}
+          alt=""
+          style={{ zIndex: index + 1 }}
+        />
       ))}
     </div>
   )
@@ -765,7 +771,6 @@ function RulesPage() {
       <div className="rules-page-heading">
         <p className="eyebrow">THE GAME IN A NUTSHELL</p>
         <h1 id="rules-page-title">How to play Scopa</h1>
-        <p>Learn how to deal, capture cards and score points. Scopa can be played by 2, 3 or 4 players.</p>
       </div>
 
       <section className="rules-section" aria-labelledby="rules-preparation-title">
@@ -794,20 +799,20 @@ function RulesPage() {
         </ul>
         <p>For capturing cards, Asso counts as 1, numbered cards use their face value, Fante counts as 8, Cavallo as 9 and Re as 10.</p>
         <p>When all players have played their three cards, the dealer deals another three cards to each player. This continues until all cards have been dealt and played. The same dealer deals throughout the entire round.</p>
-      </section>
 
-      <section className="rules-section" aria-labelledby="rules-scopa-title">
-        <h2 id="rules-scopa-title">Scopa</h2>
-        <p>If a player captures every card on the table with a single play, they score a Scopa worth 1 point.</p>
-        <p>After a Scopa, the table is empty. On the next turn, the next player must place one card face up in the middle. That card stays on the table, and play continues normally.</p>
-        <p>The final capture of the round does not count as a Scopa.</p>
-      </section>
+        <section className="rules-subsection" aria-labelledby="rules-scopa-title">
+          <h3 id="rules-scopa-title">Scopa</h3>
+          <p>If a player captures every card on the table with a single play, they score a Scopa worth 1 point.</p>
+          <p>After a Scopa, the table is empty. On the next turn, the next player must place one card face up in the middle. That card stays on the table, and play continues normally.</p>
+          <p>The final capture of the round does not count as a Scopa.</p>
+        </section>
 
-      <section className="rules-section" aria-labelledby="rules-end-title">
-        <h2 id="rules-end-title">End of the round</h2>
-        <p>The round ends when all players have played all their cards.</p>
-        <p>Any cards remaining on the table are awarded to the player or team who made the last capture.</p>
-        <p>The points are then counted. The next player clockwise becomes the dealer, and a new round begins.</p>
+        <section className="rules-subsection" aria-labelledby="rules-end-title">
+          <h3 id="rules-end-title">End of the round</h3>
+          <p>The round ends when all players have played all their cards.</p>
+          <p>Any cards remaining on the table are awarded to the player or team who made the last capture.</p>
+          <p>The points are then counted. The next player clockwise becomes the dealer, and a new round begins.</p>
+        </section>
       </section>
 
       <section className="rules-section rules-scoring-section" aria-labelledby="rules-scoring-title">
