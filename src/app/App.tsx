@@ -49,7 +49,7 @@ const SCORING_EXAMPLES: Array<{ id: string; title: string; description: string; 
   {
     id: 'scopa', title: 'Scopa · Clear the table',
     description: 'Each time a play captures every card on the table, it is a Scopa and earns one point. The final capture of the round does not count as a Scopa.',
-    cards: [{ suit: 'coppe', rank: 1 }, { background: true }]
+    cards: [{ suit: 'spade', rank: 1 }, { background: true }]
   }
 ]
 const EMPTY_PRIMIERA: PrimieraCards = { coppe: null, denari: null, spade: null, bastoni: null }
