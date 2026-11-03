@@ -3897,3 +3897,39 @@ body {
   width: 0;
   height: 0;
 }
+
+
+/* Keep the game header fixed while Enter round scrolls within its own region. */
+.game-shell.round-entry-active {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  padding-bottom: 0 !important;
+  box-sizing: border-box;
+}
+
+.game-shell.round-entry-active > .brand-header {
+  flex: 0 0 auto;
+}
+
+.game-shell.round-entry-active > .round-scroll-region {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 24px;
+  box-sizing: border-box;
+}
+
+.game-shell.round-entry-active > .round-scroll-region::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
