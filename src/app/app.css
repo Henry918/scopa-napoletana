@@ -2388,8 +2388,8 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .home-bottom-nav {
   position: fixed;
   z-index: 100;
-  left: calc(max(32px, (100vw - 1080px) / 2) + 2vw);
-  right: calc(max(32px, (100vw - 1080px) / 2) + 2vw);
+  left: calc(max(32px, (100vw - 1080px) / 2) + 2%);
+  right: calc(max(32px, (100vw - 1080px) / 2) + 2%);
   bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   display: flex;
   align-items: center;
@@ -3230,7 +3230,7 @@ body {
 @media (max-width: 800px) {
   .rules-card-overview-section {
     padding-top: 19px;
-    padding-bottom: 16px;
+    padding-bottom: 7px;
   }
 }
 
