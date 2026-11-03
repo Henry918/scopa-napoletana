@@ -3177,7 +3177,13 @@ body {
   border-bottom: 0;
 }
 .rules-card-overview-section {
-  padding-top: 0;
+  padding-top: 23px;
+}
+
+@media (max-width: 800px) {
+  .rules-card-overview-section {
+    padding-top: 19px;
+  }
 }
 
 /* Show the complete card suit as two rows of five on mobile. */
