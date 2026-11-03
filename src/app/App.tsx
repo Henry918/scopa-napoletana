@@ -29,7 +29,7 @@ const SCORING_EXAMPLES: Array<{ id: string; title: string; description: string; 
   {
     id: 'carte', title: 'Carte · Most cards',
     description: 'One point goes to the player or team that captured the most cards out of the 40-card deck.',
-    cards: [{ suit: 'spade', rank: 5 }, { suit: 'bastoni', rank: 3 }, { suit: 'coppe', rank: 10 }]
+    cards: [{ suit: 'spade', rank: 5 }, { suit: 'bastoni', rank: 4 }, { suit: 'coppe', rank: 10 }]
   },
   {
     id: 'denari', title: 'Denari · Most coins',
@@ -49,7 +49,7 @@ const SCORING_EXAMPLES: Array<{ id: string; title: string; description: string; 
   {
     id: 'scopa', title: 'Scopa · Clear the table',
     description: 'Each time a play captures every card on the table, it is a Scopa and earns one point. The final capture of the round does not count as a Scopa.',
-    cards: [{ suit: 'bastoni', rank: 9 }, { background: true }]
+    cards: [{ suit: 'coppe', rank: 1 }, { background: true }]
   }
 ]
 const EMPTY_PRIMIERA: PrimieraCards = { coppe: null, denari: null, spade: null, bastoni: null }
