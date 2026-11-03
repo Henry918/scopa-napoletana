@@ -4083,3 +4083,31 @@ body {
 .rules-card-overview-section button:focus-visible {
   background: #f3efe4 !important;
 }
+
+
+/* Remove outlines from the primary navigation and Neapolitan deck tabs. */
+.home-header-actions .home-new-game-button,
+.home-header-actions .home-manage-toggle,
+.home-bottom-nav button,
+.rules-card-overview-section .rules-suit-tab {
+  border: 0 !important;
+}
+
+/* The selected Neapolitan deck tab uses the gold accent. */
+.rules-card-overview-section .rules-suit-tab.active,
+.rules-card-overview-section .rules-suit-tab.active:hover,
+.rules-card-overview-section .rules-suit-tab.active:focus-visible {
+  border: 0 !important;
+  background: #a1844f !important;
+  color: #fffdf7 !important;
+}
+
+/* Highlight Compare with the same gold accent in the score-entry view. */
+.primiera-inline .primiera-compare-action,
+.primiera-inline .primiera-compare-action:hover,
+.primiera-inline .primiera-compare-action:active,
+.primiera-inline .primiera-compare-action:focus,
+.primiera-inline .primiera-compare-action:focus-visible {
+  background: #a1844f !important;
+  color: #fffdf7 !important;
+}
