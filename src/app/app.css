@@ -4127,7 +4127,7 @@ body {
   align-items: center;
   gap: 10px;
   min-width: 0;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .score-card-main h2 {
   min-width: 0;
@@ -4153,7 +4153,7 @@ body {
   opacity: 0.95;
 }
 .score-card-main + .score-number {
-  margin-top: 14px;
+  margin-top: 4px;
 }
 .score-card .score-number span {
   color: inherit;
@@ -4166,17 +4166,21 @@ body {
   background: #454b46 !important;
 }
 .score-card.score-card-non-winner .score-card-diamond {
-  color: #d6d8d5 !important;
+  color: rgba(214, 216, 213, 0.12) !important;
 }
 .score-card.score-card-non-winner .score-index,
-.score-card.score-card-non-winner .score-dot,
+.score-card.score-card-non-winner .score-target {
+  color: rgba(214, 216, 213, 0.12) !important;
+}
 .score-card.score-card-non-winner h2,
 .score-card.score-card-non-winner .score-number,
 .score-card.score-card-non-winner .score-number span,
 .score-card.score-card-non-winner .score-target {
   color: #d6d8d5 !important;
 }
-.score-card.score-card-non-winner .score-dot,
+.score-card.score-card-non-winner .score-dot {
+  background: rgba(214, 216, 213, 0.12) !important;
+}
 .score-card.score-card-non-winner .score-progress span {
   background: #d6d8d5 !important;
 }
@@ -4197,25 +4201,25 @@ body {
 
 @media (max-width: 480px) {
   .score-card-main {
-    margin-top: 30px;
+    margin-top: 20px;
   }
   .score-card-main h2 {
     margin: 0;
   }
   .score-card-main + .score-number {
-    margin-top: 12px;
+    margin-top: 2px;
   }
   .score-grid-three .score-card-main {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 48px;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 20px;
     gap: 6px;
   }
   .score-grid-three .score-card-main h2 {
     margin: 0;
   }
   .score-grid-three .score-card-main + .score-number {
-    margin-top: 10px;
+    margin-top: 0;
   }
 }
