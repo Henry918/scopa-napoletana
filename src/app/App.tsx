@@ -130,6 +130,7 @@ function App() {
   const [primieraCards, setPrimieraCards] = useState<Record<string, PrimieraCards>>({})
   const [primieraOpen, setPrimieraOpen] = useState(false)
   const primieraSectionRef = useRef<HTMLElement | null>(null)
+  const roundScrollRef = useRef<HTMLDivElement | null>(null)
   const [roundOpen, setRoundOpen] = useState(false)
   const [scoringHelpOpen, setScoringHelpOpen] = useState(false)
   const [roundReviewOpen, setRoundReviewOpen] = useState(false)
@@ -193,14 +194,19 @@ function App() {
   useEffect(() => {
     if (!primieraOpen || !window.matchMedia('(max-width: 800px)').matches) return
 
-    // Allow the expanded Primiera section to scroll even if the previous view was locked.
-    document.documentElement.classList.remove('viewport-content-fits')
-
     let firstFrame = 0
     let secondFrame = 0
     firstFrame = window.requestAnimationFrame(() => {
       secondFrame = window.requestAnimationFrame(() => {
-        primieraSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        const scrollRegion = roundScrollRef.current
+        const primieraSection = primieraSectionRef.current
+        if (!scrollRegion || !primieraSection) return
+
+        const regionRect = scrollRegion.getBoundingClientRect()
+        const sectionRect = primieraSection.getBoundingClientRect()
+        const targetTop = scrollRegion.scrollTop + sectionRect.top - regionRect.top - 10
+
+        scrollRegion.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' })
       })
     })
 
@@ -576,6 +582,13 @@ function App() {
       )}
 
       {roundOpen && (
+        <div
+          ref={roundScrollRef}
+          className="round-scroll-region"
+          role="region"
+          aria-label="Round entry"
+          tabIndex={0}
+        >
         <section className="panel round-panel">
           <div className="panel-heading round-heading">
             <div><h2>Round {game.rounds.length + 1}</h2></div>
@@ -629,6 +642,7 @@ function App() {
             <button className="button button-primary" type="button" disabled={issues.length > 0} onClick={reviewRound}>Confirm round</button>
           </div>
         </section>
+        </div>
       )}
 
       {!roundOpen && (
