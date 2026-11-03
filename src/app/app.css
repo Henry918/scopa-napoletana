@@ -319,11 +319,29 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   margin: 5px 0 0;
 }
 .round-launch {
+  position: fixed;
+  z-index: 15;
+  left: max(32px, calc((100vw - 1180px) / 2));
+  bottom: 14px;
   display: flex;
-  margin: 12px 0 24px;
+  margin: 0;
 }
 .round-launch .button {
   min-width: 190px;
+}
+.game-shell:has(.round-launch) {
+  padding-bottom: 84px;
+}
+@media (max-width: 800px) {
+  .round-launch {
+    left: max(18px, calc((100vw - 620px) / 2));
+  }
+}
+@media (max-width: 480px) {
+  .round-launch {
+    left: 14px;
+    bottom: 14px;
+  }
 }
 .round-panel {
   margin-top: 10px;
