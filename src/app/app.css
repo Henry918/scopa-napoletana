@@ -4046,10 +4046,16 @@ body {
 
 
 /* Match the Home History and Rules navigation buttons to the header surface. */
-.home-bottom-nav button,
-.home-bottom-nav button:hover,
-.home-bottom-nav button:active,
-.home-bottom-nav button:focus,
-.home-bottom-nav button:focus-visible {
+.home-bottom-nav button {
   background: #E4D8C5 !important;
+  transition: background-color 140ms ease;
+}
+
+.home-bottom-nav button:hover,
+.home-bottom-nav button:focus-visible {
+  background: #DDD1BF !important;
+}
+
+.home-bottom-nav button:active {
+  background: #D6C7B1 !important;
 }
