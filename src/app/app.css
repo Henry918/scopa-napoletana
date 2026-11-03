@@ -124,11 +124,6 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .action-strip .eyebrow { margin-bottom: 6px; }
 .action-strip h2 { font-family: Georgia, serif; font-size: 24px; font-weight: 500; color: var(--green); margin: 0; }
 .action-strip p:last-child { margin: 5px 0 0; font-size: 11px; color: #7c897e; }
-.winner-banner { background: #e8eee5; border: 1px solid #d0ddcf; padding: 18px 23px; border-radius: 9px; margin: 0; display: flex; align-items: center; gap: 18px; }
-.winner-star { color: #a8884b; font-size: 34px; }
-.winner-banner .eyebrow { margin-bottom: 4px; }
-.winner-banner h2 { font-family: Georgia, serif; font-size: 27px; font-weight: 500; color: var(--green); margin: 0; }
-.winner-banner p:last-child { font-size: 11px; color: #718078; margin: 4px 0 0; }
 .round-panel { padding: 25px; margin: 22px 0 28px; }
 .round-heading { align-items: center; }
 .round-heading h2 {
@@ -281,16 +276,6 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   .modal-actions { flex-direction: column-reverse; }
   .modal-actions .button { width: 100%; }
 }
-.review-categories { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:21px; }
-.review-category { border:1px solid #e7e3d8; border-radius:6px; padding:12px; display:flex; flex-direction:column; gap:6px; }
-.review-category span { color:#9a8968; font-size:8px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
-.review-category strong { color:var(--green); font-family:Georgia,serif; font-size:16px; font-weight:500; }
-.review-points-heading { display:flex; justify-content:space-between; gap:12px; color:#9a9e91; font-size:8px; font-weight:700; letter-spacing:.12em; padding:17px 0 8px; }
-.review-point-list { border-top:1px solid #e6e1d5; }
-.review-point-row { display:flex; justify-content:space-between; align-items:center; padding:12px 2px; border-bottom:1px solid #e6e1d5; color:#52645a; font-size:12px; }
-.review-point-row strong { color:var(--green); font-family:Georgia,serif; font-size:21px; font-weight:500; }
-@media (max-width:480px) { .review-categories { grid-template-columns:1fr 1fr; gap:6px; } .review-category { padding:10px; } .review-category strong { font-size:14px; } .review-points-heading { font-size:7px; } }
-
 
 /* Compact winner-based round entry and game metadata */
 .game-meta-setup {
@@ -2154,40 +2139,8 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   gap: var(--section-header-gap);
   margin-top: var(--section-header-gap);
 }
-.game-results > .winner-banner,
 .game-results > .score-grid {
   margin: 0;
-}
-
-.winner-banner.competitor-tone-1,
-.winner-banner.competitor-tone-2,
-.winner-banner.competitor-tone-3,
-.winner-banner.team-tone-1,
-.winner-banner.team-tone-2 {
-  background: var(--tone-card);
-  border-color: var(--tone-card);
-  color: #fffdf7;
-}
-.winner-banner.competitor-tone-1 h2,
-.winner-banner.competitor-tone-2 h2,
-.winner-banner.competitor-tone-3 h2,
-.winner-banner.team-tone-1 h2,
-.winner-banner.team-tone-2 h2 {
-  color: #fffdf7;
-}
-.winner-banner:is(
-  .competitor-tone-1,
-  .competitor-tone-2,
-  .competitor-tone-3,
-  .team-tone-1,
-  .team-tone-2
-) .eyebrow {
-  color: #a8884b;
-}
-.winner-banner p:last-child {
-  color: rgba(255, 250, 240, 0.55);
-  font-family: inherit;
-  font-size: 9px;
 }
 
 @media (max-width: 800px) {
@@ -4168,4 +4121,21 @@ body {
 .primiera-card-picker > button.active:focus-visible {
   border: 0 !important;
   background: #f3efe4 !important;
+}
+
+
+/* A finished game marks the winner on the scoreboard itself. */
+.score-card.score-card-winner::after {
+  content: '👑';
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  opacity: 0.9;
+}
+.score-card.score-card-non-winner {
+  background: #454b46 !important;
+}
+@media (max-width: 800px) {
+  .score-card.score-card-winner::after { font-size: 48px; }
+}
+@media (max-width: 480px) {
+  .score-grid-three .score-card.score-card-winner::after { top: 27px; font-size: 38px; }
 }
