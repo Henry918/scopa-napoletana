@@ -428,7 +428,7 @@ function App() {
           onHome={() => { setHomeView('new'); setManageSavedGames(false) }}
           onToggleManageSavedGames={() => setManageSavedGames((current) => !current)}
           onShowHomeView={(view) => { setHomeView(view); setManageSavedGames(false) }} />
-        <div className="home-view-content">
+        <div className={"home-view-content home-view-content-" + homeView}>
         {homeView === 'new' && <section className="setup-layout">
           <div className="intro-copy">
             <p className="eyebrow">THE TABLESIDE SCOREKEEPER</p>
