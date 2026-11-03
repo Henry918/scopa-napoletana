@@ -2388,8 +2388,8 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .home-bottom-nav {
   position: fixed;
   z-index: 100;
-  left: max(32px, calc((100vw - 1080px) / 2));
-  right: max(32px, calc((100vw - 1080px) / 2));
+  left: calc(max(32px, (100vw - 1080px) / 2) + 2vw);
+  right: calc(max(32px, (100vw - 1080px) / 2) + 2vw);
   bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   display: flex;
   align-items: center;
@@ -2399,22 +2399,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 .home-bottom-nav button {
   width: min(148px, calc(50% - 6px));
-  min-height: 44px;
-  padding: 0 16px;
-  border: 1px solid #d8d5ca;
-  border-radius: 6px;
-  background: #fffdf7;
-  color: #53645a;
-  font-size: 11px;
-  font-weight: 700;
-  box-shadow: 0 4px 16px rgba(38, 48, 39, .09);
   pointer-events: auto;
-  transition: border-color .15s ease, background .15s ease, color .15s ease;
-}
-.home-bottom-nav button:hover {
-  border-color: #b8c2b7;
-  background: #f6f7f0;
-  color: var(--green);
 }
 @media (max-width: 800px) {
   .home-bottom-nav {
