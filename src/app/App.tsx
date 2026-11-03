@@ -806,16 +806,13 @@ function RulesPage() {
 
           <section className="rules-subsection" aria-labelledby="rules-scopa-title">
             <h3 id="rules-scopa-title">Scopa</h3>
-            <p>Capture every card on the table in a single play to score a Scopa.</p>
-            <p>After a Scopa, the next player starts with an empty table by placing one card face up. Play then continues as usual.</p>
+            <p>Capture every card on the table in a single play to score a Scopa. To mark each Scopa, the player who made it places one captured card face up on their capture pile. After a Scopa, the next player starts with an empty table by placing one card face up. Play then continues as usual.</p>
             <p><em>The final capture of the round does not count as a Scopa.</em></p>
           </section>
 
           <section className="rules-subsection" aria-labelledby="rules-end-title">
             <h3 id="rules-end-title">End of the round</h3>
-            <p>The round ends when everyone has played all their cards.</p>
-            <p>Any cards left on the table go to the player or team who made the last capture.</p>
-            <p>Count the points, then the next player clockwise becomes dealer and a new round begins.</p>
+            <p>The round ends when everyone has played all their cards. Any cards left on the table go to the player or team who made the last capture. Count the points, then the next player clockwise becomes dealer and a new round begins.</p>
           </section>
         </section>
       </section>
