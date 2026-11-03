@@ -3170,3 +3170,39 @@ body {
 .rules-page > .rules-section:first-of-type > p:first-of-type {
   margin-top: 12px;
 }
+
+
+/* Tighten duplicate spacing and divider at the transition into Card overview. */
+.rules-scoring-list .rules-scoring-item:last-child {
+  border-bottom: 0;
+}
+.rules-card-overview-section {
+  padding-top: 0;
+}
+
+/* Show the complete card suit as two rows of five on mobile. */
+@media (max-width: 800px) {
+  .rules-card-scroll {
+    overflow-x: visible;
+  }
+  .rules-card-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 9px;
+  }
+  .rules-overview-card {
+    flex: none;
+  }
+  .rules-overview-card img {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* Rules and History align with the game scoreboard. Keep New Game spacing as-is. */
+@media (min-width: 801px) {
+  .home-view-content-rules,
+  .home-view-content-history {
+    margin-top: 12px;
+  }
+}
