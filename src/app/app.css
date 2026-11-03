@@ -1258,7 +1258,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   background: #f6dfd8;
 }
 .history-round {
-  border: 1px solid #d8c49d;
+  border: 0;
   background: #f0e6d1;
   color: #765b2e;
 }
@@ -4139,7 +4139,7 @@ body {
   pointer-events: none;
 }
 .score-card.score-card-winner .score-number {
-  color: #a58851 !important;
+  color: #d3b878 !important;
 }
 .score-card.score-card-non-winner {
   background: #454b46 !important;
