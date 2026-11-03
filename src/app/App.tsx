@@ -536,13 +536,13 @@ function App() {
                 ? competitor.members.map((member) => <span className="score-team-member" key={member}>{member}</span>)
                 : competitorDisplayName(competitor, game.mode)}</h2>
               {winnerId === competitor.id ? (
-                <svg className="score-card-symbol score-card-crown" viewBox="0 0 66 50" aria-hidden="true" focusable="false">
-                  <path d="M7 13 19 23 31 7 43 23 59 13 53 43H13L7 13Z" fill="currentColor" />
-                  <path d="M13 35H53" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                <svg className="score-card-symbol score-card-crown" viewBox="0 0 60 60" aria-hidden="true" focusable="false">
+                  <path d="M5 16 16 25 29 7 42 25 55 16 50 51H10L5 16Z" fill="currentColor" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                  <path d="M11 44H49" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
                 </svg>
               ) : (
-                <svg className="score-card-symbol score-card-diamond" viewBox="0 0 66 50" aria-hidden="true" focusable="false">
-                  <path d="M33 4 C27 13 17 20 6 25 C17 30 27 38 33 46 C39 38 49 30 60 25 C49 20 39 13 33 4Z" fill="currentColor" />
+                <svg className="score-card-symbol score-card-diamond" viewBox="0 0 60 60" aria-hidden="true" focusable="false">
+                  <path d="M30 4 C25 13 14 24 5 30 C14 36 25 47 30 56 C35 47 46 36 55 30 C46 24 35 13 30 4Z" fill="currentColor" />
                 </svg>
               )}
             </div>
