@@ -3954,3 +3954,26 @@ body {
     margin-top: 24px !important;
   }
 }
+
+
+/* Start the Rules scroll viewport directly below the header separator.
+   Move the previous outer top gap into the scrollable Rules content. */
+.rules-shell > .rules-scroll-region {
+  margin-top: 0 !important;
+}
+
+.rules-shell > .rules-scroll-region > .rules-page {
+  padding-top: 12px;
+}
+
+@media (max-width: 800px) {
+  .rules-shell > .rules-scroll-region > .rules-page {
+    padding-top: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rules-shell > .rules-scroll-region > .rules-page {
+    padding-top: 11px;
+  }
+}
