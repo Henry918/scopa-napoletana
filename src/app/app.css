@@ -3822,3 +3822,42 @@ body {
     font-size: 11px;
   }
 }
+
+
+/* Use one spacing rhythm throughout the How to play Scopa panel. */
+.rules-nutshell-container .rules-page-heading {
+  margin-bottom: 14px;
+}
+
+.rules-nutshell-container .rules-players-intro {
+  margin: 0 0 14px;
+}
+
+.rules-nutshell-container .rules-playing-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.rules-nutshell-container .rules-playing-section > p {
+  margin: 0 !important;
+}
+
+.rules-nutshell-container .rules-playing-section > .rules-turn-guide {
+  margin: 0 !important;
+}
+
+.rules-nutshell-container .rules-playing-section > .rules-subsection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.rules-nutshell-container .rules-subsection > h3,
+.rules-nutshell-container .rules-subsection > p {
+  margin: 0 !important;
+}
