@@ -2003,8 +2003,6 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 }
 @media (max-width: 480px) {
   .scoring-help-modal { padding: 18px 14px; }
-  .scoring-help-item { grid-template-columns: 27px minmax(0, 1fr); gap: 9px; }
-  .scoring-help-number { width: 25px; height: 25px; }
   .scoring-help-footer { align-items: stretch; flex-direction: column; }
   .scoring-help-footer .button { width: 100%; }
 }
