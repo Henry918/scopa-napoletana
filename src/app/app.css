@@ -3378,3 +3378,128 @@ body {
     bottom: 14px;
   }
 }
+
+
+/* Game actions use document flow on desktop, not a viewport-fixed footer. */
+@media (min-width: 801px) {
+  .game-shell:has(.round-launch) {
+    padding-bottom: 28px !important;
+  }
+
+  .round-launch {
+    position: static !important;
+    inset: auto !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 24px 0 0 !important;
+    padding: 0 !important;
+  }
+
+  .round-launch .button,
+  .round-launch .button:hover,
+  .round-launch .button:active,
+  .round-launch .button:focus,
+  .round-launch .button:focus-visible {
+    display: inline-flex !important;
+    flex: 0 0 190px !important;
+    width: 190px !important;
+    min-width: 190px !important;
+    max-width: 190px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+  .app-footer {
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+    margin: 24px 0 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .footer-actions {
+    width: auto !important;
+    margin: 0 0 0 auto !important;
+    justify-content: flex-end !important;
+  }
+
+  .footer-actions button {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 132px;
+    min-height: 40px;
+  }
+}
+
+/* Mobile keeps a dedicated bottom action dock with controls sized to the viewport. */
+@media (max-width: 800px) {
+  .game-shell:has(.round-launch),
+  .game-shell:has(.app-footer) {
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .round-launch {
+    position: fixed !important;
+    z-index: 30 !important;
+    left: 14px !important;
+    right: 14px !important;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .round-launch .button,
+  .round-launch .button:hover,
+  .round-launch .button:active,
+  .round-launch .button:focus,
+  .round-launch .button:focus-visible {
+    display: flex !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+  .app-footer {
+    position: fixed !important;
+    z-index: 30 !important;
+    left: 14px !important;
+    right: 14px !important;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+    display: flex !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  .footer-actions {
+    display: flex !important;
+    width: 100% !important;
+    margin: 0 !important;
+    gap: 8px !important;
+  }
+
+  .footer-actions button {
+    flex: 1 1 0 !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    padding: 0 8px !important;
+    background: #fffefa !important;
+    box-shadow: 0 3px 14px rgba(27, 43, 34, .12);
+  }
+}
