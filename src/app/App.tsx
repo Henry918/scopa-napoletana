@@ -771,74 +771,80 @@ function RulesPage() {
 
   return (
     <section className="rules-page" aria-labelledby="rules-page-title">
-      <div className="rules-page-heading">
-        <p className="eyebrow">THE GAME IN A NUTSHELL</p>
-        <h1 id="rules-page-title">How to play Scopa</h1>
-      </div>
+      <section className="panel setup-panel rules-container rules-nutshell-container" aria-labelledby="rules-page-title">
+        <header className="rules-page-heading">
+          <p className="eyebrow">THE GAME IN A NUTSHELL</p>
+          <h1 id="rules-page-title">How to play Scopa</h1>
+        </header>
 
-      <section className="rules-section">
-        <p>Scopa can be played by 2, 3 or 4 players. When playing with 4 players, players form two teams. Teammates sit opposite each other.</p>
-        <p>At the beginning of each round:</p>
-        <ol>
-          <li>Choose a dealer.</li>
-          <li>The dealer shuffles the deck.</li>
-          <li>Deal three cards to each player.</li>
-          <li>Place four cards face up on the table.</li>
-          <li>Place the remaining cards face down beside the table.</li>
-        </ol>
-      </section>
-
-      <section className="rules-section" aria-labelledby="rules-playing-title">
-        <h2 id="rules-playing-title">Playing a round</h2>
-        <p>The player sitting to the left of the dealer starts. Play continues clockwise.</p>
-        <p>On each turn, a player plays one card from their hand:</p>
-        <ul>
-          <li>If the card matches a card on the table, the player captures that card.</li>
-          <li>If no single matching card is available, the player can capture a combination of cards whose values add up to the value of the played card.</li>
-          <li>If there is no match or combination, the played card remains on the table.</li>
-          <li>If the played card matches a single card and also a combination of cards, the single matching card must be captured.</li>
-        </ul>
-        <p>When all players have played their three cards, the dealer deals another three cards to each player. This continues until all cards have been dealt and played. The same dealer deals throughout the entire round.</p>
-
-        <section className="rules-subsection" aria-labelledby="rules-scopa-title">
-          <h3 id="rules-scopa-title">Scopa</h3>
-          <p>If a player captures every card on the table with a single play, they score a Scopa worth 1 point.</p>
-          <p>After a Scopa, the table is empty. On the next turn, the next player must place one card face up in the middle. That card stays on the table, and play continues normally.</p>
-          <p>The final capture of the round does not count as a Scopa.</p>
+        <section className="rules-section rules-intro-section">
+          <p>Scopa can be played by 2, 3 or 4 players. When playing with 4 players, players form two teams. Teammates sit opposite each other.</p>
+          <p>At the beginning of each round:</p>
+          <ol>
+            <li>Choose a dealer.</li>
+            <li>The dealer shuffles the deck.</li>
+            <li>Deal three cards to each player.</li>
+            <li>Place four cards face up on the table.</li>
+            <li>Place the remaining cards face down beside the table.</li>
+          </ol>
         </section>
 
-        <section className="rules-subsection" aria-labelledby="rules-end-title">
-          <h3 id="rules-end-title">End of the round</h3>
-          <p>The round ends when all players have played all their cards.</p>
-          <p>Any cards remaining on the table are awarded to the player or team who made the last capture.</p>
-          <p>The points are then counted. The next player clockwise becomes the dealer, and a new round begins.</p>
+        <section className="rules-section rules-playing-section" aria-labelledby="rules-playing-title">
+          <h2 id="rules-playing-title">Playing a round</h2>
+          <p>The player sitting to the left of the dealer starts. Play continues clockwise.</p>
+          <p>On each turn, a player plays one card from their hand:</p>
+          <ul>
+            <li>If the card matches a card on the table, the player captures that card.</li>
+            <li>If no single matching card is available, the player can capture a combination of cards whose values add up to the value of the played card.</li>
+            <li>If there is no match or combination, the played card remains on the table.</li>
+            <li>If the played card matches a single card and also a combination of cards, the single matching card must be captured.</li>
+          </ul>
+          <p>When all players have played their three cards, the dealer deals another three cards to each player. This continues until all cards have been dealt and played. The same dealer deals throughout the entire round.</p>
+
+          <section className="rules-subsection" aria-labelledby="rules-scopa-title">
+            <h3 id="rules-scopa-title">Scopa</h3>
+            <p>If a player captures every card on the table with a single play, they score a Scopa worth 1 point.</p>
+            <p>After a Scopa, the table is empty. On the next turn, the next player must place one card face up in the middle. That card stays on the table, and play continues normally.</p>
+            <p>The final capture of the round does not count as a Scopa.</p>
+          </section>
+
+          <section className="rules-subsection" aria-labelledby="rules-end-title">
+            <h3 id="rules-end-title">End of the round</h3>
+            <p>The round ends when all players have played all their cards.</p>
+            <p>Any cards remaining on the table are awarded to the player or team who made the last capture.</p>
+            <p>The points are then counted. The next player clockwise becomes the dealer, and a new round begins.</p>
+          </section>
         </section>
       </section>
 
-      <section className="rules-section rules-scoring-section" aria-labelledby="rules-scoring-title">
-        <h2 id="rules-scoring-title">Scoring</h2>
-        <p className="rules-scoring-intro">{SCORING_INTRO}</p>
-        <ScoringExamplesList className="rules-scoring-list" />
+      <section className="panel setup-panel rules-container rules-scoring-container" aria-labelledby="rules-scoring-title">
+        <section className="rules-section rules-scoring-section">
+          <h2 id="rules-scoring-title">Scoring</h2>
+          <p className="rules-scoring-intro">{SCORING_INTRO}</p>
+          <ScoringExamplesList className="rules-scoring-list" />
+        </section>
       </section>
 
-      <section className="rules-section rules-card-overview-section" aria-labelledby="rules-card-overview-title">
-        <h2 id="rules-card-overview-title">Card overview</h2>
-        <p>The game uses a 40-card Neapolitan deck. Each of the four suits contains ten cards. Asso counts as 1, Fante as 8, Cavallo as 9 and Re as 10.</p>
-        <div className="rules-card-scroll" id="rules-card-panel" role="tabpanel" aria-labelledby={'rules-tab-' + activeSuit} tabIndex={0}>
-          <div className="rules-card-grid">
-            {CARD_ORDER.map((rank) => (
-              <figure className="rules-overview-card" key={rank}>
-                <img src={BASE + 'cards/' + activeSuit + '/' + rank + '.jpg'} alt={RANK_LABELS[rank] + ' of ' + activeSuitLabel} loading="lazy" />
-                <figcaption>{RANK_LABELS[rank]}</figcaption>
-              </figure>
+      <section className="panel setup-panel rules-container rules-card-container" aria-labelledby="rules-card-overview-title">
+        <section className="rules-section rules-card-overview-section">
+          <h2 id="rules-card-overview-title">Card overview</h2>
+          <p>The game uses a 40-card Neapolitan deck. Each of the four suits contains ten cards. Asso counts as 1, Fante as 8, Cavallo as 9 and Re as 10.</p>
+          <div className="rules-card-scroll" id="rules-card-panel" role="tabpanel" aria-labelledby={'rules-tab-' + activeSuit} tabIndex={0}>
+            <div className="rules-card-grid">
+              {CARD_ORDER.map((rank) => (
+                <figure className="rules-overview-card" key={rank}>
+                  <img src={BASE + 'cards/' + activeSuit + '/' + rank + '.jpg'} alt={RANK_LABELS[rank] + ' of ' + activeSuitLabel} loading="lazy" />
+                  <figcaption>{RANK_LABELS[rank]}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+          <div className="rules-suit-tabs" role="tablist" aria-label="Card suits">
+            {SUITS.map((suit) => (
+              <button key={suit.id} className={'rules-suit-tab' + (activeSuit === suit.id ? ' active' : '')} type="button" role="tab" id={'rules-tab-' + suit.id} aria-selected={activeSuit === suit.id} aria-controls="rules-card-panel" onClick={() => setActiveSuit(suit.id)}>{suit.label}</button>
             ))}
           </div>
-        </div>
-        <div className="rules-suit-tabs" role="tablist" aria-label="Card suits">
-          {SUITS.map((suit) => (
-            <button key={suit.id} className={'rules-suit-tab' + (activeSuit === suit.id ? ' active' : '')} type="button" role="tab" id={'rules-tab-' + suit.id} aria-selected={activeSuit === suit.id} aria-controls="rules-card-panel" onClick={() => setActiveSuit(suit.id)}>{suit.label}</button>
-          ))}
-        </div>
+        </section>
       </section>
     </section>
   )
