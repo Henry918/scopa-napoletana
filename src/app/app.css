@@ -3755,3 +3755,28 @@ body {
     font-size: 11px;
   }
 }
+
+/* Match Scoring and Card Overview titles to the main Rules page title. */
+.rules-section-heading {
+  margin: 0 0 12px;
+}
+
+.rules-section-heading .eyebrow {
+  margin: 0 0 8px;
+}
+
+.rules-section-heading h2 {
+  margin: 0;
+  color: var(--green);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 4vw, 42px);
+  font-weight: 500;
+  letter-spacing: -.035em;
+  line-height: 1.08;
+}
+
+@media (max-width: 480px) {
+  .rules-section-heading h2 {
+    font-size: 31px;
+  }
+}
