@@ -4130,3 +4130,16 @@ body {
 .home-bottom-nav button:active {
   background: rgba(161, 132, 79, 0.08) !important;
 }
+
+
+/* Use the updated gold accent for the selected deck tab and Compare action. */
+.rules-card-overview-section .rules-suit-tab.active,
+.rules-card-overview-section .rules-suit-tab.active:hover,
+.rules-card-overview-section .rules-suit-tab.active:focus-visible,
+.primiera-inline .primiera-compare-action,
+.primiera-inline .primiera-compare-action:hover,
+.primiera-inline .primiera-compare-action:active,
+.primiera-inline .primiera-compare-action:focus,
+.primiera-inline .primiera-compare-action:focus-visible {
+  background: #a58851 !important;
+}
