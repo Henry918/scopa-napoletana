@@ -135,6 +135,39 @@ function App() {
   const [scoringHelpOpen, setScoringHelpOpen] = useState(false)
   const [notice, setNotice] = useState('')
 
+  const navigationRef = useRef<Array<{ game: GameSession | null; homeView: 'new' | 'history' | 'rules' }>>([])
+  const navigatingBackRef = useRef(false)
+
+  function navigateTo(next: { game: GameSession | null; homeView: 'new' | 'history' | 'rules' }) {
+    navigationRef.current.push({ game, homeView })
+    window.history.pushState({ scopaInternal: true }, '')
+    setGame(next.game)
+    setHomeView(next.homeView)
+  }
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const previous = navigationRef.current.pop()
+      if (previous) {
+        navigatingBackRef.current = true
+        setGame(previous.game)
+        setHomeView(previous.homeView)
+        setRoundOpen(false)
+        setPrimieraOpen(false)
+        setManageSavedGames(false)
+        return
+      }
+      if (game) {
+        setGame(null)
+        setHomeView('new')
+      } else if (homeView !== 'new') {
+        setHomeView('new')
+      }
+    }
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [game, homeView])
+
   useEffect(() => {
     const root = document.documentElement
     const page = document.querySelector('.page-shell')
@@ -245,7 +278,7 @@ function App() {
       date: todayForInput(), mode: draft.mode, targetScore, competitors,
       rounds: [], status: 'playing', createdAt: new Date().toISOString()
     }
-    setGame(nextGame)
+    navigateTo({ game: nextGame, homeView: 'new' })
     setEntries(emptyEntries(competitors))
     setRoundOpen(false)
     setNotice('')
@@ -360,7 +393,7 @@ function App() {
   }
 
   function openSavedGame(savedGame: GameSession) {
-    setGame(savedGame)
+    navigateTo({ game: savedGame, homeView: 'new' })
     setManageSavedGames(false)
     setEntries(emptyEntries(savedGame.competitors))
     setRoundOpen(false)
@@ -415,7 +448,7 @@ function App() {
         <BrandHeader homeView={homeView} manageSavedGames={manageSavedGames}
           onHome={() => { setHomeView('new'); setManageSavedGames(false) }}
           onToggleManageSavedGames={() => setManageSavedGames((current) => !current)}
-          onShowHomeView={(view) => { setHomeView(view); setManageSavedGames(false) }} />
+          onShowHomeView={(view) => { navigateTo({ game: null, homeView: view }); setManageSavedGames(false) }} />
         <div
           className={"home-view-content home-view-content-" + homeView + (homeView === 'rules' ? ' rules-scroll-region' : homeView === 'history' ? ' history-scroll-region' : '')}
           role={homeView === 'rules' || homeView === 'history' ? 'region' : undefined}
@@ -513,8 +546,8 @@ function App() {
         </div>
         {homeView === 'new' && (
           <nav className="home-bottom-nav" aria-label="Main navigation">
-            <button className="saved-games-manage" type="button" onClick={() => setHomeView('history')}>History</button>
-            <button className="saved-games-manage" type="button" onClick={() => setHomeView('rules')}>Rules</button>
+            <button className="saved-games-manage" type="button" onClick={() => navigateTo({ game: null, homeView: 'history' })}>History</button>
+            <button className="saved-games-manage" type="button" onClick={() => navigateTo({ game: null, homeView: 'rules' })}>Rules</button>
           </nav>
         )}
       </main>
