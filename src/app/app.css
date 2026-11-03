@@ -3106,3 +3106,40 @@ body {
     top: 0;
   }
 }
+
+
+/* Compact four-card Primiera illustration, centred in the scoring art column. */
+.rules-card-stack-primiera .rules-card-stack-image:nth-child(1) {
+  left: 2px;
+  top: 7px;
+}
+.rules-card-stack-primiera .rules-card-stack-image:nth-child(2) {
+  left: 12px;
+  top: 4px;
+}
+.rules-card-stack-primiera .rules-card-stack-image:nth-child(3) {
+  left: 22px;
+  top: 2px;
+}
+.rules-card-stack-primiera .rules-card-stack-image:nth-child(4) {
+  left: 32px;
+  top: 0;
+}
+@media (max-width: 480px) {
+  .rules-card-stack-primiera .rules-card-stack-image:nth-child(1) {
+    left: 0;
+    top: 6px;
+  }
+  .rules-card-stack-primiera .rules-card-stack-image:nth-child(2) {
+    left: 9px;
+    top: 4px;
+  }
+  .rules-card-stack-primiera .rules-card-stack-image:nth-child(3) {
+    left: 18px;
+    top: 2px;
+  }
+  .rules-card-stack-primiera .rules-card-stack-image:nth-child(4) {
+    left: 27px;
+    top: 0;
+  }
+}
