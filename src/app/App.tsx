@@ -530,7 +530,8 @@ function App() {
         <section className={'score-grid' + (game.competitors.length === 3 ? ' score-grid-three' : '')} aria-label="Current scores">
         {scoreRows.map(({ competitor, score }, index) => (
           <article className={'score-card score-card-' + (index + 1) + ' ' + competitorTone(index, game.mode) + (winnerId ? (winnerId === competitor.id ? ' score-card-winner' : ' score-card-non-winner') : '')} key={competitor.id}>
-            <div className="score-card-top"><span className="score-index">{game.mode === 'four-player-teams' ? 'TEAM ' + (index + 1) : 'PLAYER ' + (index + 1)}</span><span className="score-dot" /></div>
+            <div className="score-card-top"><span className="score-index">{winnerId === competitor.id ? 'WINNER' : game.mode === 'four-player-teams' ? 'TEAM ' + (index + 1) : 'PLAYER ' + (index + 1)}</span><span className="score-dot" /></div>
+            {winnerId === competitor.id && <svg className="score-crown" viewBox="0 0 64 48" aria-hidden="true" focusable="false"><path d="M5 10 18 21 29 4 40 21 59 9 52 38H11L5 10Z" fill="currentColor" /><path d="M10 42H53" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" /></svg>}
             <h2>{game.mode === 'four-player-teams' && competitor.members.length > 1
               ? competitor.members.map((member) => <span className="score-team-member" key={member}>{member}</span>)
               : competitorDisplayName(competitor, game.mode)}</h2>
