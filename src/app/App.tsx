@@ -29,7 +29,7 @@ const SCORING_EXAMPLES: Array<{ id: string; title: string; description: string; 
   {
     id: 'carte', title: 'Carte · Most cards',
     description: 'One point goes to the player or team that captured the most cards out of the 40-card deck.',
-    cards: [{ background: true }, { background: true }, { background: true }]
+    cards: [{ suit: 'spade', rank: 8 }, { suit: 'spade', rank: 5 }, { suit: 'coppe', rank: 10 }]
   },
   {
     id: 'denari', title: 'Denari · Most coins',
@@ -817,7 +817,7 @@ function RulesPage() {
 
       <section className="rules-section rules-scoring-section" aria-labelledby="rules-scoring-title">
         <h2 id="rules-scoring-title">Scoring</h2>
-        <p className="rules-scoring-intro">There are four card-based points in each round, plus one point for every Scopa.</p>
+        <p className="rules-scoring-intro">There are four card-based points in each round, plus one point for every Scopa. On a tie, nobody gets that point.</p>
         <div className="rules-scoring-list">
           {SCORING_EXAMPLES.map((example) => (
             <article className="rules-scoring-item" key={example.id}>
@@ -833,7 +833,6 @@ function RulesPage() {
             </article>
           ))}
         </div>
-        <p className="rules-tie-note">On a tie, nobody gets that point.</p>
       </section>
 
       <section className="rules-section rules-card-overview-section" aria-labelledby="rules-card-overview-title">
