@@ -107,7 +107,7 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 .topline-actions .button { min-height: 38px; font-size: 10px; padding: 0 12px; }
 .score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 13px; }
 .score-card { min-height: 205px; padding: 20px 21px 17px; color: #f7f2e6; background: var(--green); border-radius: 9px; position: relative; overflow: hidden; }
-.score-card::after { content: '✦'; position: absolute; right: 18px; top: 40px; color: rgba(229,212,174,.1); font-size: 66px; font-family: Georgia, serif; pointer-events: none; }
+.score-card::after { content: none; }
 .score-card-2 { background: #214c3c; }
 .score-card-3 { background: #49624f; }
 .score-card-top { display: flex; justify-content: space-between; align-items: center; }
@@ -260,7 +260,6 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   .score-card h2 { font-size: 16px; }
   .score-number { font-size: 39px; }
   .score-index { font-size: 8px; }
-  .score-card::after { font-size: 48px; }
   .history-row { gap: 8px; }
   .history-details { min-width: 0; flex: 1; }
   .history-details span { max-width: 140px; line-height: 1.4; }
@@ -892,9 +891,6 @@ button:disabled { opacity: .45; cursor: not-allowed; }
   .score-grid-three .member-names {
     font-size: 7px;
     overflow-wrap: anywhere;
-  }
-  .score-grid-three .score-card::after {
-    top: 27px;
   }
   .saved-games-section { margin-top: 18px; }
   .saved-game-card { padding: 11px 12px; }
@@ -4124,19 +4120,21 @@ body {
 }
 
 
-/* A finished game marks the winner on the scoreboard itself. */
-.score-card.score-card-winner::after {
-  content: none;
-}
-.score-card .score-crown {
+/* Diamond and crown share one SVG size and one scoreboard position. */
+.score-card .score-card-symbol {
   position: absolute;
   top: 40px;
   right: 18px;
   width: 66px;
-  height: 49.5px;
+  height: 50px;
+  pointer-events: none;
+}
+.score-card .score-card-diamond {
+  color: rgba(229, 212, 174, 0.1);
+}
+.score-card .score-card-crown {
   color: #d3b878;
   opacity: 0.95;
-  pointer-events: none;
 }
 .score-card.score-card-winner .score-number {
   color: #d3b878 !important;
@@ -4144,8 +4142,8 @@ body {
 .score-card.score-card-non-winner {
   background: #454b46 !important;
 }
-.score-card.score-card-non-winner::after {
-  color: rgba(214, 216, 213, 0.12) !important;
+.score-card.score-card-non-winner .score-card-diamond {
+  color: rgba(214, 216, 213, 0.12);
 }
 .score-card.score-card-non-winner .score-index,
 .score-card.score-card-non-winner .score-dot,
@@ -4164,11 +4162,11 @@ body {
   background: rgba(214, 216, 213, 0.22) !important;
 }
 @media (max-width: 480px) {
-  .score-card .score-crown {
+  .score-card .score-card-symbol {
     width: 48px;
     height: 36px;
   }
-  .score-grid-three .score-card .score-crown {
+  .score-grid-three .score-card .score-card-symbol {
     top: 27px;
     right: 18px;
   }
