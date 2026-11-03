@@ -824,7 +824,7 @@ function RulesPage() {
         <section className="rules-section rules-scoring-section">
           <header className="rules-section-heading">
             <p className="eyebrow">SCORING GUIDE</p>
-            <h2 id="rules-scoring-title">Scoring</h2>
+            <h2 id="rules-scoring-title">How to score points</h2>
           </header>
           <p className="rules-scoring-intro">{SCORING_INTRO}</p>
           <ScoringExamplesList className="rules-scoring-list" />
