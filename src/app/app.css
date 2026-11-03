@@ -3310,44 +3310,61 @@ body {
 }
 
 
-/* Final overrides: fixed-size Home navigation with no hover or press animation. */
-.home-bottom-nav .saved-games-manage,
-.home-bottom-nav .saved-games-manage:hover,
-.home-bottom-nav .saved-games-manage:active,
-.home-bottom-nav .saved-games-manage:focus,
-.home-bottom-nav .saved-games-manage:focus-visible {
+/* Lock the Home navigation buttons to identical geometry in every pointer state. */
+.home-bottom-nav button,
+.home-bottom-nav button:hover,
+.home-bottom-nav button:active,
+.home-bottom-nav button:focus,
+.home-bottom-nav button:focus-visible {
+  box-sizing: border-box !important;
+  flex: 1 1 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
   height: 46px !important;
   min-height: 46px !important;
-  padding-block: 0 !important;
+  max-height: 46px !important;
+  padding: 0 12px !important;
+  font-size: 10px !important;
+  line-height: normal !important;
+  font-weight: 700 !important;
   transform: none !important;
   transition: none !important;
+  animation: none !important;
   box-shadow: none !important;
   filter: none !important;
-  outline-offset: 2px;
 }
 
-/* Keep Enter round compact, left-aligned, and anchored to the page's bottom margin. */
+/* Keep Enter round compact and align it to the actual desktop content gutter. */
 .game-shell:has(.round-launch) {
   padding-bottom: 84px;
 }
 .round-launch {
   position: fixed;
   z-index: 15;
-  left: max(32px, calc((100vw - 1080px) / 2));
+  left: max(32px, calc((100vw - 1180px) / 2));
   right: auto;
-  bottom: max(32px, calc((100vw - 1080px) / 2));
-  width: auto;
+  bottom: max(32px, calc((100vw - 1180px) / 2));
+  width: 190px;
+  max-width: 190px;
   display: block;
   margin: 0;
 }
 .round-launch .button,
 .round-launch .button:hover,
-.round-launch .button:active {
+.round-launch .button:active,
+.round-launch .button:focus,
+.round-launch .button:focus-visible {
+  box-sizing: border-box !important;
   display: inline-flex !important;
-  width: auto !important;
-  min-width: 190px;
+  width: 190px !important;
+  min-width: 190px !important;
+  max-width: 190px !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  padding: 0 18px !important;
   flex: none !important;
   margin: 0 !important;
+  transform: none !important;
 }
 @media (max-width: 800px) {
   .round-launch {
@@ -3359,11 +3376,5 @@ body {
   .round-launch {
     left: 14px;
     bottom: 14px;
-  }
-  .round-launch .button,
-  .round-launch .button:hover,
-  .round-launch .button:active {
-    width: auto !important;
-    min-width: 190px;
   }
 }
