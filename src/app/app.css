@@ -4110,12 +4110,12 @@ body {
 }
 
 
-/* Selected card in the Primiera picker uses the page cream without a border. */
+/* Selected Primiera card keeps the same border as the other picker cards. */
 .primiera-card-picker > button.active,
 .primiera-card-picker > button.active:hover,
 .primiera-card-picker > button.active:focus,
 .primiera-card-picker > button.active:focus-visible {
-  border: 0 !important;
+  border: 1px solid #e5e2d8 !important;
   background: #f3efe4 !important;
 }
 
