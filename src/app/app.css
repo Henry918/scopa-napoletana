@@ -4120,11 +4120,24 @@ body {
 }
 
 
-/* Diamond and crown share one SVG size and one scoreboard position. */
+/* Keep the diamond or crown in the card's content flow, above the score and progress bar. */
+.score-card-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  margin-top: 14px;
+}
+.score-card-main h2 {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
 .score-card .score-card-symbol {
-  position: absolute;
-  top: 40px;
-  right: 18px;
+  display: block;
+  position: static;
+  flex: none;
   width: 66px;
   height: 50px;
   pointer-events: none;
@@ -4135,6 +4148,9 @@ body {
 .score-card .score-card-crown {
   color: #d3b878;
   opacity: 0.95;
+}
+.score-card-main + .score-number {
+  margin-top: 14px;
 }
 .score-card.score-card-winner .score-number {
   color: #d3b878 !important;
@@ -4162,12 +4178,26 @@ body {
   background: rgba(214, 216, 213, 0.22) !important;
 }
 @media (max-width: 480px) {
+  .score-card-main {
+    margin-top: 18px;
+    gap: 5px;
+  }
   .score-card .score-card-symbol {
     width: 48px;
     height: 36px;
   }
+  .score-card-main + .score-number {
+    margin-top: 12px;
+  }
+  .score-grid-three .score-card-main {
+    margin-top: 20px;
+    gap: 3px;
+  }
   .score-grid-three .score-card .score-card-symbol {
-    top: 27px;
-    right: 18px;
+    width: 34px;
+    height: 26px;
+  }
+  .score-grid-three .score-card-main + .score-number {
+    margin-top: 10px;
   }
 }
