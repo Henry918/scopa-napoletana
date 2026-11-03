@@ -773,8 +773,7 @@ function RulesPage() {
         <h1 id="rules-page-title">How to play Scopa</h1>
       </div>
 
-      <section className="rules-section" aria-labelledby="rules-preparation-title">
-        <h2 id="rules-preparation-title">Game preparation</h2>
+      <section className="rules-section">
         <p>Scopa can be played by 2, 3 or 4 players. When playing with 4 players, players form two teams. Teammates sit opposite each other.</p>
         <p>At the beginning of each round:</p>
         <ol>
