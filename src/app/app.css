@@ -3977,3 +3977,57 @@ body {
     padding-top: 11px;
   }
 }
+
+
+/* Give History the same fixed-header, independently scrolling layout as Rules. */
+.page-shell.history-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  padding-bottom: 0;
+  box-sizing: border-box;
+}
+
+.history-shell > .brand-header {
+  flex: 0 0 auto;
+}
+
+.history-shell > .history-scroll-region {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 0 !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 24px;
+  box-sizing: border-box;
+}
+
+.history-shell > .history-scroll-region::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Move the former top offset into the History content so it scrolls with the list. */
+.history-shell > .history-scroll-region > .saved-games-section {
+  padding-top: 12px;
+}
+
+@media (max-width: 800px) {
+  .history-shell > .history-scroll-region > .saved-games-section {
+    padding-top: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .history-shell > .history-scroll-region > .saved-games-section {
+    padding-top: 11px;
+  }
+}
