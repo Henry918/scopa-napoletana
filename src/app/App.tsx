@@ -24,6 +24,7 @@ const RANK_LABELS: Record<number, string> = {
   8: 'Fante', 9: 'Cavallo', 10: 'Re'
 }
 const CARD_ORDER = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const SCORING_INTRO = 'There are four card-based points in each round, plus one point for every Scopa. On a tie, nobody gets that point.'
 type RulesCard = { suit?: Suit; rank?: number; background?: boolean }
 const SCORING_EXAMPLES: Array<{ id: string; title: string; description: string; cards: RulesCard[] }> = [
   {
@@ -668,34 +669,11 @@ function App() {
         <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setScoringHelpOpen(false) }}>
           <section className="primiera-modal scoring-help-modal" role="dialog" aria-modal="true" aria-labelledby="scoring-help-title">
             <div className="modal-heading">
-              <div><p className="eyebrow">SCORING GUIDE</p><h2 id="scoring-help-title">How to score points</h2><p>There are four card-based points in each round, plus one point for every Scopa.</p></div>
+              <div><p className="eyebrow">SCORING GUIDE</p><h2 id="scoring-help-title">How to score points</h2><p>{SCORING_INTRO}</p></div>
               <button className="icon-button" type="button" onClick={() => setScoringHelpOpen(false)} aria-label="Close scoring guide">×</button>
             </div>
-            <div className="scoring-help-list">
-              <article className="scoring-help-item">
-                <span className="scoring-help-number">1</span>
-                <div><h3>Carte · Most cards</h3><p>One point goes to the player or team that captured the most cards out of the 40-card deck.</p></div>
-              </article>
-              <article className="scoring-help-item">
-                <span className="scoring-help-number">2</span>
-                <div><h3>Denari · Most coins</h3><p>One point goes to the player or team that captured the most Denari cards. There are 10 coins in the deck.</p></div>
-              </article>
-              <article className="scoring-help-item">
-                <span className="scoring-help-number">3</span>
-                <div><h3>Settebello · Seven of coins</h3><p>One point goes to whoever captured the 7 of Denari. This point always has a single recipient.</p></div>
-              </article>
-              <article className="scoring-help-item">
-                <span className="scoring-help-number">4</span>
-                <div><h3>Primiera · Best card combination</h3><p>For each suit, count only the highest-value card captured. Add the four values. The highest total earns one point.</p>
-                  <p className="scoring-help-values"><strong>Primiera values:</strong> 7 = 21, 6 = 18, Ace = 16, 5 = 15, 4 = 14, 3 = 13, 2 = 12, Fante, Cavallo and Re = 10 each.</p>
-                </div>
-              </article>
-              <article className="scoring-help-item">
-                <span className="scoring-help-number">S</span>
-                <div><h3>Scopa · Clear the table</h3><p>Each time a play captures every card on the table, it is a Scopa and earns one point. The final capture of the round does not count as a Scopa.</p></div>
-              </article>
-            </div>
-            <div className="scoring-help-footer"><p className="scoring-help-tie-note">On a tie, nobody gets that point.</p><button className="button button-primary" type="button" onClick={() => setScoringHelpOpen(false)}>Got it</button></div>
+            <ScoringExamplesList className="rules-scoring-list scoring-help-list" />
+            <div className="scoring-help-footer"><button className="button button-primary" type="button" onClick={() => setScoringHelpOpen(false)}>Got it</button></div>
           </section>
         </div>
       )}
@@ -767,6 +745,26 @@ function RulesCardStack({ cards, variant }: { cards: RulesCard[]; variant: strin
   )
 }
 
+function ScoringExamplesList({ className }: { className: string }) {
+  return (
+    <div className={className}>
+      {SCORING_EXAMPLES.map((example) => (
+        <article className="rules-scoring-item" key={example.id}>
+          <RulesCardStack cards={example.cards} variant={example.id} />
+          <div className="rules-scoring-copy">
+            <h3>{example.title}</h3>
+            <p>{example.description}</p>
+            {example.id === 'primiera' && <>
+              <p className="rules-primiera-label">Primiera values</p>
+              <p className="rules-primiera-values">7 = 21 · 6 = 18 · Asso = 16 · 5 = 15 · 4 = 14 · 3 = 13 · 2 = 12 · Fante, Cavallo and Re = 10 each.</p>
+            </>}
+          </div>
+        </article>
+      ))}
+    </div>
+  )
+}
+
 function RulesPage() {
   const [activeSuit, setActiveSuit] = useState<Suit>('coppe')
   const activeSuitLabel = SUITS.find((suit) => suit.id === activeSuit)?.label ?? 'Coppe'
@@ -819,22 +817,8 @@ function RulesPage() {
 
       <section className="rules-section rules-scoring-section" aria-labelledby="rules-scoring-title">
         <h2 id="rules-scoring-title">Scoring</h2>
-        <p className="rules-scoring-intro">There are four card-based points in each round, plus one point for every Scopa. On a tie, nobody gets that point.</p>
-        <div className="rules-scoring-list">
-          {SCORING_EXAMPLES.map((example) => (
-            <article className="rules-scoring-item" key={example.id}>
-              <RulesCardStack cards={example.cards} variant={example.id} />
-              <div className="rules-scoring-copy">
-                <h3>{example.title}</h3>
-                <p>{example.description}</p>
-                {example.id === 'primiera' && <>
-                  <p className="rules-primiera-label">Primiera values</p>
-                  <p className="rules-primiera-values">7 = 21 · 6 = 18 · Asso = 16 · 5 = 15 · 4 = 14 · 3 = 13 · 2 = 12 · Fante, Cavallo and Re = 10 each.</p>
-                </>}
-              </div>
-            </article>
-          ))}
-        </div>
+        <p className="rules-scoring-intro">{SCORING_INTRO}</p>
+        <ScoringExamplesList className="rules-scoring-list" />
       </section>
 
       <section className="rules-section rules-card-overview-section" aria-labelledby="rules-card-overview-title">
