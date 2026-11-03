@@ -3225,7 +3225,7 @@ body {
   }
 
   .page-shell:has(.rules-page) {
-    padding-bottom: 0;
+    padding-bottom: 24px;
   }
 }
 
