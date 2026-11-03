@@ -23,6 +23,35 @@ const RANK_LABELS: Record<number, string> = {
   1: 'Asso', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7',
   8: 'Fante', 9: 'Cavallo', 10: 'Re'
 }
+const CARD_ORDER = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+type RulesCard = { suit: Suit; rank: number }
+const SCORING_EXAMPLES: Array<{ id: string; title: string; description: string; cards: RulesCard[] }> = [
+  {
+    id: 'carte', title: 'Carte · Most cards',
+    description: 'One point goes to the player or team that captured the most cards out of the 40-card deck.',
+    cards: [{ suit: 'coppe', rank: 4 }, { suit: 'denari', rank: 6 }, { suit: 'spade', rank: 3 }]
+  },
+  {
+    id: 'denari', title: 'Denari · Most coins',
+    description: 'One point goes to the player or team that captured the most Denari cards. There are 10 Denari cards in the deck.',
+    cards: [{ suit: 'denari', rank: 1 }, { suit: 'denari', rank: 6 }, { suit: 'denari', rank: 2 }]
+  },
+  {
+    id: 'settebello', title: 'Settebello · Seven of coins',
+    description: 'One point goes to whoever captured the 7 of Denari.',
+    cards: [{ suit: 'denari', rank: 7 }]
+  },
+  {
+    id: 'primiera', title: 'Primiera · Best card combination',
+    description: 'For each suit, count only the highest-value card captured. Add the four values together. The highest total earns one point.',
+    cards: [{ suit: 'coppe', rank: 7 }, { suit: 'bastoni', rank: 7 }, { suit: 'spade', rank: 7 }]
+  },
+  {
+    id: 'scopa', title: 'Scopa · Clear the table',
+    description: 'Each time a play captures every card on the table, it is a Scopa and earns one point. The final capture of the round does not count as a Scopa.',
+    cards: [{ suit: 'coppe', rank: 9 }, { suit: 'spade', rank: 5 }, { suit: 'bastoni', rank: 6 }]
+  }
+]
 const EMPTY_PRIMIERA: PrimieraCards = { coppe: null, denari: null, spade: null, bastoni: null }
 const BASE = import.meta.env.BASE_URL
 
@@ -87,7 +116,7 @@ function App() {
   const [game, setGame] = useState<GameSession | null>(() => loadGame())
   const [savedGames, setSavedGames] = useState<GameSession[]>(() => loadGames())
   const [manageSavedGames, setManageSavedGames] = useState(false)
-  const [homeView, setHomeView] = useState<'new' | 'history'>('new')
+  const [homeView, setHomeView] = useState<'new' | 'history' | 'rules'>('new')
   const [renameGameOpen, setRenameGameOpen] = useState(false)
   const [renameGameDraft, setRenameGameDraft] = useState('')
   const renameInputRef = useRef<HTMLInputElement | null>(null)
@@ -395,7 +424,10 @@ function App() {
   if (!game) {
     return (
       <main className="page-shell">
-        <BrandHeader homeView={homeView} manageSavedGames={manageSavedGames} onToggleManageSavedGames={() => setManageSavedGames((current) => !current)} onToggleHomeView={() => { setHomeView((current) => current === 'new' ? 'history' : 'new'); setManageSavedGames(false) }} />
+        <BrandHeader homeView={homeView} manageSavedGames={manageSavedGames}
+          onHome={() => { setHomeView('new'); setManageSavedGames(false) }}
+          onToggleManageSavedGames={() => setManageSavedGames((current) => !current)}
+          onShowHomeView={(view) => { setHomeView(view); setManageSavedGames(false) }} />
         <div className="home-view-content">
         {homeView === 'new' && <section className="setup-layout">
           <div className="intro-copy">
@@ -458,6 +490,7 @@ function App() {
             <button className="button button-primary button-full" type="submit">Start game</button>
           </form>
         </section>}
+        {homeView === 'rules' && <RulesPage />}
         {homeView === 'history' && (
           <section className="saved-games-section">
             {savedGames.length > 0 ? <div className={'saved-games-list' + (manageSavedGames ? ' managing-saved-games' : '')}>
@@ -693,19 +726,130 @@ function App() {
   )
 }
 
-function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename, homeView, manageSavedGames, onToggleManageSavedGames, onToggleHomeView }: { gameMode?: GameMode; onHome?: () => void; gameName?: string; gameDate?: string; onRename?: () => void; homeView?: 'new' | 'history'; manageSavedGames?: boolean; onToggleManageSavedGames?: () => void; onToggleHomeView?: () => void }) {
+function BrandHeader({ gameMode, onHome, gameName, gameDate, onRename, homeView, manageSavedGames, onToggleManageSavedGames, onShowHomeView }: { gameMode?: GameMode; onHome?: () => void; gameName?: string; gameDate?: string; onRename?: () => void; homeView?: 'new' | 'history' | 'rules'; manageSavedGames?: boolean; onToggleManageSavedGames?: () => void; onShowHomeView?: (view: 'new' | 'history' | 'rules') => void }) {
   return (
     <header className="brand-header">
-      <button className="brand-home" type="button" onClick={onHome} disabled={!onHome} aria-label="Back to home">
+      <button className="brand-home" type="button" onClick={onHome} disabled={!onHome} aria-label={onShowHomeView ? 'Go to New Game' : 'Back to home'}>
         <span className="brand-lockup"><img className="brand-symbol" src={BASE + 'icons/scopa.svg'} alt="" /><span className="brand-wordmark"><strong>SCOPA</strong><span>NAPOLETANE</span></span></span>
       </button>
       <div className="header-right">
-        {onToggleHomeView && <div className="home-header-actions">{homeView === 'history' && onToggleManageSavedGames && <button className="saved-games-manage" type="button" onClick={onToggleManageSavedGames}>{manageSavedGames ? 'Done' : 'Manage games'}</button>}<button className="saved-games-manage home-view-toggle" type="button" onClick={onToggleHomeView}>{homeView === 'history' ? 'New game' : 'History'}</button></div>}
+        {onShowHomeView && <div className="home-header-actions">
+          {homeView === 'history' && onToggleManageSavedGames && <button className="saved-games-manage home-manage-toggle" type="button" onClick={onToggleManageSavedGames}>{manageSavedGames ? 'Done' : 'Manage games'}</button>}
+          <button className="saved-games-manage home-view-toggle" type="button" aria-current={homeView === 'rules' ? 'page' : undefined} onClick={() => onShowHomeView('rules')}>Rules</button>
+          <button className="saved-games-manage home-view-toggle" type="button" aria-current={homeView === 'history' ? 'page' : undefined} onClick={() => onShowHomeView('history')}>History</button>
+        </div>}
         <span className="offline-indicator"><i /> LOCAL SCOREKEEPER</span>
         {gameMode && <span className="header-mode">{gameMode === 'two-players' ? '2 PLAYERS' : gameMode === 'three-players' ? '3 PLAYERS' : '2 TEAMS'}</span>}
         {gameName && <div className="game-header-meta"><button className="game-name-trigger" type="button" onClick={onRename} aria-label={'Rename game, current name ' + gameName} title="Rename game"><strong>{gameName}</strong></button>{gameDate && <time>{gameDate}</time>}</div>}
       </div>
     </header>
+  )
+}
+
+function RulesCardStack({ cards, variant }: { cards: RulesCard[]; variant: string }) {
+  return (
+    <div className={'rules-card-stack rules-card-stack-' + variant} aria-hidden="true">
+      {cards.map((card, index) => (
+        <img key={card.suit + '-' + card.rank} className="rules-card-stack-image" src={BASE + 'cards/' + card.suit + '/' + card.rank + '.jpg'} alt="" style={{ zIndex: index + 1 }} />
+      ))}
+    </div>
+  )
+}
+
+function RulesPage() {
+  const [activeSuit, setActiveSuit] = useState<Suit>('coppe')
+  const activeSuitLabel = SUITS.find((suit) => suit.id === activeSuit)?.label ?? 'Coppe'
+
+  return (
+    <section className="rules-page" aria-labelledby="rules-page-title">
+      <div className="rules-page-heading">
+        <p className="eyebrow">THE GAME IN A NUTSHELL</p>
+        <h1 id="rules-page-title">How to play Scopa</h1>
+        <p>Learn how to deal, capture cards and score points. Scopa can be played by 2, 3 or 4 players.</p>
+      </div>
+
+      <section className="rules-section" aria-labelledby="rules-preparation-title">
+        <h2 id="rules-preparation-title">Game preparation</h2>
+        <p>Scopa can be played by 2, 3 or 4 players. When playing with 4 players, players form two teams. Teammates sit opposite each other.</p>
+        <p>The game uses a 40-card Neapolitan deck. Each of the four suits contains ten cards, ranked from Asso to Re.</p>
+        <p>At the beginning of each round:</p>
+        <ol>
+          <li>Choose a dealer.</li>
+          <li>The dealer shuffles the deck.</li>
+          <li>Deal three cards to each player.</li>
+          <li>Place four cards face up on the table.</li>
+          <li>Place the remaining cards face down beside the table.</li>
+        </ol>
+      </section>
+
+      <section className="rules-section" aria-labelledby="rules-playing-title">
+        <h2 id="rules-playing-title">Playing a round</h2>
+        <p>The player sitting to the left of the dealer starts. Play continues clockwise.</p>
+        <p>On each turn, a player plays one card from their hand:</p>
+        <ul>
+          <li>If the card matches a card on the table, the player captures that card.</li>
+          <li>If no single matching card is available, the player can capture a combination of cards whose values add up to the value of the played card.</li>
+          <li>If there is no match or combination, the played card remains on the table.</li>
+          <li>If the played card matches a single card and also a combination of cards, the single matching card must be captured.</li>
+        </ul>
+        <p>For capturing cards, Asso counts as 1, numbered cards use their face value, Fante counts as 8, Cavallo as 9 and Re as 10.</p>
+        <p>When all players have played their three cards, the dealer deals another three cards to each player. This continues until all cards have been dealt and played. The same dealer deals throughout the entire round.</p>
+      </section>
+
+      <section className="rules-section" aria-labelledby="rules-scopa-title">
+        <h2 id="rules-scopa-title">Scopa</h2>
+        <p>If a player captures every card on the table with a single play, they score a Scopa worth 1 point.</p>
+        <p>After a Scopa, the table is empty. On the next turn, the next player must place one card face up in the middle. That card stays on the table, and play continues normally.</p>
+        <p>The final capture of the round does not count as a Scopa.</p>
+      </section>
+
+      <section className="rules-section" aria-labelledby="rules-end-title">
+        <h2 id="rules-end-title">End of the round</h2>
+        <p>The round ends when all players have played all their cards.</p>
+        <p>Any cards remaining on the table are awarded to the player or team who made the last capture.</p>
+        <p>The points are then counted. The next player clockwise becomes the dealer, and a new round begins.</p>
+      </section>
+
+      <section className="rules-section rules-scoring-section" aria-labelledby="rules-scoring-title">
+        <h2 id="rules-scoring-title">Scoring</h2>
+        <p className="rules-scoring-intro">There are four card-based points in each round, plus one point for every Scopa.</p>
+        <div className="rules-scoring-list">
+          {SCORING_EXAMPLES.map((example) => (
+            <article className="rules-scoring-item" key={example.id}>
+              <RulesCardStack cards={example.cards} variant={example.id} />
+              <div className="rules-scoring-copy">
+                <h3>{example.title}</h3>
+                <p>{example.description}</p>
+                {example.id === 'primiera' && <>
+                  <p className="rules-primiera-label">Primiera values</p>
+                  <p className="rules-primiera-values">7 = 21 · 6 = 18 · Asso = 16 · 5 = 15 · 4 = 14 · 3 = 13 · 2 = 12 · Fante, Cavallo and Re = 10 each.</p>
+                </>}
+              </div>
+            </article>
+          ))}
+        </div>
+        <p className="rules-tie-note">On a tie, nobody gets that point.</p>
+      </section>
+
+      <section className="rules-section rules-card-overview-section" aria-labelledby="rules-card-overview-title">
+        <h2 id="rules-card-overview-title">Card overview</h2>
+        <div className="rules-suit-tabs" role="tablist" aria-label="Card suits">
+          {SUITS.map((suit) => (
+            <button key={suit.id} className={'rules-suit-tab' + (activeSuit === suit.id ? ' active' : '')} type="button" role="tab" id={'rules-tab-' + suit.id} aria-selected={activeSuit === suit.id} aria-controls="rules-card-panel" onClick={() => setActiveSuit(suit.id)}>{suit.label}</button>
+          ))}
+        </div>
+        <div className="rules-card-scroll" id="rules-card-panel" role="tabpanel" aria-labelledby={'rules-tab-' + activeSuit} tabIndex={0}>
+          <div className="rules-card-grid">
+            {CARD_ORDER.map((rank) => (
+              <figure className="rules-overview-card" key={rank}>
+                <img src={BASE + 'cards/' + activeSuit + '/' + rank + '.jpg'} alt={RANK_LABELS[rank] + ' of ' + activeSuitLabel} loading="lazy" />
+                <figcaption>{RANK_LABELS[rank]}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    </section>
   )
 }
 
