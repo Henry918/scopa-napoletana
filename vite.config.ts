@@ -15,7 +15,7 @@ export default defineConfig({
         short_name: 'Scopa Score',
         description: 'A scorekeeper for physical Scopa Napoletane games.',
         theme_color: '#102c24',
-        background_color: '#f3efe4',
+        background_color: '#303719',
         display: 'standalone',
         scope: './',
         start_url: './',
