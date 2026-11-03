@@ -4047,40 +4047,32 @@ body {
 
 /* Home navigation buttons use the paper surface with their assigned text colours. */
 .home-header-actions .home-new-game-button,
-.home-header-actions .home-new-game-button:hover,
-.home-header-actions .home-new-game-button:active,
-.home-header-actions .home-new-game-button:focus,
-.home-header-actions .home-new-game-button:focus-visible {
+.home-header-actions .home-manage-toggle,
+.home-bottom-nav button {
   background: #fffdf7 !important;
+}
+
+.home-header-actions .home-new-game-button {
   color: #a1844f !important;
 }
 
-.home-header-actions .home-manage-toggle,
-.home-header-actions .home-manage-toggle:hover,
-.home-header-actions .home-manage-toggle:active,
-.home-header-actions .home-manage-toggle:focus,
-.home-header-actions .home-manage-toggle:focus-visible,
-.home-bottom-nav button,
-.home-bottom-nav button:hover,
-.home-bottom-nav button:active,
-.home-bottom-nav button:focus,
-.home-bottom-nav button:focus-visible {
-  background: #fffdf7 !important;
-}
-
-/* Give History, Rules and Manage Games the same subtle interaction highlight. */
+/* All four navigation actions use only a slight paper-tone shift on interaction. */
+.home-header-actions .home-new-game-button,
 .home-header-actions .home-manage-toggle,
 .home-bottom-nav button {
   transition: background-color 140ms ease;
 }
 
+.home-header-actions .home-new-game-button:hover,
+.home-header-actions .home-new-game-button:focus-visible,
+.home-header-actions .home-new-game-button:active,
 .home-header-actions .home-manage-toggle:hover,
 .home-header-actions .home-manage-toggle:focus-visible,
 .home-header-actions .home-manage-toggle:active,
 .home-bottom-nav button:hover,
 .home-bottom-nav button:focus-visible,
 .home-bottom-nav button:active {
-  background: #F3EFE4 !important;
+  background: #faf8f2 !important;
 }
 
 /* The Neapolitan deck controls use the general page background. */
