@@ -176,6 +176,10 @@ function App() {
 
 
   useEffect(() => {
+    if (homeView === 'rules') window.scrollTo(0, 0)
+  }, [homeView])
+
+  useEffect(() => {
     if (!renameGameOpen) return
     renameInputRef.current?.focus()
     renameInputRef.current?.select()
@@ -424,12 +428,17 @@ function App() {
 
   if (!game) {
     return (
-      <main className="page-shell">
+      <main className={"page-shell" + (homeView === 'rules' ? ' rules-shell' : '')}>
         <BrandHeader homeView={homeView} manageSavedGames={manageSavedGames}
           onHome={() => { setHomeView('new'); setManageSavedGames(false) }}
           onToggleManageSavedGames={() => setManageSavedGames((current) => !current)}
           onShowHomeView={(view) => { setHomeView(view); setManageSavedGames(false) }} />
-        <div className={"home-view-content home-view-content-" + homeView}>
+        <div
+          className={"home-view-content home-view-content-" + homeView + (homeView === 'rules' ? ' rules-scroll-region' : '')}
+          role={homeView === 'rules' ? 'region' : undefined}
+          aria-label={homeView === 'rules' ? 'Rules content' : undefined}
+          tabIndex={homeView === 'rules' ? 0 : undefined}
+        >
         {homeView === 'new' && <section className="setup-layout">
           <div className="intro-copy">
             <p className="eyebrow">THE TABLESIDE SCOREKEEPER</p>
